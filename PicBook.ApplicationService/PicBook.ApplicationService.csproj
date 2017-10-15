@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PicBook.Repository.AzureStorage\PicBook.Repository.AzureStorage.csproj" />
+  </ItemGroup>
+
+</Project>
