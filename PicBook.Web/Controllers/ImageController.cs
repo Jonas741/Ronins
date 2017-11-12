@@ -1,25 +1,27 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PicBook.ApplicationService;
+using PicBook.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.IO;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using PicBook.ApplicationService;
 
 namespace PicBook.Web.Controllers
 {
+    [Authorize]
     public class ImageController : Controller
     {
-        private IImageService imgService;
-        public ImageController(IImageService imgService)
-        {
-            this.imgService = imgService;
-        }
+        private IImageService imageService;
 
-        // GET: /<controller>/
+        public ImageController(IImageService imageService)
+        {
+            this.imageService = imageService;
+        }
         public IActionResult Index()
         {
             return View();
@@ -28,6 +30,7 @@ namespace PicBook.Web.Controllers
         [HttpPost("Upload")]
         public async Task<IActionResult> Upload(List<IFormFile> files)
         {
+            // full path to file in temp location
             var filePath = Path.GetTempFileName();
             Uri uploadedImageUri = null;
             long size = files.Sum(f => f.Length);
@@ -39,10 +42,19 @@ namespace PicBook.Web.Controllers
                     using (var ms = new MemoryStream())
                     {
                         formFile.CopyTo(ms);
-                        uploadedImageUri = await imgService.UploadImage(ms.ToArray());
-                    };
+                        uploadedImageUri = await imageService.UploadImage(ms.ToArray());
+                    }
+
+
+                    // using (var stream = new FileStream(filePath, FileMode.Create))
+                    // {
+                    //     await formFile.CopyToAsync(stream);
+                    // }
                 }
             }
+
+            // process uploaded files
+            // Don't rely on or trust the FileName property without validation.
 
             return Ok(new { count = files.Count, size, uploadedImageUri });
         }

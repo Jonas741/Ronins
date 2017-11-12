@@ -13,7 +13,6 @@ namespace PicBook.Web.Controllers
     {
         public IActionResult Index()
         {
-            //var a = new PictureService();
             return View(); 
 
         }

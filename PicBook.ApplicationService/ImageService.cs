@@ -1,22 +1,22 @@
-﻿using PicBook.Repository.AzureStorage;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using PicBook.Repository.AzureStorage;
 
 namespace PicBook.ApplicationService
 {
-    class ImageService : IImageService
+    public class ImageService : IImageService
     {
-        private IImageRepository imgRepo;
+        private IImageRepository imageRepo;
 
-        public ImageService(IImageRepository imgRepo)
+        public ImageService(IImageRepository imageRepo)
         {
-            this.imgRepo = imgRepo;
+            this.imageRepo = imageRepo;
         }
 
         public async Task<Uri> UploadImage(byte[] imageBytes)
         {
-            ImageUploadResult result = await imgRepo.UploadImage(imageBytes);
-            await imgRepo.UploadImageQueue(result.ImageId);
+            ImageUploadResult result = await imageRepo.UploadImage(imageBytes);
+            await imageRepo.EnqueueWorkItem(result.ImageId);
             return result.ImageUri;
         }
     }

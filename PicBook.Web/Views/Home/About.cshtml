@@ -5,16 +5,12 @@
 <h3>@ViewData["Message"]</h3>
 
 <p>Some info about the logged in User:</p>
-<br />
+<br/>
 
-@if (User.Identity.IsAuthenticated)
-{
-    @foreach (var claim in User.Claims)
-    {
+@if (User.Identity.IsAuthenticated){
+    @foreach(var claim in User.Claims){
         <p><b>@claim.Type</b> - @claim.Value</p>
     }
-}
-else
-{
+}else{
     <p>User is not signed in</p>
 }

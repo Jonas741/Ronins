@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
 using System.Threading.Tasks;
 
 namespace PicBook.Repository.AzureStorage
 {
+    // TOOD: refactor to abstract repo project
     public interface IImageRepository
     {
-        Task<ImageUploadResult> UploadImage(byte[] imgBytes);
-
-        Task UploadImageQueue(Guid imageId);
+        Task<ImageUploadResult> UploadImage(byte[] imageBytes);
+        Task EnqueueWorkItem(Guid imageId);
     }
 }

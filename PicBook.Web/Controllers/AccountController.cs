@@ -1,17 +1,26 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PicBook.Web.Models;
 using Microsoft.AspNetCore.Authentication;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System.Security.Claims;
+using PicBook.ApplicationService;
+using PicBook.Repository.EntityFramework;
 
 namespace PicBook.Web.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: /<controller>/
+        private readonly IUserService _userService;
+
+
+        public AccountController(IUserService userService)
+        {
+            _userService = userService;
+        }
         public IActionResult Login()
         {
             return View();
@@ -19,52 +28,34 @@ namespace PicBook.Web.Controllers
 
         public IActionResult LoginFacebook()
         {
-            var authProps = new AuthenticationProperties
+            var authenticationProperties = new AuthenticationProperties
             {
                 RedirectUri = Url.Action("AuthCallback", "Account")
             };
 
-            return Challenge(authProps, "Facebook");
+            return Challenge(authenticationProperties, "Facebook");
         }
 
-        public IActionResult LoginMicrosoftAccount()
-        {
-            var authProps = new AuthenticationProperties
-            {
-                RedirectUri = Url.Action("AuthCallback", "Account")
-            };
-
-            return Challenge(authProps, "MicrosoftAccount");
-        }
-        public IActionResult LoginGoogle()
-        {
-            var authProps = new AuthenticationProperties
-            {
-                RedirectUri = Url.Action("AuthCallback", "Account")
-            };
-
-            return Challenge(authProps, "Google");
-        }
-
-        public IActionResult AuthCallback()
+        public async Task<IActionResult> AuthCallback()
         {
             var facebookIdentity = User.Identities.FirstOrDefault(i => i.AuthenticationType == "Facebook" && i.IsAuthenticated);
-            var googleIdentity = User.Identities.FirstOrDefault(i => i.AuthenticationType == "Google" && i.IsAuthenticated);
-            var microsoftIdentity = User.Identities.FirstOrDefault(i => i.AuthenticationType == "MicrosoftAccount" && i.IsAuthenticated);
 
-            if (facebookIdentity == null && googleIdentity == null && microsoftIdentity == null)
+            if (facebookIdentity == null)
             {
                 return Redirect(Url.Action("Login", "Account"));
             }
 
+            IEnumerable<Claim> a = facebookIdentity.Claims;
+
+            await _userService.EnsureUser(facebookIdentity.Claims.ToList());
+            
             return Redirect(Url.Action("Index", "Home"));
         }
 
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync();
-            return Redirect(Url.Action("Index, Home"));
+            return Redirect(Url.Action("Index", "Home"));
         }
     }
 }
-
