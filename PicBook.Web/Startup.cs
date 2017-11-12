@@ -52,11 +52,11 @@ namespace PicBook.Web
 
             services.AddMvc();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration["Connections:DefaultConnection"]));
+            //services.AddDbContext<ApplicationDbContext>(options =>
+               // options.UseSqlServer(Configuration["Connections:DefaultConnection"]));
             
             services.AddScoped<IImageService, ImageService>();
-            services.AddScoped<IImageRepository>(r => new ImageRepository(Configuration["AzureStorage:ConnectionString"]));
+            //services.AddScoped<IImageRepository>(r => new ImageRepository(Configuration["AzureStorage:ConnectionString"]));
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
