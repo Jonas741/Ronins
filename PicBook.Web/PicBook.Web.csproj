@@ -13,4 +13,7 @@
     <ProjectReference Include="..\PicBook.ApplicationService\PicBook.ApplicationService.csproj" />
     <ProjectReference Include="..\PicBook.Dto\PicBook.Dto.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
 </Project>

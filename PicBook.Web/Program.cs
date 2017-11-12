@@ -31,7 +31,7 @@ namespace PicBook.Web
                 {
                     options.Listen(IPAddress.Loopback, 44301, listenOptions =>
                     {
-                        listenOptions.UseHttps("sslcert/self-signed-cert.pfx", "alma");
+                        listenOptions.UseHttps("sslcert/mycert.pfx", "asdQWE123");
                     });
                 })
                 .UseContentRoot(Directory.GetCurrentDirectory())
