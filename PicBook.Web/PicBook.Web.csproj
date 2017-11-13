@@ -4,6 +4,26 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Views\**" />
+    <Content Remove="Views\**" />
+    <EmbeddedResource Remove="Views\**" />
+    <None Remove="Views\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\components\gallery.component.ts" />
+    <None Remove="src\app\components\image\image.component.ts" />
+    <None Remove="src\app\components\login\login.component.ts" />
+    <None Remove="src\app\components\notification\notification.component.ts" />
+    <None Remove="src\app\components\welcome\welcome.component.ts" />
+    <None Remove="src\app\models\notification.ts" />
+    <None Remove="src\app\services\auth.guard.ts" />
+    <None Remove="src\app\services\authentication.service.ts" />
+    <None Remove="src\app\services\data.service.ts" />
+    <None Remove="src\app\services\file.service.ts" />
+    <None Remove="src\app\services\logger.service.ts" />
+    <None Remove="src\app\services\security.service.ts" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="WindowsAzure.Storage" Version="8.5.0" />
   </ItemGroup>
@@ -13,7 +33,26 @@
   <ItemGroup>
     <ProjectReference Include="..\PicBook.ApplicationService\PicBook.ApplicationService.csproj" />
     <ProjectReference Include="..\PicBook.Dto\PicBook.Dto.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\app\directives\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\app\app.routes.ts" />
+    <TypeScriptCompile Include="src\app\components\gallery\gallery.component.ts" />
+    <TypeScriptCompile Include="src\app\components\image\image.component.ts" />
+    <TypeScriptCompile Include="src\app\components\login\login.component.ts" />
+    <TypeScriptCompile Include="src\app\components\notification\notification.component.ts" />
+    <TypeScriptCompile Include="src\app\components\welcome\welcome.component.ts" />
+    <TypeScriptCompile Include="src\app\models\notification.ts" />
+    <TypeScriptCompile Include="src\app\services\auth.guard.ts" />
+    <TypeScriptCompile Include="src\app\services\authentication.service.ts" />
+    <TypeScriptCompile Include="src\app\services\data.service.ts" />
+    <TypeScriptCompile Include="src\app\services\file.service.ts" />
+    <TypeScriptCompile Include="src\app\services\logger.service.ts" />
+    <TypeScriptCompile Include="src\app\services\notifications.service.ts" />
+    <TypeScriptCompile Include="src\app\services\security.service.ts" />
   </ItemGroup>
 </Project>
