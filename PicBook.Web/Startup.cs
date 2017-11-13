@@ -49,6 +49,13 @@ namespace PicBook.Web
                 o.Fields.Add("name");
                 o.Fields.Add("email");
                 o.SaveTokens = true;
+              })
+              .AddGoogle(o =>
+              {
+                o.ClientId = Configuration["Authentication:Google:ClientId"];
+                o.ClientSecret = Configuration["Authentication:Facebook:ClientSecret"];
+                o.Scope.Add("email");
+                o.SaveTokens = true;
               });
 
       services.AddMvc();
