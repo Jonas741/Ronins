@@ -11,9 +11,9 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate() {
-    if (!this._secService.isAuthenticated)
+    if (!this._secService.IsAuthenticated)
       this._logger.warn("0x000001", "AUTH GUARD DENIED ACCESS");
 
-    return this._secService.isAuthenticated;
+    return this._secService.IsAuthenticated;
   }
 }
