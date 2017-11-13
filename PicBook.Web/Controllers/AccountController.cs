@@ -12,50 +12,67 @@ using PicBook.Repository.EntityFramework;
 
 namespace PicBook.Web.Controllers
 {
-    public class AccountController : Controller
+  public class AccountController : Controller
+  {
+    private readonly IUserService _userService;
+
+
+    public AccountController(IUserService userService)
     {
-        private readonly IUserService _userService;
-
-
-        public AccountController(IUserService userService)
-        {
-            _userService = userService;
-        }
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        public IActionResult LoginFacebook()
-        {
-            var authenticationProperties = new AuthenticationProperties
-            {
-                RedirectUri = Url.Action("AuthCallback", "Account")
-            };
-
-            return Challenge(authenticationProperties, "Facebook");
-        }
-
-        public async Task<IActionResult> AuthCallback()
-        {
-            var facebookIdentity = User.Identities.FirstOrDefault(i => i.AuthenticationType == "Facebook" && i.IsAuthenticated);
-
-            if (facebookIdentity == null)
-            {
-                return Redirect(Url.Action("Login", "Account"));
-            }
-
-            IEnumerable<Claim> a = facebookIdentity.Claims;
-
-            await _userService.EnsureUser(facebookIdentity.Claims.ToList());
-            
-            return Redirect(Url.Action("Index", "Home"));
-        }
-
-        public IActionResult Logout()
-        {
-            HttpContext.SignOutAsync();
-            return Redirect(Url.Action("Index", "Home"));
-        }
+      _userService = userService;
     }
+    public IActionResult Login()
+    {
+      return View();
+    }
+
+    public IActionResult LoginFacebook()
+    {
+      var authenticationProperties = new AuthenticationProperties
+      {
+        RedirectUri = Url.Action("AuthCallback", "Account")
+      };
+
+      return Challenge(authenticationProperties, "Facebook");
+    }
+
+    public IActionResult LoginGoogle()
+    {
+      var authenticationProperties = new AuthenticationProperties
+      {
+        RedirectUri = Url.Action("AuthCallback", "Account")
+      };
+
+      return Challenge(authenticationProperties, "Google");
+    }
+
+    public async Task<IActionResult> AuthCallback()
+    {
+      var facebookIdentity = User.Identities.FirstOrDefault(i => i.AuthenticationType == "Facebook" && i.IsAuthenticated);
+      var googleIdentity = User.Identities.FirstOrDefault(i => i.AuthenticationType == "Google" && i.IsAuthenticated);
+
+      if (facebookIdentity == null)
+      {
+        return Redirect(Url.Action("Login", "Account"));
+      }
+
+      if (facebookIdentity != null)
+      {
+        IEnumerable<Claim> a = facebookIdentity.Claims;
+        await _userService.EnsureUser(facebookIdentity.Claims.ToList());
+      }
+      else if (googleIdentity != null) {
+        IEnumerable<Claim> a = googleIdentity.Claims;
+        await _userService.EnsureUser(googleIdentity.Claims.ToList());
+      }
+
+      return Redirect(Url.Action("Index", "Home"));
+    }
+
+    public IActionResult Logout()
+    {
+      HttpContext.SignOutAsync();
+      return Redirect(Url.Action("Index", "Home"));
+    }
+  }
 }
