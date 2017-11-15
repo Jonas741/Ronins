@@ -14,6 +14,7 @@ using PicBook.ApplicationService;
 namespace PicBook.Web.Controllers
 {
     [Authorize]
+    [Route("api/[controller]")]
     public class ImageController : Controller
     {
         private IImageService imageService;
@@ -27,7 +28,8 @@ namespace PicBook.Web.Controllers
             return View();
         }
 
-        [HttpPost("Upload")]
+        [HttpPost]
+        [Route("Upload")]
         public async Task<IActionResult> Upload(List<IFormFile> files)
         {
             // full path to file in temp location

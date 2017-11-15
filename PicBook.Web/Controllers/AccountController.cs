@@ -12,6 +12,7 @@ using PicBook.Repository.EntityFramework;
 
 namespace PicBook.Web.Controllers
 {
+  [Route("api/[controller]")]
   public class AccountController : Controller
   {
     private readonly IUserService _userService;
@@ -21,6 +22,7 @@ namespace PicBook.Web.Controllers
     {
       _userService = userService;
     }
+
     public IActionResult Login()
     {
       return View();

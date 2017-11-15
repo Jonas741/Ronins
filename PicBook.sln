@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PicBook.Web", "PicBook.Web\PicBook.Web.csproj", "{FCFAE4D7-1D14-420F-BF34-C5F376CE7635}"
 EndProject
@@ -15,6 +15,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PicBook.Domain", "PicBook.Domain\PicBook.Domain.csproj", "{54464CC0-F139-4595-AEDB-C4C4FADEAC35}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicBook.WebJob", "PicBook.WebJob\PicBook.WebJob.csproj", "{74E1C289-C295-43E6-9BFF-AE3CFBE2650D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2C96F26C-959D-48FC-86BD-6E94539C668A}"
+	ProjectSection(SolutionItems) = preProject
+		Dummy guide.txt = Dummy guide.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
