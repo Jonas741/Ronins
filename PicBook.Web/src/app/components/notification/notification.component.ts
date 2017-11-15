@@ -3,8 +3,6 @@ import { Component } from "@angular/core";
 import { NotificationsService } from "../../services/notifications.service";
 import { Notification } from "../../models/notification";
 
-//import "./notification.component.css";
-
 @Component({
   selector: "notifications",
   templateUrl: "./notification.component.html"

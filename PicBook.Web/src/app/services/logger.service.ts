@@ -3,9 +3,7 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class Logger {
 
-  constructor() {
-
-  }
+  constructor() { }
 
   public debug(code: string, message: string, obj?: any): void {
     let format = this.getLocalDateTime() + ": [" + code + "] - " + message;

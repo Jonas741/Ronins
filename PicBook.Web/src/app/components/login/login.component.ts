@@ -1,20 +1,18 @@
 import { Component } from "@angular/core";
 import { OnInit } from "@angular/core";
-import { SecurityService } from "../../services/security.service";
-
-//import "./login.component.css";
+import { AuthenticationService } from "../../services/authentication.service";
 
 @Component({
   selector: "login",
   templateUrl: "./login.component.html",
-  providers: [SecurityService],
+  providers: [AuthenticationService],
 })
 
 export class LoginComponent implements OnInit {
 
   public hidden: boolean;
 
-  constructor(private _securityService: SecurityService) {
+  constructor(private _authService: AuthenticationService) {
     this.hidden = false;
   }
 
@@ -23,10 +21,10 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin() {
-    this._securityService.externalLogin("Google");
+    this._authService.externalLogin("google");
   }
 
   facebookLogin() {
-    this._securityService.externalLogin("Facebook");
+    this._authService.externalLogin("facebook");
   }
 }
