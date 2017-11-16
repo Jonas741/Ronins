@@ -4,14 +4,14 @@ using PicBook.Domain;
 
 namespace PicBook.Repository.EntityFramework
 {
-    public class UserRepository : GenericCrudRepository<User>, IUserRepository
+    public class UserRepository : GenericCrudRepository<UserEntity>, IUserRepository
     {
         public UserRepository(ApplicationDbContext dbContext)
         {
             Context = dbContext;
         }
 
-        public async Task<User> FindByIdentifier(string userIdentifier)
+        public async Task<UserEntity> FindByIdentifier(string userIdentifier)
         {
             var users = await FindAll(u => u.UserIdentifier == userIdentifier);
 

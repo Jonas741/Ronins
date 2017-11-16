@@ -29,7 +29,7 @@ namespace PicBook.ApplicationService
 
             if (user == null)
             {
-                var u = new User()
+                var u = new UserEntity()
                 {
                     UserIdentifier = userIdentifier.Value,
                     Email = claims.First(c => c.Type == ClaimTypes.Email).Value,

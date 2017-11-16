@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PicBook.Domain;
 
 namespace PicBook.Repository.EntityFramework
@@ -10,6 +9,7 @@ namespace PicBook.Repository.EntityFramework
         {
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<PictureEntity> Pictures { get; set; }
     }
 }

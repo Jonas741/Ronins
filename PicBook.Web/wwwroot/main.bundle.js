@@ -249,7 +249,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/gallery/gallery.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>YEEE</div>\r\n"
+module.exports = "<div>Ez a madafakin gallery component</div>\r\n"
 
 /***/ }),
 
@@ -623,9 +623,10 @@ var AuthGuard = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthenticationService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_social_login__ = __webpack_require__("../../../../angular2-social-login/dist/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_social_login__ = __webpack_require__("../../../../angular2-social-login/dist/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -639,16 +640,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AuthenticationService = (function () {
-    function AuthenticationService(_logger, _configuration, _externalAuth) {
+    function AuthenticationService(_logger, _configuration, _externalAuth, _router) {
         this._logger = _logger;
         this._configuration = _configuration;
         this._externalAuth = _externalAuth;
+        this._router = _router;
     }
     AuthenticationService.prototype.externalLogin = function (provider) {
         var _this = this;
         this._externalAuth.login(provider).subscribe(function (data) {
             _this._logger.debug("0x000002", "External login successful via " + provider, data);
+            _this._router.navigate(["/gallery"]);
         }, function (error) {
             _this._logger.error("Ex000002", "Error in external login. " + provider, error);
         });
@@ -663,9 +667,10 @@ var AuthenticationService = (function () {
     };
     AuthenticationService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__logger_service__["a" /* Logger */],
-            __WEBPACK_IMPORTED_MODULE_2__app_constants__["a" /* Configuration */],
-            __WEBPACK_IMPORTED_MODULE_3_angular2_social_login__["b" /* AuthService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__logger_service__["a" /* Logger */],
+            __WEBPACK_IMPORTED_MODULE_3__app_constants__["a" /* Configuration */],
+            __WEBPACK_IMPORTED_MODULE_4_angular2_social_login__["b" /* AuthService */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]])
     ], AuthenticationService);
     return AuthenticationService;
 }());
