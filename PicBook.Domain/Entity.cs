@@ -5,7 +5,18 @@ namespace PicBook.Domain
 {
     public class Entity : IEntity
     {
-        [Key]
-        public virtual Guid Id { get; set; }
+        public Entity()
+        {
+            Id = Guid.NewGuid();
+            CreatedAt = DateTimeOffset.Now;
+            UpdatedAt = DateTimeOffset.Now;
+        }
+
+        public Guid Id { get; set; }
+
+        [Required]
+        public DateTimeOffset CreatedAt { get; set; }
+
+        public DateTimeOffset UpdatedAt { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace PicBook.Domain
 {
@@ -8,19 +9,18 @@ namespace PicBook.Domain
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(128)]
-        public string ContentType { get; set; }
-
-        [Required]
-        public byte[] Content { get; set; }
+        public string ImgPath { get; set; }
 
         [Required]
         public UserEntity User { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         [Required]
         public bool IsPublic { get; set; }
+
+        [Required]
+        public Guid FileId { get; set; }
     }
 }

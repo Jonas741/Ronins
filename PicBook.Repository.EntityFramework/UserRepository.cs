@@ -15,7 +15,6 @@ namespace PicBook.Repository.EntityFramework
         {
             var users = await FindAll(u => u.UserIdentifier == userIdentifier);
 
-
             return users.FirstOrDefault();
         }
     }

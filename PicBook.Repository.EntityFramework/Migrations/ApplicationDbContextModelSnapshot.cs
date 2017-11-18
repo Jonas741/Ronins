@@ -25,25 +25,25 @@ namespace PicBook.Repository.EntityFramework.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<byte[]>("Content")
-                        .IsRequired();
+                    b.Property<DateTimeOffset>("CreatedAt");
 
-                    b.Property<string>("ContentType")
-                        .IsRequired()
-                        .HasMaxLength(128);
+                    b.Property<Guid>("FileId");
+
+                    b.Property<string>("ImgPath")
+                        .IsRequired();
 
                     b.Property<bool>("IsPublic");
 
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<int>("UserId");
+                    b.Property<DateTimeOffset>("UpdatedAt");
 
-                    b.Property<Guid>("UserId1");
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Pictures");
                 });
@@ -53,12 +53,16 @@ namespace PicBook.Repository.EntityFramework.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTimeOffset>("CreatedAt");
+
                     b.Property<string>("Email")
                         .IsRequired();
 
                     b.Property<string>("Name");
 
                     b.Property<string>("Provider");
+
+                    b.Property<DateTimeOffset>("UpdatedAt");
 
                     b.Property<string>("UserIdentifier");
 
@@ -71,7 +75,7 @@ namespace PicBook.Repository.EntityFramework.Migrations
                 {
                     b.HasOne("PicBook.Domain.UserEntity", "User")
                         .WithMany("Pictures")
-                        .HasForeignKey("UserId1")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
