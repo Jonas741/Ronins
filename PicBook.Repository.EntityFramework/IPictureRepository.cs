@@ -8,7 +8,7 @@ namespace PicBook.Repository.EntityFramework
 {
     interface IPictureRepository
     {
-        Task<IEnumerable<PictureEntity>> GetPicturesOfUser(Guid userId);
-        Task<IEnumerable<PictureEntity>> GetPublicPictures();
+        //Task<IEnumerable<PictureEntity>> GetPicturesOfUser(Guid userId);
+        //Task<IEnumerable<PictureEntity>> GetPublicPictures();
     }
 }

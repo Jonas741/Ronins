@@ -3,3 +3,5 @@ obj
 .vscode
 .vs
 packages
+\PicBook.Web\appsettings.Development.json
+\PicBook.Repository.EntityFramework\appsettings.json
