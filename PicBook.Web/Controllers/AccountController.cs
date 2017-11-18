@@ -24,53 +24,53 @@ namespace PicBook.Web.Controllers
       return View();
     }
 
-    public IActionResult LoginFacebook()
-    {
-      var authenticationProperties = new AuthenticationProperties
-      {
-        RedirectUri = Url.Action("AuthCallback", "Account")
-      };
+    //public IActionResult LoginFacebook()
+    //{
+    //  var authenticationProperties = new AuthenticationProperties
+    //  {
+    //    RedirectUri = Url.Action("AuthCallback", "Account")
+    //  };
 
-      return Challenge(authenticationProperties, "Facebook");
-    }
+    //  return Challenge(authenticationProperties, "Facebook");
+    //}
 
-    public IActionResult LoginGoogle()
-    {
-      var authenticationProperties = new AuthenticationProperties
-      {
-        RedirectUri = Url.Action("AuthCallback", "Account")
-      };
+    //public IActionResult LoginGoogle()
+    //{
+    //  var authenticationProperties = new AuthenticationProperties
+    //  {
+    //    RedirectUri = Url.Action("AuthCallback", "Account")
+    //  };
 
-      return Challenge(authenticationProperties, "Google");
-    }
+    //  return Challenge(authenticationProperties, "Google");
+    //}
 
-    public async Task<IActionResult> AuthCallback()
-    {
-      var facebookIdentity = User.Identities.FirstOrDefault(i => i.AuthenticationType == "Facebook" && i.IsAuthenticated);
-      var googleIdentity = User.Identities.FirstOrDefault(i => i.AuthenticationType == "Google" && i.IsAuthenticated);
+    //public async Task<IActionResult> AuthCallback()
+    //{
+    //  var facebookIdentity = User.Identities.FirstOrDefault(i => i.AuthenticationType == "Facebook" && i.IsAuthenticated);
+    //  var googleIdentity = User.Identities.FirstOrDefault(i => i.AuthenticationType == "Google" && i.IsAuthenticated);
 
-      if (facebookIdentity == null)
-      {
-        return Redirect(Url.Action("Login", "Account"));
-      }
+    //  if (facebookIdentity == null)
+    //  {
+    //    return Redirect(Url.Action("Login", "Account"));
+    //  }
 
-      if (facebookIdentity != null)
-      {
-        IEnumerable<Claim> a = facebookIdentity.Claims;
-        await _userService.EnsureUser(facebookIdentity.Claims.ToList());
-      }
-      else if (googleIdentity != null) {
-        IEnumerable<Claim> a = googleIdentity.Claims;
-        await _userService.EnsureUser(googleIdentity.Claims.ToList());
-      }
+    //  if (facebookIdentity != null)
+    //  {
+    //    IEnumerable<Claim> a = facebookIdentity.Claims;
+    //    await _userService.EnsureUser(facebookIdentity.Claims.ToList());
+    //  }
+    //  else if (googleIdentity != null) {
+    //    IEnumerable<Claim> a = googleIdentity.Claims;
+    //    await _userService.EnsureUser(googleIdentity.Claims.ToList());
+    //  }
 
-      return Redirect(Url.Action("Index", "Home"));
-    }
+    //  return Redirect(Url.Action("Index", "Home"));
+    //}
 
-    public IActionResult Logout()
-    {
-      HttpContext.SignOutAsync();
-      return Redirect(Url.Action("Index", "Home"));
-    }
+    //public IActionResult Logout()
+    //{
+    //  HttpContext.SignOutAsync();
+    //  return Redirect(Url.Action("Index", "Home"));
+    //}
   }
 }
