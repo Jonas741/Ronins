@@ -4,11 +4,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PicBook.Web.Models;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using PicBook.ApplicationService;
 using PicBook.Repository.EntityFramework;
+using PicBook.Domain;
+using PicBook.Web.Helpers;
 
 namespace PicBook.Web.Controllers
 {
@@ -16,7 +17,6 @@ namespace PicBook.Web.Controllers
   public class AccountController : Controller
   {
     private readonly IUserService _userService;
-
 
     public AccountController(IUserService userService)
     {
@@ -27,6 +27,22 @@ namespace PicBook.Web.Controllers
     {
       return View();
     }
+
+    //  [HttpPost]
+    //  [Route("Login")]
+    //public async Task<IActionResult> Login([FromBody]UserDTO model)
+    //{
+    //  var userEntity = new UserEntity() { Name = model.Name, Email...  };
+    //  var confUser = _userService.GetUserByExternalIdentifier(userEntity.UserIdentifier);
+
+    //  if (confUser == null)
+    //  {
+    //    var newUser = await _userService.AddNew(...);
+    //    return Ok(ApiResult.Set("User added to database.", ...); //RETURN DATA TO STORE IN THE BROWSER'S LOCAL STORAGE.
+    //  }
+
+    //  return Ok(ApiResult.Set("Existing user fetched from database.", Json(new { asd = "xx" })));
+    //}
 
     public IActionResult LoginFacebook()
     {

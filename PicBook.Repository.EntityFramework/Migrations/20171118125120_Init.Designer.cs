@@ -11,8 +11,8 @@ using System;
 namespace PicBook.Repository.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171118113840_ImageMetadataInit")]
-    partial class ImageMetadataInit
+    [Migration("20171118125120_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
