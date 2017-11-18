@@ -35,28 +35,28 @@ namespace PicBook.Web
         options.Filters.Add(new RequireHttpsAttribute());
       });
 
-      services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-          .AddCookie(o =>
-          {
-            o.LoginPath = new PathString("/Account/Login");
-            o.LogoutPath = new PathString("/Home/Index");
-          })
-          .AddFacebook(o =>
-              {
-                o.AppId = Configuration["Authentication:Facebook:AppId"];
-                o.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-                o.Scope.Add("email");
-                o.Fields.Add("name");
-                o.Fields.Add("email");
-                o.SaveTokens = true;
-              })
-              .AddGoogle(o =>
-              {
-                o.ClientId = Configuration["Authentication:Google:ClientId"];
-                o.ClientSecret = Configuration["Authentication:Facebook:ClientSecret"];
-                o.Scope.Add("email");
-                o.SaveTokens = true;
-              });
+      //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+      //    .AddCookie(o =>
+      //    {
+      //      //o.LoginPath = new PathString("/Account/Login");
+      //      o.LogoutPath = new PathString("/Home/Index");
+      //    })
+      //    .AddFacebook(o =>
+      //        {
+      //          o.AppId = Configuration["Authentication:Facebook:AppId"];
+      //          o.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+      //          o.Scope.Add("email");
+      //          o.Fields.Add("name");
+      //          o.Fields.Add("email");
+      //          o.SaveTokens = true;
+      //        })
+      //        .AddGoogle(o =>
+      //        {
+      //          o.ClientId = Configuration["Authentication:Google:ClientId"];
+      //          o.ClientSecret = Configuration["Authentication:Facebook:ClientSecret"];
+      //          o.Scope.Add("email");
+      //          o.SaveTokens = true;
+      //        });
 
       services.AddMvc();
 
@@ -82,13 +82,13 @@ namespace PicBook.Web
           await next();
         }
       });
-      //app.UseMvcWithDefaultRoute();
+
       app.UseDefaultFiles();
       app.UseStaticFiles();
 
       var options = new RewriteOptions().AddRedirectToHttps(301, 44301);
       app.UseRewriter(options);
-      app.UseAuthentication();
+      //app.UseAuthentication();
 
       //if (env.IsDevelopment())
       //{
@@ -99,14 +99,7 @@ namespace PicBook.Web
       //    app.UseExceptionHandler("/Home/Error");
       //}
 
-      //app.UseStaticFiles();
-
-      //app.UseMvc(routes =>
-      //{
-      //    routes.MapRoute(
-      //        name: "default",
-      //        template: "{controller=Home}/{action=Index}/{id?}");
-      //});
+      app.UseMvc();
     }
   }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PicBook.Dto
 {
-    class PictureDTO
+    public class PictureDTO
     {
     }
 }

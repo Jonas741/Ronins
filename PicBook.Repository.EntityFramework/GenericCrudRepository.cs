@@ -24,6 +24,14 @@ namespace PicBook.Repository.EntityFramework
             return await entities.ToListAsync();
         }
 
+        public async Task<TEntity> FindOne(Expression<Func<TEntity, bool>> filterExpression)
+        {
+            var entities = Context.Set<TEntity>();
+            var x = await entities.FirstOrDefaultAsync(filterExpression);
+            var a = 2;
+            return await entities.FirstOrDefaultAsync(filterExpression);
+        }
+
         public virtual async Task<TEntity> FindById(Guid id)
         {
             return await Context.Set<TEntity>().FirstOrDefaultAsync(d => d.Id == id);

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PicBook.Dto
 {
-    class UserDTO
+    public class UserDTO
     {
         public string UserIdentifier { get; set; }
         public string Email { get; set; }

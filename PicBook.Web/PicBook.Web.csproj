@@ -15,10 +15,9 @@
     <None Remove="src\app\components\login\login.component.ts" />
     <None Remove="src\app\components\notification\notification.component.ts" />
     <None Remove="src\app\components\welcome\welcome.component.ts" />
-    <None Remove="src\app\models\login.ts" />
     <None Remove="src\app\models\notification.ts" />
     <None Remove="src\app\models\picture.ts" />
-    <None Remove="src\app\models\registration.ts" />
+    <None Remove="src\app\models\user.ts" />
     <None Remove="src\app\services\auth.guard.ts" />
     <None Remove="src\app\services\authentication.service.ts" />
     <None Remove="src\app\services\data.service.ts" />
@@ -49,10 +48,9 @@
     <TypeScriptCompile Include="src\app\components\login\login.component.ts" />
     <TypeScriptCompile Include="src\app\components\notification\notification.component.ts" />
     <TypeScriptCompile Include="src\app\components\welcome\welcome.component.ts" />
-    <TypeScriptCompile Include="src\app\models\login.ts" />
     <TypeScriptCompile Include="src\app\models\notification.ts" />
     <TypeScriptCompile Include="src\app\models\picture.ts" />
-    <TypeScriptCompile Include="src\app\models\registration.ts" />
+    <TypeScriptCompile Include="src\app\models\user.ts" />
     <TypeScriptCompile Include="src\app\services\auth.guard.ts" />
     <TypeScriptCompile Include="src\app\services\authentication.service.ts" />
     <TypeScriptCompile Include="src\app\services\data.service.ts" />

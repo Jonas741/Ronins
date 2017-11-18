@@ -9,8 +9,6 @@ import "rxjs/add/observable/throw";
 import { Configuration } from "../app.constants";
 import { Logger } from "./logger.service";
 import { NotificationsService } from "./notifications.service";
-import { Registration } from "../models/registration";
-import { Picture } from "../models/picture";
 import { Notification } from "../models/notification";
 
 @Injectable()
@@ -69,7 +67,7 @@ export class DataService {
   }
 
   private handleError(error: Notification) {
-    this._logger.error("Ex100000", "Error occured while processing operations.", error);
+    this._logger.error("Ex100000", "Error occured while processing data operations.", error);
     this._notifier.add(new Notification(error.type, error.message, error.errors));
     return Observable.throw(error.message);
   }
