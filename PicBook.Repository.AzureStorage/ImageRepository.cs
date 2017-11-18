@@ -38,7 +38,7 @@ namespace PicBook.Repository.AzureStorage
         public async Task<bool> DeleteImage(string fileName)
         {
             var blobClient = storageAccount.CreateCloudBlobClient();
-            var container = blobClient.GetContainerReference("images");
+            var container = blobClient.GetContainerReference("image");
             var blob = container.GetBlockBlobReference(fileName);
 
             return await blob.DeleteIfExistsAsync();

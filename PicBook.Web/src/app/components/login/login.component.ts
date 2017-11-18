@@ -56,14 +56,26 @@ export class LoginComponent implements OnInit {
   }
 
   facebookLogin() {
-    this._authService.externalLogin("facebook").subscribe(
-      data => {
-        this._logger.debug("0x000003", "External login successful via facebook.", data);
-        this._router.navigate(["/gallery"]);
-      },
-      error => {
-        this._logger.error("Ex000003", "Error in external login.", error);
-      }
-    );
+      this._authService.externalLogin("facebook").subscribe(
+          data => {
+              const user = new User();
+              const extRes = data as any;
+
+              user.email = extRes.email;
+              user.name = extRes.name;
+              user.provider = extRes.provider;
+              user.userIdentifier = extRes.uid;
+
+              this._secService.login(user).subscribe(
+                  d => {
+                      this._logger.debug("0x000002", "External login successful via facebook.", d);
+                      this._router.navigate(["/gallery"]);
+                  }
+              );
+          },
+          error => {
+              this._logger.error("Ex000002", "Error in external login.", error);
+          }
+      );
   }
 }

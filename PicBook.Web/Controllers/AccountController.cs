@@ -20,11 +20,6 @@ namespace PicBook.Web.Controllers
       _userService = userService;
     }
 
-    //public IActionResult Login()
-    //{
-    //  return View();
-    //}
-
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] UserDTO model)
     {
@@ -35,7 +30,9 @@ namespace PicBook.Web.Controllers
 
       if (confUser == null)
       {
-        var userEntity = new UserEntity() { Name = model.Name, Email = model.Email, Provider = model.Provider, UserIdentifier = model.UserIdentifier };
+        var userEntity = new UserEntity() {
+          Name = model.Name, Email = model.Email, Provider = model.Provider, UserIdentifier = model.UserIdentifier
+        };
         await _userService.AddNewUser(userEntity);
         return Ok(ApiResult.Set("User added to database.", Json(new { userId = userEntity.UserIdentifier })));
       }
@@ -43,53 +40,5 @@ namespace PicBook.Web.Controllers
       return Ok(ApiResult.Set("Existing user fetched from database.", Json(new { userId = confUser.UserIdentifier })));
     }
 
-    //public IActionResult LoginFacebook()
-    //{
-    //  var authenticationProperties = new AuthenticationProperties
-    //  {
-    //    RedirectUri = Url.Action("AuthCallback", "Account")
-    //  };
-
-    //  return Challenge(authenticationProperties, "Facebook");
-    //}
-
-    //public IActionResult LoginGoogle()
-    //{
-    //  var authenticationProperties = new AuthenticationProperties
-    //  {
-    //    RedirectUri = Url.Action("AuthCallback", "Account")
-    //  };
-
-    //  return Challenge(authenticationProperties, "Google");
-    //}
-
-    //public async Task<IActionResult> AuthCallback()
-    //{
-    //  var facebookIdentity = User.Identities.FirstOrDefault(i => i.AuthenticationType == "Facebook" && i.IsAuthenticated);
-    //  var googleIdentity = User.Identities.FirstOrDefault(i => i.AuthenticationType == "Google" && i.IsAuthenticated);
-
-    //  if (facebookIdentity == null)
-    //  {
-    //    return Redirect(Url.Action("Login", "Account"));
-    //  }
-
-    //  if (facebookIdentity != null)
-    //  {
-    //    IEnumerable<Claim> a = facebookIdentity.Claims;
-    //    await _userService.EnsureUser(facebookIdentity.Claims.ToList());
-    //  }
-    //  else if (googleIdentity != null) {
-    //    IEnumerable<Claim> a = googleIdentity.Claims;
-    //    await _userService.EnsureUser(googleIdentity.Claims.ToList());
-    //  }
-
-    //  return Redirect(Url.Action("Index", "Home"));
-    //}
-
-    //public IActionResult Logout()
-    //{
-    //  HttpContext.SignOutAsync();
-    //  return Redirect(Url.Action("Index", "Home"));
-    //}
   }
 }

@@ -369,8 +369,16 @@ var LoginComponent = (function () {
     LoginComponent.prototype.facebookLogin = function () {
         var _this = this;
         this._authService.externalLogin("facebook").subscribe(function (data) {
-            _this._logger.debug("0x000002", "External login successful via google.", data);
-            _this._router.navigate(["/gallery"]);
+            var user = new __WEBPACK_IMPORTED_MODULE_5__models_user__["a" /* User */]();
+            var extRes = data;
+            user.email = extRes.email;
+            user.name = extRes.name;
+            user.provider = extRes.provider;
+            user.userIdentifier = extRes.uid;
+            _this._secService.login(user).subscribe(function (d) {
+                _this._logger.debug("0x000002", "External login successful via facebook.", d);
+                _this._router.navigate(["/gallery"]);
+            });
         }, function (error) {
             _this._logger.error("Ex000002", "Error in external login.", error);
         });
@@ -990,7 +998,7 @@ var SecurityService = (function () {
     SecurityService.prototype.login = function (user) {
         var _this = this;
         var headers = this.setHeader();
-        return this._http.post(this._configuration.ServerWithApiUrl + "Account/Login", user, { headers: headers })
+        return this._http.post(this._configuration.ServerWithApiUrl + "account/login", user, { headers: headers })
             .catch(function (error) { return _this.handleError(error); });
     };
     SecurityService.prototype.setHeader = function () {

@@ -26,10 +26,7 @@ namespace PicBook.Repository.EntityFramework
 
         public async Task<TEntity> FindOne(Expression<Func<TEntity, bool>> filterExpression)
         {
-            var entities = Context.Set<TEntity>();
-            var x = await entities.FirstOrDefaultAsync(filterExpression);
-            var a = 2;
-            return await entities.FirstOrDefaultAsync(filterExpression);
+            return await Context.Set<TEntity>().FirstOrDefaultAsync(filterExpression);
         }
 
         public virtual async Task<TEntity> FindById(Guid id)
@@ -37,41 +34,10 @@ namespace PicBook.Repository.EntityFramework
             return await Context.Set<TEntity>().FirstOrDefaultAsync(d => d.Id == id);
         }
 
-        public virtual async Task<TEntity> GetById(Guid id)
-        {
-            TEntity entity = await FindById(id);
-            if (entity == null)
-            {
-                throw new NotFoundException();
-            }
-            return entity;
-        }
-
         public virtual async Task<TInheritedEntity> FindById<TInheritedEntity>(Guid id)
             where TInheritedEntity : class, TEntity
         {
             return await Context.Set<TInheritedEntity>().FirstOrDefaultAsync(d => d.Id == id);
-        }
-
-        public virtual async Task<TInheritedEntity> GetById<TInheritedEntity>(Guid id)
-            where TInheritedEntity : class, TEntity
-        {
-            TInheritedEntity entity = await FindById<TInheritedEntity>(id);
-            if (entity == null)
-            {
-                throw new NotFoundException();
-            }
-            return entity;
-        }
-
-        public virtual async Task<int> Count(Expression<Func<TEntity, bool>> predicate)
-        {
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate");
-            }
-
-            return await Context.Set<TEntity>().CountAsync(predicate);
         }
 
         public virtual async Task Create(TEntity entity)
