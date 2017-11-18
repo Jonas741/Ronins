@@ -18,6 +18,29 @@ Get the Angular app to work:														 									 |
 --------------------------------------------------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------------------------------------------------
+Creating your local db:																									 |
+--------------------------------------------------------------------------------------------------------------------------
+1. Open SQL Server Object Explorer in Visual Studio. (Ctrl+Q and type)													 |
+2. Create a new database.																								 |
+3. Copy the connection string from the database's property pane. (Right click on database then properties).				 |
+4. Open PicBook.Repository.EntityFramework\appsettings.json																 |
+5. Paste your connection string to connectionStrings.DefaultConnection.													 |
+6. Open PicBook.Web\appsettings.Development.json (embedded into the appsettings.json in the Solution Explorer)			 |
+7. Paste your connection string to Connections.DefaultConnection.														 |
+8. Open Package Manager Console in Visual Studio. (Ctrl+Q and type)														 |
+9. Navigate to Picbook.Repository.EntityFramework directory																 |
+	cd Picbook.Repository.EntityFramework																				 |
+10.Create a migration																									 |
+	dotnet ef migrations add *name*																						 |
+		OR																												 |
+	dotnet ef migrations add -c PicBook.Repository.EntityFramework.ApplicationDbContext *name*							 |
+11.Update database																										 |
+	dotnet ef database update																							 |
+		OR																												 |
+	dotnet ef database update -c PicBook.Repository.EntityFramework.ApplicationDbContext								 |
+--------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------
 Entity framework stuff:																									 |
 --------------------------------------------------------------------------------------------------------------------------
 1. Navigate to Picbook.Repository.EntityFramework directory																 |
@@ -25,7 +48,7 @@ Entity framework stuff:																									 |
 2. Create a migration																									 |
 	dotnet ef migrations add -c PicBook.Repository.EntityFramework.ApplicationDbContext *name*							 |
 3. Update database																										 |
-	dotnet ef database update -c Picbook.Repository.EntityFramework.ApplicationDbContext								 |
+	dotnet ef database update -c PicBook.Repository.EntityFramework.ApplicationDbContext								 |
 --------------------------------------------------------------------------------------------------------------------------
 
 Facebook appid: 1932254340430320
