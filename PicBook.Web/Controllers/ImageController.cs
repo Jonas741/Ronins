@@ -84,7 +84,7 @@ namespace PicBook.Web.Controllers
       }
       catch (ArgumentNullException ane)
       {
-        return BadRequest();
+        return BadRequest(ane);
       }
 
       return Ok("Picture {picture.uri} was updated");
@@ -111,8 +111,13 @@ namespace PicBook.Web.Controllers
     {
       UserEntity entity = await _userService.GetUserdByIdentifier(userIdentifier);
       IEnumerable<PictureEntity> entities = await _pictureService.GetAllPicturesByUser(entity);
+      List<PictureDTO> pictures = new List<PictureDTO>();
+      foreach (PictureEntity item in entities)
+      {
+        pictures.Add(new PictureDTO { uri = new Uri(item.ImgPath) });
+      }
 
-      return Ok(ApiResult.Set("Pictures of {id}", Json(entities)));
+      return Ok(ApiResult.Set("Pictures of {id}", Json(pictures)));
     }
 
     [HttpGet("/publicpictures/{userIdentifier}")]
@@ -120,8 +125,13 @@ namespace PicBook.Web.Controllers
     {
       UserEntity entity = await _userService.GetUserdByIdentifier(userIdentifier);
       IEnumerable<PictureEntity> entities = await _pictureService.GetPublicPicturesByUser(entity);
+      List<PictureDTO> pictures = new List<PictureDTO>();
+      foreach (PictureEntity item in entities)
+      {
+        pictures.Add(new PictureDTO { uri = new Uri(item.ImgPath) });
+      }
 
-      return Ok(ApiResult.Set("Public pictures of {id}", Json(entities)));
+      return Ok(ApiResult.Set("Public pictures of {id}", Json(pictures)));
     }
     
   }
