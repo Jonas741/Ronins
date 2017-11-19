@@ -27,19 +27,19 @@ export class GalleryComponent implements OnInit {
   ngOnInit() {
     this.fileCache = [];
     this.pictures = [];
+    this.fetchPictures();
+  }
+
+  private fetchPictures(): void {
     const userId = localStorage.getItem("token");
 
-    this._dataService.getAll<Picture>(`image/picures/${userId}`)
-      .subscribe(data => {
-        this._logger.debug("0x000400", "Picture metadata fetched successfully.", data);
-        this.pictures = data;
+    this._dataService.getAll<Picture>(`image/pictures/${userId}`)
+      .subscribe(res => {
+        this._logger.debug("0x000400", "Picture metadata fetched successfully.", res);
+        this.pictures = (res as any).data;
       }, error => {
         this._logger.error("Ex000400", "Error in fetching picture metadata.", error);
       });
-  }
-
-  public getPictures(): void {
-    this._dataService.getAll<Picture>("")
   }
 
   public onImgInputChange(event: any): void {
@@ -48,6 +48,7 @@ export class GalleryComponent implements OnInit {
     for (let i = 0; i < files.length; i++) {
       if (files[i].type !== "image/gif" && files[i].type !== "image/png" && files[i].type !== "image/jpeg" && files[i].type !== "image/bmp" && files[i].type !== "image/webp") {
         this._notifier.add(new Notification("warning", "File type mismatch."));
+        event.target.files = [];
       } else {
         this.fileCache.push(files[i]);
       }
@@ -57,16 +58,14 @@ export class GalleryComponent implements OnInit {
   public upload(): void {
     if (this.fileCache.length !== 0) {
       this._dataService.uploadFiles("image/upload", this.fileCache)
-        .subscribe(
-        data => {
+        .subscribe(data => {
           this._logger.debug("0x000300", "File uploaded", data);
           this._notifier.add(new Notification("success", "Upload successful"));
-        },
-        err => {
+          this.fetchPictures();
+        }, err => {
           this._logger.debug("Ex000300", err.message, err);
           this._notifier.add(new Notification("error", "Error in uploading", err));
-        }
-        );
+        });
 
       this.fileCache = [];
     }

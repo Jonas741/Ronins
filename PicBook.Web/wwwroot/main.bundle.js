@@ -290,12 +290,25 @@ var GalleryComponent = (function () {
     GalleryComponent.prototype.ngOnInit = function () {
         this.fileCache = [];
         this.pictures = [];
+        this.fetchPictures();
+    };
+    GalleryComponent.prototype.fetchPictures = function () {
+        var _this = this;
+        var userId = localStorage.getItem("token");
+        this._dataService.getAll("image/pictures/" + userId)
+            .subscribe(function (res) {
+            _this._logger.debug("0x000400", "Picture metadata fetched successfully.", res);
+            _this.pictures = res.data;
+        }, function (error) {
+            _this._logger.error("Ex000400", "Error in fetching picture metadata.", error);
+        });
     };
     GalleryComponent.prototype.onImgInputChange = function (event) {
         var files = event.target.files || event.srcElement.files;
         for (var i = 0; i < files.length; i++) {
             if (files[i].type !== "image/gif" && files[i].type !== "image/png" && files[i].type !== "image/jpeg" && files[i].type !== "image/bmp" && files[i].type !== "image/webp") {
                 this._notifier.add(new __WEBPACK_IMPORTED_MODULE_4__models_notification__["a" /* Notification */]("warning", "File type mismatch."));
+                event.target.files = [];
             }
             else {
                 this.fileCache.push(files[i]);
@@ -309,9 +322,10 @@ var GalleryComponent = (function () {
                 .subscribe(function (data) {
                 _this._logger.debug("0x000300", "File uploaded", data);
                 _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_4__models_notification__["a" /* Notification */]("success", "Upload successful"));
+                _this.fetchPictures();
             }, function (err) {
                 _this._logger.debug("Ex000300", err.message, err);
-                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_4__models_notification__["a" /* Notification */]("error", "Error in uploading", err.message));
+                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_4__models_notification__["a" /* Notification */]("error", "Error in uploading", err));
             });
             this.fileCache = [];
         }
@@ -421,7 +435,7 @@ var LoginComponent = (function () {
             _this._secService.login(user).subscribe(function (res) {
                 _this._logger.debug("0x000200", "External login successful via " + provider + ".", res);
                 _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_7__models_notification__["a" /* Notification */]("success", "Login successful."));
-                localStorage.setItem("token", "kaki");
+                localStorage.setItem("token", res.data.value.userId);
                 _this._router.navigate(["/gallery"]);
             });
         }, function (error) {
@@ -1048,11 +1062,12 @@ var NotificationsService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/catch.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_throw__ = __webpack_require__("../../../../rxjs/_esm5/add/observable/throw.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__notifications_service__ = __webpack_require__("../../../../../src/app/services/notifications.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__models_notification__ = __webpack_require__("../../../../../src/app/models/notification.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_throw__ = __webpack_require__("../../../../rxjs/_esm5/add/observable/throw.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__notifications_service__ = __webpack_require__("../../../../../src/app/services/notifications.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__models_notification__ = __webpack_require__("../../../../../src/app/models/notification.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1062,6 +1077,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -1091,6 +1107,7 @@ var SecurityService = (function () {
         var _this = this;
         var headers = this.setHeader();
         return this._http.post(this._configuration.ServerWithApiUrl + "account/login", user, { headers: headers })
+            .map(function (res) { return res.json(); })
             .catch(function (error) { return _this.handleError(error); });
     };
     SecurityService.prototype.setHeader = function () {
@@ -1101,7 +1118,7 @@ var SecurityService = (function () {
     };
     SecurityService.prototype.handleError = function (error) {
         this._logger.error("Ex200000", "Error occured while processing authentication operations.", error);
-        this._notifier.add(new __WEBPACK_IMPORTED_MODULE_9__models_notification__["a" /* Notification */](error.type, error.message, error.errors));
+        this._notifier.add(new __WEBPACK_IMPORTED_MODULE_10__models_notification__["a" /* Notification */](error.type, error.message, error.errors));
         return __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["a" /* Observable */].throw(error.message);
     };
     SecurityService.prototype.retrieve = function (key) {
@@ -1113,11 +1130,11 @@ var SecurityService = (function () {
     };
     SecurityService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_6__logger_service__["a" /* Logger */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_7__logger_service__["a" /* Logger */],
             __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */],
             __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */],
-            __WEBPACK_IMPORTED_MODULE_7__app_constants__["a" /* Configuration */],
-            __WEBPACK_IMPORTED_MODULE_8__notifications_service__["a" /* NotificationsService */]])
+            __WEBPACK_IMPORTED_MODULE_8__app_constants__["a" /* Configuration */],
+            __WEBPACK_IMPORTED_MODULE_9__notifications_service__["a" /* NotificationsService */]])
     ], SecurityService);
     return SecurityService;
 }());

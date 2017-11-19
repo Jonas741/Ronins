@@ -4,6 +4,7 @@ import { Http, Headers, Response } from "@angular/http";
 
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/catch";
+import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
 
 import { Logger } from "./logger.service";
@@ -27,9 +28,10 @@ export class SecurityService {
     return this.retrieve("token");
   }
 
-  public login(user: User): Observable<Response> {
+  public login(user: User): Observable<any> {
     const headers = this.setHeader();
     return this._http.post(this._configuration.ServerWithApiUrl + "account/login", user, { headers: headers })
+      .map<Response, any>(res => res.json())
       .catch(error => this.handleError(error));
   }
 

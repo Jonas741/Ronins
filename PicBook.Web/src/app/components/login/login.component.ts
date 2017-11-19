@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           res => {
             this._logger.debug("0x000200", `External login successful via ${provider}.`, res);
             this._notifier.add(new Notification("success", "Login successful."));
-            localStorage.setItem("token", "kaki");
+            localStorage.setItem("token", (res as any).data.value.userId);
             this._router.navigate(["/gallery"]);
           }
         );
