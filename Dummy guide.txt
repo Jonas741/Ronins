@@ -1,27 +1,58 @@
-------------------------------------------------------------------------------------------------------
-Get the Angular app to work:																		 |
-------------------------------------------------------------------------------------------------------
-1. Navigate to Picbook.Web directory																 |
-	cd Picbook.Web																					 |
-2. Check npm and node js version:																	 |
-	npm -v																							 |
-	node -v																							 |
-3. Node must be >=4.0.0, npm must be >=3.0.0														 |
-	2.1. If not, get the latest from https://nodejs.org/en/											 |
-4. Install Angular cli																				 |
-	npm install -g angular-cli																		 |
-5. Install npm packages																				 |
-	npm install																						 |
-6. If you made changes in Angular app, build it.													 |
-	ng build																						 |
-7. Run from Visual Studio																			 |
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
-Facebook appid: 1932254340430320																	 |
-Facebook app secret: af4aed23b38e53e60a4633a07e05813b												 |
-Google appid: 934707524700-kpbb78g76d522r88uhn30bn5ngmt0h3m.apps.googleusercontent.com				 |
-Google app secret: iKXY9DEvo9eJwcfU089jMfJl															 |
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------
+Get the Angular app to work:														 									 |
+--------------------------------------------------------------------------------------------------------------------------
+1. Navigate to Picbook.Web directory																					 |
+	cd Picbook.Web																										 |
+2. Check npm and node js version:																						 |
+	npm -v																												 |
+	node -v																												 |
+3. Node must be >=4.0.0, npm must be >=3.0.0																			 |
+	2.1. If not, get the latest from https://nodejs.org/en/																 |
+4. Install Angular cli																									 |
+	npm install -g angular-cli																							 |
+5. Install npm packages																									 |
+	npm install																											 |
+6. If you made changes in Angular app, build it.																		 |
+	ng build																											 |
+7. Run from Visual Studio																								 |
+--------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------
+Creating your local db:																									 |
+--------------------------------------------------------------------------------------------------------------------------
+1. Open SQL Server Object Explorer in Visual Studio. (Ctrl+Q and type)													 |
+2. Create a new database.																								 |
+3. Copy the connection string from the database's property pane. (Right click on database then properties).				 |
+4. Open PicBook.Repository.EntityFramework\appsettings.json																 |
+5. Paste your connection string to connectionStrings.DefaultConnection.													 |
+6. Open PicBook.Web\appsettings.Development.json (embedded into the appsettings.json in the Solution Explorer)			 |
+7. Paste your connection string to Connections.DefaultConnection.														 |
+8. Open Package Manager Console in Visual Studio. (Ctrl+Q and type)														 |
+9. Navigate to Picbook.Repository.EntityFramework directory																 |
+	cd Picbook.Repository.EntityFramework																				 |
+10.Create a migration																									 |
+	dotnet ef migrations add *name*																						 |
+		OR																												 |
+	dotnet ef migrations add -c PicBook.Repository.EntityFramework.ApplicationDbContext *name*							 |
+11.Update database																										 |
+	dotnet ef database update																							 |
+		OR																												 |
+	dotnet ef database update -c PicBook.Repository.EntityFramework.ApplicationDbContext								 |
+--------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------
+Entity framework stuff:																									 |
+--------------------------------------------------------------------------------------------------------------------------
+1. Navigate to Picbook.Repository.EntityFramework directory																 |
+	cd Picbook.Repository.EntityFramework																				 |
+2. Create a migration																									 |
+	dotnet ef migrations add -c PicBook.Repository.EntityFramework.ApplicationDbContext *name*							 |
+3. Update database																										 |
+	dotnet ef database update -c PicBook.Repository.EntityFramework.ApplicationDbContext								 |
+--------------------------------------------------------------------------------------------------------------------------
+
+Facebook appid: 1932254340430320
+Facebook app secret: af4aed23b38e53e60a4633a07e05813b
+Google appid: 934707524700-kpbb78g76d522r88uhn30bn5ngmt0h3m.apps.googleusercontent.com
+Google app secret: iKXY9DEvo9eJwcfU089jMfJl
+SQL Connection string: Server=(localdb)\\v11.0;Database=picbook;Trusted_Connection=True;MultipleActiveResultSets=true

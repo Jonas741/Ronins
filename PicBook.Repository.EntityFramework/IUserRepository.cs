@@ -5,7 +5,7 @@ namespace PicBook.Repository.EntityFramework
 {
     public interface IUserRepository
     {
-        Task Create(User entity);
-        Task<User> FindByIdentifier(string userIdentifier);
+        Task Create(UserEntity entity);
+        Task<UserEntity> FindByIdentifier(string userIdentifier);
     }
 }

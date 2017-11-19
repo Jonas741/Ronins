@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Response, Headers, Http } from "@angular/http";
 
 import { Observable } from "rxjs/Observable";
+import { Observer } from 'rxjs/Observer';
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
@@ -9,8 +10,6 @@ import "rxjs/add/observable/throw";
 import { Configuration } from "../app.constants";
 import { Logger } from "./logger.service";
 import { NotificationsService } from "./notifications.service";
-import { Registration } from "../models/registration";
-import { Picture } from "../models/picture";
 import { Notification } from "../models/notification";
 
 @Injectable()
@@ -68,8 +67,35 @@ export class DataService {
       .catch(error => this.handleError(error));
   }
 
+  public uploadFiles(action: string, files: File[]): Observable<any> {
+    let self = this;
+    return Observable.create((observer: Observer<number>) => {
+      let formData: FormData = new FormData(),
+        xhr: XMLHttpRequest = new XMLHttpRequest();
+
+      for (let i = 0; i < files.length; i++) {
+        formData.append("upload[]", files[i], files[i].name);
+      }
+
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            observer.next(JSON.parse(xhr.response));
+            observer.complete();
+          } else {
+            observer.error(xhr.response);
+          }
+        }
+      };
+
+      xhr.open("POST", self._configuration.ServerWithApiUrl + action, true);
+      xhr.send(formData);
+    });
+  }
+
+
   private handleError(error: Notification) {
-    this._logger.error("Ex100000", "Error occured while processing operations.", error);
+    this._logger.error("Ex100000", "Error occured while processing data operations.", error);
     this._notifier.add(new Notification(error.type, error.message, error.errors));
     return Observable.throw(error.message);
   }

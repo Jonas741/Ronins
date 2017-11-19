@@ -9,8 +9,6 @@ namespace PicBook.Repository.AzureStorage
     public class ImageUploadResult
     {
         public Guid ImageId { get; set; }
-
         public Uri ImageUri { get; set; }
-
     }
 }

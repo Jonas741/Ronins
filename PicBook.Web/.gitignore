@@ -40,3 +40,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+/PicBook.Web/appsettings.Development.json
+/PicBook.Repository.EntityFramework/appsettings.json
+/PicBook.Web/wwwroot/
