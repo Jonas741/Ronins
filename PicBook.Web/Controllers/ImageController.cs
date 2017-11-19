@@ -106,19 +106,19 @@ namespace PicBook.Web.Controllers
       return Ok(ApiResult.Set("Public pictures.", Json(picturesDTO)));
     }
 
-    [HttpGet("/pictures/{id}")]
-    public async Task<IActionResult> Pictures(Guid id)
+    [HttpGet("/pictures/{userIdentifier}")]
+    public async Task<IActionResult> Pictures(string userIdentifier)
     {
-      UserEntity entity = await _userService.GetUserById(id);
+      UserEntity entity = await _userService.GetUserdByIdentifier(userIdentifier);
       IEnumerable<PictureEntity> entities = await _pictureService.GetAllPicturesByUser(entity);
 
       return Ok(ApiResult.Set("Pictures of {id}", Json(entities)));
     }
 
-    [HttpGet("/publicpictures/{id}")]
-    public async Task<IActionResult> PublicPicturesByUser(Guid id)
+    [HttpGet("/publicpictures/{userIdentifier}")]
+    public async Task<IActionResult> PublicPicturesByUser(string userIdentifier)
     {
-      UserEntity entity = await _userService.GetUserById(id);
+      UserEntity entity = await _userService.GetUserdByIdentifier(userIdentifier);
       IEnumerable<PictureEntity> entities = await _pictureService.GetPublicPicturesByUser(entity);
 
       return Ok(ApiResult.Set("Public pictures of {id}", Json(entities)));
