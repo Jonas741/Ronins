@@ -22,10 +22,11 @@ export class AuthenticationService {
     return this._externalAuth.login(provider);
   }
 
-  logout() {
+  public logout(): void {
     this._externalAuth.logout().subscribe(
       data => {
         this._logger.debug("0x000003", "External logout successful.", data);
+        localStorage.removeItem("token");
       },
       error => {
         this._logger.debug("Ex000003", "External logout failed.", error);

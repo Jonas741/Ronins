@@ -1,0 +1,32 @@
+.notification a {
+  margin-top: 10px;
+  padding: 5px;
+  display: block;
+}
+
+.error a {
+  background-color: #ffd4d4;
+  border: 1px solid red;
+}
+
+.error.notification a {
+  color: red;
+}
+
+.warning a {
+  background-color: #ffefc0;
+  border: 1px solid #FFC107;
+}
+
+.warning.notification a {
+  color: #c99909;
+}
+
+.success a {
+  background-color: #e3ffc2;
+  border: 1px solid #8BC34A;
+}
+
+.success.notification a {
+  color: #669035;
+}

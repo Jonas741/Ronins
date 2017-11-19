@@ -1,3 +1,13 @@
-<div>Ez a madafakin gallery component</div>
-<input type="file" id="imgInput" (change)="onImgInputChange($event)" />
-<button (click)="upload()">Uccu neki!</button>
+<div *ngFor="let picture of pictures">
+  <picture [uri]="picture.uri"></picture>
+</div>
+<div>
+  <input type="file" id="imgInput" (change)="onImgInputChange($event)" multiple />
+  <button (click)="upload()">Upload</button>
+</div>
+<div>
+  <div *ngFor="let f of fileCache">
+    <span>{{f.name}} | {{f.size/1000000}} MB</span>
+    <button (click)="removeFile(f); $event.stopPropagation()">x</button>
+  </div>
+</div>

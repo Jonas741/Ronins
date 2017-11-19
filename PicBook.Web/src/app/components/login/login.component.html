@@ -1,11 +1,2 @@
-<div *ngIf="!hidden">
-  <button (click)="facebookLogin()">Facebook Login</button>
-  <button (click)="googleLogin()">Google Login</button>
-</div>
-
-<div>
-  Szilárd egy pénisz.
-</div>
-<div style="color:red">
-  Szilárd egy pénisz, csak pirossal
-</div>
+<button (click)="login('facebook')">Facebook Login</button>
+<button (click)="login('google')">Google Login</button>

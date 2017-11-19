@@ -4,8 +4,10 @@ import { Router } from "@angular/router";
 import { AuthenticationService } from "../../services/authentication.service";
 import { SecurityService } from "../../services/security.service";
 import { Logger } from "../../services/logger.service";
+import { NotificationsService } from "../../services/notifications.service";
 
 import { User } from "../../models/user";
+import { Notification } from "../../models/notification";
 
 @Component({
   selector: "login",
@@ -16,23 +18,24 @@ import { User } from "../../models/user";
 
 export class LoginComponent implements OnInit {
 
-  public hidden: boolean;
+  public get hidden(): boolean {
+    return this._secService.IsAuthenticated;
+  }
 
   constructor(
     private _authService: AuthenticationService,
     private _secService: SecurityService,
     private _logger: Logger,
-    private _router: Router
-  ) {
-    this.hidden = false;
-  }
+    private _router: Router,
+    private _notifier: NotificationsService
+  ) { }
 
   ngOnInit() {
 
   }
 
-  googleLogin() {
-    this._authService.externalLogin("google").subscribe(
+  public login(provider: string): void {
+    this._authService.externalLogin(provider).subscribe(
       data => {
         const user = new User();
         const extRes = data as any;
@@ -43,39 +46,17 @@ export class LoginComponent implements OnInit {
         user.userIdentifier = extRes.uid;
 
         this._secService.login(user).subscribe(
-          d => {
-            this._logger.debug("0x000002", "External login successful via google.", d);
+          res => {
+            this._logger.debug("0x000200", `External login successful via ${provider}.`, res);
+            this._notifier.add(new Notification("success", "Login successful."));
+            localStorage.setItem("token", "kaki");
             this._router.navigate(["/gallery"]);
           }
         );
       },
       error => {
-        this._logger.error("Ex000002", "Error in external login.", error);
+        this._logger.error("Ex000200", "Error in external login.", error);
       }
     );
-  }
-
-  facebookLogin() {
-      this._authService.externalLogin("facebook").subscribe(
-          data => {
-              const user = new User();
-              const extRes = data as any;
-
-              user.email = extRes.email;
-              user.name = extRes.name;
-              user.provider = extRes.provider;
-              user.userIdentifier = extRes.uid;
-
-              this._secService.login(user).subscribe(
-                  d => {
-                      this._logger.debug("0x000002", "External login successful via facebook.", d);
-                      this._router.navigate(["/gallery"]);
-                  }
-              );
-          },
-          error => {
-              this._logger.error("Ex000002", "Error in external login.", error);
-          }
-      );
   }
 }

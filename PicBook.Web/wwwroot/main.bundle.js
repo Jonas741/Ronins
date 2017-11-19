@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<!--<div style=\"text-align:center\">\r\n  <h1>\r\n    Welcome to {{title}}!\r\n  </h1>\r\n  <img width=\"300\" src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==\">\r\n</div>\r\n<h2>Here are some links to help you start: </h2>\r\n<ul>\r\n  <li>\r\n    <h2><a target=\"_blank\" rel=\"noopener\" href=\"https://angular.io/tutorial\">Tour of Heroes</a></h2>\r\n  </li>\r\n  <li>\r\n    <h2><a target=\"_blank\" rel=\"noopener\" href=\"https://github.com/angular/angular-cli/wiki\">CLI Documentation</a></h2>\r\n  </li>\r\n  <li>\r\n    <h2><a target=\"_blank\" rel=\"noopener\" href=\"https://blog.angular.io/\">Angular blog</a></h2>\r\n  </li>\r\n</ul>-->\r\n\r\n\r\n<!--<div class=\"ui container notification\">\r\n  <notifications></notifications>\r\n</div>-->\r\n<login></login>\r\n<router-outlet></router-outlet>\r\n\r\n"
+module.exports = "<login></login>\r\n<router-outlet></router-outlet>\r\n<notifications></notifications>\r\n\r\n"
 
 /***/ }),
 
@@ -213,10 +213,13 @@ __WEBPACK_IMPORTED_MODULE_4_angular2_social_login__["a" /* Angular2SocialLoginMo
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_guard__ = __webpack_require__("../../../../../src/app/services/auth.guard.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_gallery_gallery_component__ = __webpack_require__("../../../../../src/app/components/gallery/gallery.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_welcome_welcome_component__ = __webpack_require__("../../../../../src/app/components/welcome/welcome.component.ts");
+
 
 
 
 var appRoutes = [
+    { path: "", component: __WEBPACK_IMPORTED_MODULE_3__components_welcome_welcome_component__["a" /* WelcomeComponent */] },
     { path: "gallery", component: __WEBPACK_IMPORTED_MODULE_2__components_gallery_gallery_component__["a" /* GalleryComponent */] }
 ];
 var appRoutingProviders = [
@@ -235,7 +238,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "div {\r\n  background-color: red\r\n}\r\n", ""]);
+exports.push([module.i, "div {\r\n  color:red\r\n}\r\n", ""]);
 
 // exports
 
@@ -248,7 +251,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/gallery/gallery.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>Ez a madafakin gallery component</div>\r\n<input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" />\r\n<button (click)=\"upload()\">Uccu neki!</button>\r\n"
+module.exports = "<div *ngFor=\"let picture of pictures\">\r\n  <picture [uri]=\"picture.uri\"></picture>\r\n</div>\r\n<div>\r\n  <input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" multiple />\r\n  <button (click)=\"upload()\">Upload</button>\r\n</div>\r\n<div>\r\n  <div *ngFor=\"let f of fileCache\">\r\n    <span>{{f.name}} | {{f.size/1000000}} MB</span>\r\n    <button (click)=\"removeFile(f); $event.stopPropagation()\">x</button>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -260,6 +263,8 @@ module.exports = "<div>Ez a madafakin gallery component</div>\r\n<input type=\"f
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_data_service__ = __webpack_require__("../../../../../src/app/services/data.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_notifications_service__ = __webpack_require__("../../../../../src/app/services/notifications.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_notification__ = __webpack_require__("../../../../../src/app/models/notification.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -272,19 +277,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var GalleryComponent = (function () {
-    function GalleryComponent(_dataService, _logger) {
+    function GalleryComponent(_dataService, _logger, _notifier) {
         this._dataService = _dataService;
         this._logger = _logger;
+        this._notifier = _notifier;
         this.fileCache = new Array();
+        this.pictures = new Array();
     }
     GalleryComponent.prototype.ngOnInit = function () {
         this.fileCache = [];
+        this.pictures = [];
     };
     GalleryComponent.prototype.onImgInputChange = function (event) {
         var files = event.target.files || event.srcElement.files;
         for (var i = 0; i < files.length; i++) {
-            this.fileCache.push(files[i]);
+            if (files[i].type !== "image/gif" && files[i].type !== "image/png" && files[i].type !== "image/jpeg" && files[i].type !== "image/bmp" && files[i].type !== "image/webp") {
+                this._notifier.add(new __WEBPACK_IMPORTED_MODULE_4__models_notification__["a" /* Notification */]("warning", "File type mismatch."));
+            }
+            else {
+                this.fileCache.push(files[i]);
+            }
         }
     };
     GalleryComponent.prototype.upload = function () {
@@ -292,13 +307,18 @@ var GalleryComponent = (function () {
         if (this.fileCache.length !== 0) {
             this._dataService.uploadFiles("image/upload", this.fileCache)
                 .subscribe(function (data) {
-                _this._logger.debug("0", "File uploaded", data);
+                _this._logger.debug("0x000300", "File uploaded", data);
+                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_4__models_notification__["a" /* Notification */]("success", "Upload successful"));
             }, function (err) {
-                _this._logger.debug("00", err.message, err);
+                _this._logger.debug("Ex000300", err.message, err);
+                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_4__models_notification__["a" /* Notification */]("error", "Error in uploading", err.message));
             });
             this.fileCache = [];
         }
         document.getElementById("imgInput").value = "";
+    };
+    GalleryComponent.prototype.removeFile = function (f) {
+        this.fileCache = this.fileCache.filter(function (file) { return file !== f; });
     };
     GalleryComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -307,7 +327,8 @@ var GalleryComponent = (function () {
             styles: [__webpack_require__("../../../../../src/app/components/gallery/gallery.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_data_service__["a" /* DataService */],
-            __WEBPACK_IMPORTED_MODULE_2__services_logger_service__["a" /* Logger */]])
+            __WEBPACK_IMPORTED_MODULE_2__services_logger_service__["a" /* Logger */],
+            __WEBPACK_IMPORTED_MODULE_3__services_notifications_service__["a" /* NotificationsService */]])
     ], GalleryComponent);
     return GalleryComponent;
 }());
@@ -337,7 +358,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"!hidden\">\r\n  <button (click)=\"facebookLogin()\">Facebook Login</button>\r\n  <button (click)=\"googleLogin()\">Google Login</button>\r\n</div>\r\n\r\n<div>\r\n  Szilárd egy pénisz.\r\n</div>\r\n<div style=\"color:red\">\r\n  Szilárd egy pénisz, csak pirossal\r\n</div>\r\n"
+module.exports = "<button (click)=\"login('facebook')\">Facebook Login</button>\r\n<button (click)=\"login('google')\">Google Login</button>\r\n"
 
 /***/ }),
 
@@ -351,7 +372,9 @@ module.exports = "<div *ngIf=\"!hidden\">\r\n  <button (click)=\"facebookLogin()
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_authentication_service__ = __webpack_require__("../../../../../src/app/services/authentication.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_security_service__ = __webpack_require__("../../../../../src/app/services/security.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_user__ = __webpack_require__("../../../../../src/app/models/user.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_notifications_service__ = __webpack_require__("../../../../../src/app/services/notifications.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_user__ = __webpack_require__("../../../../../src/app/models/user.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__models_notification__ = __webpack_require__("../../../../../src/app/models/notification.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -367,48 +390,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var LoginComponent = (function () {
-    function LoginComponent(_authService, _secService, _logger, _router) {
+    function LoginComponent(_authService, _secService, _logger, _router, _notifier) {
         this._authService = _authService;
         this._secService = _secService;
         this._logger = _logger;
         this._router = _router;
-        this.hidden = false;
+        this._notifier = _notifier;
     }
+    Object.defineProperty(LoginComponent.prototype, "hidden", {
+        get: function () {
+            return this._secService.IsAuthenticated;
+        },
+        enumerable: true,
+        configurable: true
+    });
     LoginComponent.prototype.ngOnInit = function () {
     };
-    LoginComponent.prototype.googleLogin = function () {
+    LoginComponent.prototype.login = function (provider) {
         var _this = this;
-        this._authService.externalLogin("google").subscribe(function (data) {
-            var user = new __WEBPACK_IMPORTED_MODULE_5__models_user__["a" /* User */]();
+        this._authService.externalLogin(provider).subscribe(function (data) {
+            var user = new __WEBPACK_IMPORTED_MODULE_6__models_user__["a" /* User */]();
             var extRes = data;
             user.email = extRes.email;
             user.name = extRes.name;
             user.provider = extRes.provider;
             user.userIdentifier = extRes.uid;
-            _this._secService.login(user).subscribe(function (d) {
-                _this._logger.debug("0x000002", "External login successful via google.", d);
+            _this._secService.login(user).subscribe(function (res) {
+                _this._logger.debug("0x000200", "External login successful via " + provider + ".", res);
+                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_7__models_notification__["a" /* Notification */]("success", "Login successful."));
+                localStorage.setItem("token", "kaki");
                 _this._router.navigate(["/gallery"]);
             });
         }, function (error) {
-            _this._logger.error("Ex000002", "Error in external login.", error);
-        });
-    };
-    LoginComponent.prototype.facebookLogin = function () {
-        var _this = this;
-        this._authService.externalLogin("facebook").subscribe(function (data) {
-            var user = new __WEBPACK_IMPORTED_MODULE_5__models_user__["a" /* User */]();
-            var extRes = data;
-            user.email = extRes.email;
-            user.name = extRes.name;
-            user.provider = extRes.provider;
-            user.userIdentifier = extRes.uid;
-            _this._secService.login(user).subscribe(function (d) {
-                _this._logger.debug("0x000002", "External login successful via facebook.", d);
-                _this._router.navigate(["/gallery"]);
-            });
-        }, function (error) {
-            _this._logger.error("Ex000002", "Error in external login.", error);
+            _this._logger.error("Ex000200", "Error in external login.", error);
         });
     };
     LoginComponent = __decorate([
@@ -421,12 +438,31 @@ var LoginComponent = (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_authentication_service__["a" /* AuthenticationService */],
             __WEBPACK_IMPORTED_MODULE_3__services_security_service__["a" /* SecurityService */],
             __WEBPACK_IMPORTED_MODULE_4__services_logger_service__["a" /* Logger */],
-            __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]])
+            __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */],
+            __WEBPACK_IMPORTED_MODULE_5__services_notifications_service__["a" /* NotificationsService */]])
     ], LoginComponent);
     return LoginComponent;
 }());
 
 
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/notification/notification.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".notification a {\r\n  margin-top: 10px;\r\n  padding: 5px;\r\n  display: block;\r\n}\r\n\r\n.error a {\r\n  background-color: #ffd4d4;\r\n  border: 1px solid red;\r\n}\r\n\r\n.error.notification a {\r\n  color: red;\r\n}\r\n\r\n.warning a {\r\n  background-color: #ffefc0;\r\n  border: 1px solid #FFC107;\r\n}\r\n\r\n.warning.notification a {\r\n  color: #c99909;\r\n}\r\n\r\n.success a {\r\n  background-color: #e3ffc2;\r\n  border: 1px solid #8BC34A;\r\n}\r\n\r\n.success.notification a {\r\n  color: #669035;\r\n}\r\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
 
 /***/ }),
 
@@ -491,7 +527,8 @@ var NotificationComponent = (function () {
     NotificationComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: "notifications",
-            template: __webpack_require__("../../../../../src/app/components/notification/notification.component.html")
+            template: __webpack_require__("../../../../../src/app/components/notification/notification.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/notification/notification.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_notifications_service__["a" /* NotificationsService */]])
     ], NotificationComponent);
@@ -523,7 +560,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/picture/picture.component.html":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "<div>\r\n  <img src=\"uri\" />\r\n</div>\r\n"
 
 /***/ }),
 
@@ -548,6 +585,10 @@ var PictureComponent = (function () {
     }
     PictureComponent.prototype.ngOnInit = function () {
     };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        __metadata("design:type", String)
+    ], PictureComponent.prototype, "uri", void 0);
     PictureComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: "picture",
@@ -584,7 +625,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/welcome/welcome.component.html":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "<div>\r\n  Such welcome component.\r\n</div>\r\n"
 
 /***/ }),
 
@@ -742,6 +783,7 @@ var AuthenticationService = (function () {
         var _this = this;
         this._externalAuth.logout().subscribe(function (data) {
             _this._logger.debug("0x000003", "External logout successful.", data);
+            localStorage.removeItem("token");
         }, function (error) {
             _this._logger.debug("Ex000003", "External logout failed.", error);
         });
@@ -1040,7 +1082,7 @@ var SecurityService = (function () {
     }
     Object.defineProperty(SecurityService.prototype, "IsAuthenticated", {
         get: function () {
-            return localStorage.getItem("userId") != null;
+            return this.retrieve("token");
         },
         enumerable: true,
         configurable: true
@@ -1058,9 +1100,16 @@ var SecurityService = (function () {
         return headers;
     };
     SecurityService.prototype.handleError = function (error) {
-        this._logger.error("Ex100000", "Error occured while processing authentication operations.", error);
+        this._logger.error("Ex200000", "Error occured while processing authentication operations.", error);
         this._notifier.add(new __WEBPACK_IMPORTED_MODULE_9__models_notification__["a" /* Notification */](error.type, error.message, error.errors));
         return __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["a" /* Observable */].throw(error.message);
+    };
+    SecurityService.prototype.retrieve = function (key) {
+        var item = localStorage.getItem(key);
+        if (item && item !== "undefined") {
+            return JSON.parse(localStorage.getItem(key));
+        }
+        return null;
     };
     SecurityService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),

@@ -5,7 +5,8 @@ import { Notification } from "../../models/notification";
 
 @Component({
   selector: "notifications",
-  templateUrl: "./notification.component.html"
+  templateUrl: "./notification.component.html",
+  styleUrls: ["./notification.component.css"]
 })
 export class NotificationComponent {
   public notes: Notification[];

@@ -93,7 +93,6 @@ export class DataService {
     });
   }
 
-
   private handleError(error: Notification) {
     this._logger.error("Ex100000", "Error occured while processing data operations.", error);
     this._notifier.add(new Notification(error.type, error.message, error.errors));
