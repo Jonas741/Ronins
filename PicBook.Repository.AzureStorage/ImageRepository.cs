@@ -19,7 +19,7 @@ namespace PicBook.Repository.AzureStorage
         {
             //TODO: error handling
             var blobClient = storageAccount.CreateCloudBlobClient();
-            var container = blobClient.GetContainerReference("images");
+            var container = blobClient.GetContainerReference("image");
 
             await container.CreateIfNotExistsAsync();
 
