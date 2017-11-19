@@ -23,7 +23,7 @@ namespace PicBook.Web.Controllers
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] UserDTO model)
     {
-      if (!ModelState.IsValid)
+      if (!ModelState.IsValid)  
         return BadRequest(ApiResult.Set("Validation error.", ModelState));
 
       var confUser = await _userService.GetUserdByIdentifier(model.UserIdentifier);

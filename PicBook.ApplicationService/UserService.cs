@@ -22,9 +22,29 @@ namespace PicBook.ApplicationService
             return await _userRepository.FindByIdentifier(userIdentifier);
         }
 
+        public async Task<UserEntity> GetUserById(Guid userId)
+        {
+            return await _userRepository.FindById(userId);
+        }
+
         public async Task AddNewUser(UserEntity entity)
         {
             await _userRepository.Create(entity);
+        }
+        
+        public async Task UpdateUser(UserEntity entity)
+        {
+            await _userRepository.Update(entity);
+        }
+
+        public async Task DeleteUser(UserEntity entity)
+        {
+            await _userRepository.Delete(entity);
+        }
+
+        public async Task<IEnumerable<UserEntity>> GetAllUsers()
+        {
+            return await _userRepository.FindAll();
         }
     }
 }

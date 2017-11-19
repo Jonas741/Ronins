@@ -6,5 +6,6 @@ namespace PicBook.Dto
 {
     public class PictureDTO
     {
+        public Uri uri;
     }
 }
