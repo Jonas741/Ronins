@@ -248,7 +248,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/gallery/gallery.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>Ez a madafakin gallery component</div>\r\n"
+module.exports = "<div>Ez a madafakin gallery component</div>\r\n<input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" />\r\n<button (click)=\"upload()\">Uccu neki!</button>\r\n"
 
 /***/ }),
 
@@ -258,6 +258,8 @@ module.exports = "<div>Ez a madafakin gallery component</div>\r\n"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GalleryComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_data_service__ = __webpack_require__("../../../../../src/app/services/data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -268,10 +270,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var GalleryComponent = (function () {
-    function GalleryComponent() {
+    function GalleryComponent(_dataService, _logger) {
+        this._dataService = _dataService;
+        this._logger = _logger;
+        this.fileCache = new Array();
     }
     GalleryComponent.prototype.ngOnInit = function () {
+        this.fileCache = [];
+    };
+    GalleryComponent.prototype.onImgInputChange = function (event) {
+        var files = event.target.files || event.srcElement.files;
+        for (var i = 0; i < files.length; i++) {
+            this.fileCache.push(files[i]);
+        }
+    };
+    GalleryComponent.prototype.upload = function () {
+        var _this = this;
+        if (this.fileCache.length !== 0) {
+            this._dataService.uploadFiles("image/upload", this.fileCache)
+                .subscribe(function (data) {
+                _this._logger.debug("0", "File uploaded", data);
+            }, function (err) {
+                _this._logger.debug("00", err.message, err);
+            });
+            this.fileCache = [];
+        }
+        document.getElementById("imgInput").value = "";
     };
     GalleryComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -279,7 +306,8 @@ var GalleryComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/gallery/gallery.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/gallery/gallery.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_data_service__["a" /* DataService */],
+            __WEBPACK_IMPORTED_MODULE_2__services_logger_service__["a" /* Logger */]])
     ], GalleryComponent);
     return GalleryComponent;
 }());
@@ -813,6 +841,28 @@ var DataService = (function () {
         return this._http.delete(this._configuration.ServerWithApiUrl + action + "/" + id, { headers: headers })
             .map(function (res) { return res.json(); })
             .catch(function (error) { return _this.handleError(error); });
+    };
+    DataService.prototype.uploadFiles = function (action, files) {
+        var self = this;
+        return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["a" /* Observable */].create(function (observer) {
+            var formData = new FormData(), xhr = new XMLHttpRequest();
+            for (var i = 0; i < files.length; i++) {
+                formData.append("upload[]", files[i], files[i].name);
+            }
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        observer.next(JSON.parse(xhr.response));
+                        observer.complete();
+                    }
+                    else {
+                        observer.error(xhr.response);
+                    }
+                }
+            };
+            xhr.open("POST", self._configuration.ServerWithApiUrl + action, true);
+            xhr.send(formData);
+        });
     };
     DataService.prototype.handleError = function (error) {
         this._logger.error("Ex100000", "Error occured while processing data operations.", error);

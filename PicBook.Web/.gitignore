@@ -41,5 +41,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
-\PicBook.Web\appsettings.Development.json
-\PicBook.Repository.EntityFramework\appsettings.json
+/PicBook.Web/appsettings.Development.json
+/PicBook.Repository.EntityFramework/appsettings.json
+/PicBook.Web/wwwroot/
