@@ -5,11 +5,10 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PicBook.Domain;
-using PicBook.Domain.Exceptions;
 
 namespace PicBook.Repository.EntityFramework
 {
-    public abstract class GenericCrudRepository<TEntity> where TEntity : class, IEntity
+    public abstract class GenericCrudRepository<TEntity> : IGenericCrudRepository<TEntity> where TEntity : class, IEntity
     {
         protected ApplicationDbContext Context;
 
@@ -24,22 +23,16 @@ namespace PicBook.Repository.EntityFramework
             return await entities.ToListAsync();
         }
 
-        public async Task<TEntity> FindOne(Expression<Func<TEntity, bool>> filterExpression)
+        public async Task<TEntity> Find(Expression<Func<TEntity, bool>> filterExpression)
         {
-            return await Context.Set<TEntity>().FirstOrDefaultAsync(filterExpression);
+            IQueryable<TEntity> entities = Context.Set<TEntity>();
+            if (filterExpression != null)
+            {
+                entities = entities.Where(filterExpression);
+            }
+            return await entities.FirstOrDefaultAsync(filterExpression);
         }
-
-        public virtual async Task<TEntity> FindById(Guid id)
-        {
-            return await Context.Set<TEntity>().FirstOrDefaultAsync(d => d.Id == id);
-        }
-
-        public virtual async Task<TInheritedEntity> FindById<TInheritedEntity>(Guid id)
-            where TInheritedEntity : class, TEntity
-        {
-            return await Context.Set<TInheritedEntity>().FirstOrDefaultAsync(d => d.Id == id);
-        }
-
+        
         public virtual async Task Create(TEntity entity)
         {
             if (entity == null)
@@ -74,6 +67,11 @@ namespace PicBook.Repository.EntityFramework
             Context.Set<TEntity>().Attach(entity);
             Context.Entry(entity).State = EntityState.Deleted;
             await Context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<TEntity>> FindAll()
+        {
+            return await Context.Set<TEntity>().ToListAsync();
         }
     }
 }

@@ -4,11 +4,9 @@ using System;
 
 namespace PicBook.Repository.EntityFramework
 {
-    public interface IUserRepository
-    {
-        Task Create(UserEntity entity);
+    public interface IUserRepository : IGenericCrudRepository<UserEntity>
+    { 
         Task<UserEntity> FindByIdentifier(string userIdentifier);
-
         Task<UserEntity> FindById(Guid userId);
     }
 }

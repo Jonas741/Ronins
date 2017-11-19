@@ -8,19 +8,14 @@ namespace PicBook.ApplicationService
 {
     public interface IPictureService
     {
-        //-user alapján + Publicok
         Task<IEnumerable<PictureEntity>> GetAllPicturesByUser(UserEntity entity);
 
-        //-csak Public
         Task<IEnumerable<PictureEntity>> GetAllPublicPictures();
 
-        //-uri alapján
         Task<PictureEntity> GetPictureByUri(Uri uri);
+        Task<PictureEntity> GetPictureById(Guid id);
 
-        //-update kép
         Task UpdatePicture(PictureEntity entity);
-
-        //-delete kép
 
         Task DeletePicture(PictureEntity entity);
 

@@ -15,6 +15,7 @@ using PicBook.ApplicationService;
 using PicBook.Repository.AzureStorage;
 using PicBook.Repository.EntityFramework;
 using System.IO;
+using PicBook.Domain;
 
 namespace PicBook.Web
 {
@@ -62,6 +63,8 @@ namespace PicBook.Web
 
       services.AddDbContext<ApplicationDbContext>(options =>
           options.UseSqlServer(Configuration["Connections:DefaultConnection"]));
+
+      //services.AddScoped<IGenericCrudRepository<Entity>, GenericCrudRepository<Entity>>();
 
       services.AddScoped<IImageService, ImageService>();
       services.AddScoped<IImageRepository>(r => new ImageRepository(Configuration["AzureStorage:ConnectionString"]));

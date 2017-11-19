@@ -18,7 +18,7 @@ namespace PicBook.ApplicationService
 
         public async Task DeletePicture(PictureEntity entity)
         {
-            await _pictureRepository.DeletePicture(entity);
+            await _pictureRepository.Delete(entity);
         }
 
         public async Task<IEnumerable<PictureEntity>> GetAllPicturesByUser(UserEntity entity)
@@ -38,12 +38,17 @@ namespace PicBook.ApplicationService
 
         public async Task UpdatePicture(PictureEntity entity)
         {
-            await _pictureRepository.UpdatePicture(entity);
+            await _pictureRepository.Update(entity);
         }
 
         public async Task<IEnumerable<PictureEntity>> GetPublicPicturesByUser(UserEntity entity)
         {
             return await _pictureRepository.GetPublicPicturesByUser(entity);
+        }
+
+        public async Task<PictureEntity> GetPictureById(Guid id)
+        {
+            return await _pictureRepository.Find(x => x.Id == id);
         }
     }
 }

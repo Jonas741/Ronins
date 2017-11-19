@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace PicBook.Repository.EntityFramework
 {
-    public interface IPictureRepository
+    public interface IPictureRepository : IGenericCrudRepository<PictureEntity>
     {
-        Task DeletePicture(PictureEntity entity);
-
         Task<IEnumerable<PictureEntity>> GetAllPicturesByUser(UserEntity entity);
 
         Task<IEnumerable<PictureEntity>> GetPublicPicturesByUser(UserEntity entity);
@@ -18,7 +16,6 @@ namespace PicBook.Repository.EntityFramework
 
         Task<PictureEntity> GetPictureByUri(Uri uri);
 
-        Task UpdatePicture(PictureEntity entity);
-
+        Task<PictureEntity> GetPictureById(Guid id);
     }
 }

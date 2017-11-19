@@ -18,12 +18,12 @@ namespace PicBook.Repository.EntityFramework
 
         public async Task<IEnumerable<PictureEntity>> GetAllPublicPictures()
         {
-            return await Context.Pictures.Where(x => x.IsPublic).ToListAsync();
+            return await FindAll(x => x.IsPublic);
         }
 
         public async Task<PictureEntity> GetPictureByUri(Uri uri)
         {
-            return await FindOne(x => x.ImgPath == uri.ToString());
+            return await Find(x => x.ImgPath == uri.ToString());
         }
 
         public async Task<IEnumerable<PictureEntity>> GetPublicPicturesByUser(UserEntity entity)
@@ -31,19 +31,14 @@ namespace PicBook.Repository.EntityFramework
             return await FindAll(x => x.IsPublic && x.UserId == entity.Id);
         }
 
-        public async Task DeletePicture(PictureEntity entity)
-        {
-            await Delete(entity);
-        }
-
-        public async Task UpdatePicture(PictureEntity entity)
-        {
-            await Update(entity);
-        }
-
         public async Task<IEnumerable<PictureEntity>> GetAllPicturesByUser(UserEntity entity)
         {
             return await FindAll(x => x.UserId == entity.Id);
+        }
+
+        public async Task<PictureEntity> GetPictureById(Guid id)
+        {
+            return await Find(x => x.Id == id);
         }
     }
 }

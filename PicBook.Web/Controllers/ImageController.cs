@@ -1,16 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using PicBook.ApplicationService;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Net.Http.Headers;
 using PicBook.Dto;
 using PicBook.Domain;
 using PicBook.Web.Helpers;
@@ -31,10 +26,6 @@ namespace PicBook.Web.Controllers
       _imageService = imageService;
       _pictureService = pictureService;
       _userService = userService;
-    }
-    public IActionResult Index()
-    {
-      return View();
     }
 
     [HttpPost("upload")]
@@ -58,7 +49,8 @@ namespace PicBook.Web.Controllers
         }
         else
         {
-          throw new ArgumentException("valami szart akarsz feltolteni");
+          // nem biztos hogy a legszebb, de szerintem exceptiont dobni sem túl szép itt
+          return BadRequest();
         }
       }
 
@@ -75,7 +67,7 @@ namespace PicBook.Web.Controllers
       }
       catch (ArgumentNullException ane)
       {
-        return BadRequest();
+        return BadRequest(ane);
       }
 
       return Ok("Picture {picture.uri} was deleted");
@@ -86,7 +78,7 @@ namespace PicBook.Web.Controllers
     {
       try
       {
-        // ez így még nem lesz jó!
+        // ez így még nem lesz jó! -> mit akarunk updatelni?
         PictureEntity entity = await _pictureService.GetPictureByUri(uri);
         await _pictureService.UpdatePicture(entity);
       }
@@ -121,6 +113,15 @@ namespace PicBook.Web.Controllers
       IEnumerable<PictureEntity> entities = await _pictureService.GetAllPicturesByUser(entity);
 
       return Ok(ApiResult.Set("Pictures of {id}", Json(entities)));
+    }
+
+    [HttpGet("/publicpictures/{id}")]
+    public async Task<IActionResult> PublicPicturesByUser(Guid id)
+    {
+      UserEntity entity = await _userService.GetUserById(id);
+      IEnumerable<PictureEntity> entities = await _pictureService.GetPublicPicturesByUser(entity);
+
+      return Ok(ApiResult.Set("Public pictures of {id}", Json(entities)));
     }
     
   }
