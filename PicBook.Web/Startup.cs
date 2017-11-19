@@ -68,6 +68,11 @@ namespace PicBook.Web
 
       services.AddScoped<IUserRepository, UserRepository>();
       services.AddScoped<IUserService, UserService>();
+
+      services.AddScoped<IPictureRepository, PictureRepository>();
+      services.AddScoped<IPictureService, PictureService>();
+
+      // Nem tudom hogy kell-e, majd megnézem (jövőrére)
       services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
     }
 

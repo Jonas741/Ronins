@@ -26,5 +26,10 @@ namespace PicBook.ApplicationService
         {
             await _userRepository.Create(entity);
         }
+
+        public async Task<UserEntity> GetUserById(Guid userId)
+        {
+            return await _userRepository.FindById(userId);
+        }
     }
 }

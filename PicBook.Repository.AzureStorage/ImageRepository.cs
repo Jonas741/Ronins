@@ -25,6 +25,7 @@ namespace PicBook.Repository.AzureStorage
 
             var fileId = Guid.NewGuid();
             var blob = container.GetBlockBlobReference(fileId.ToString());
+            blob.Properties.ContentType = "image/png";
 
             await blob.UploadFromByteArrayAsync(imageBytes, 0, imageBytes.Length);
 

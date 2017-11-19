@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using PicBook.Domain;
+using System;
 
 namespace PicBook.Repository.EntityFramework
 {
@@ -7,5 +8,7 @@ namespace PicBook.Repository.EntityFramework
     {
         Task Create(UserEntity entity);
         Task<UserEntity> FindByIdentifier(string userIdentifier);
+
+        Task<UserEntity> FindById(Guid userId);
     }
 }

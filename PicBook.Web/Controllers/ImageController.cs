@@ -11,6 +11,9 @@ using System.IO;
 using PicBook.ApplicationService;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Net.Http.Headers;
+using PicBook.Dto;
+using PicBook.Domain;
+using PicBook.Web.Helpers;
 
 namespace PicBook.Web.Controllers
 {
@@ -18,24 +21,26 @@ namespace PicBook.Web.Controllers
   [Route("api/image")]
   public class ImageController : Controller
   {
-    private IImageService imageService;
+    private IImageService _imageService;
+    private IPictureService _pictureService;
+    private IUserService _userService;
 
-    public ImageController(IImageService imageService)
+    public ImageController(IImageService imageService, IPictureService pictureService,
+      IUserService userService)
     {
-      this.imageService = imageService;
+      _imageService = imageService;
+      _pictureService = pictureService;
+      _userService = userService;
     }
     public IActionResult Index()
     {
       return View();
     }
 
-    [HttpPost]
-    [Route("upload")]
-    public async Task<IActionResult> Upload(/*[FromForm] List<IFormFile> files*/)
+    [HttpPost("upload")]
+    public async Task<IActionResult> Upload()
     {
       List<IFormFile> files = Request.Form.Files.ToList();
-
-      //full path to file in temp location
       var filePath = Path.GetTempFileName();
       Uri uploadedImageUri = null;
       long size = files.Sum(f => f.Length);
@@ -48,24 +53,75 @@ namespace PicBook.Web.Controllers
           using (var ms = new MemoryStream())
           {
             formFile.CopyTo(ms);
-            uploadedImageUri = await imageService.UploadImage(ms.ToArray());
+            uploadedImageUri = await _imageService.UploadImage(ms.ToArray());
           }
-
-          //using (var stream = new FileStream(filePath, FileMode.Create))
-          //{
-          //  await formFile.CopyToAsync(stream);
-          //}
         }
         else
         {
           throw new ArgumentException("valami szart akarsz feltolteni");
         }
-
-        //process uploaded files
-        //Don't rely on or trust the FileName property without validation.
       }
 
       return Ok(new { count = files.Count, size, uploadedImageUri });
     }
+
+    [HttpDelete("delete/{uri}")]
+    public async Task<IActionResult> Delete(Uri uri)
+    {
+      try
+      {
+        PictureEntity entity = await _pictureService.GetPictureByUri(uri);
+        await _pictureService.DeletePicture(entity);
+      }
+      catch (ArgumentNullException ane)
+      {
+        return BadRequest();
+      }
+
+      return Ok("Picture {picture.uri} was deleted");
+    }
+
+    [HttpPut("update/{uri}")]
+    public async Task<IActionResult> Update(Uri uri)
+    {
+      try
+      {
+        // ez így még nem lesz jó!
+        PictureEntity entity = await _pictureService.GetPictureByUri(uri);
+        await _pictureService.UpdatePicture(entity);
+      }
+      catch (ArgumentNullException ane)
+      {
+        return BadRequest();
+      }
+
+      return Ok("Picture {picture.uri} was updated");
+    }
+
+    [HttpGet("publicpictures")]
+    public async Task<IActionResult> PublicPictures()
+    {
+      IEnumerable<PictureEntity> pictures = await  _pictureService.GetAllPublicPictures();
+      List<PictureDTO> picturesDTO = new List<PictureDTO>();
+      foreach (PictureEntity entity in pictures)
+      {
+        picturesDTO.Add(new PictureDTO
+        {
+          uri = new Uri(entity.ImgPath)
+        });
+      }
+
+      return Ok(ApiResult.Set("Public pictures.", Json(picturesDTO)));
+    }
+
+    [HttpGet("/pictures/{id}")]
+    public async Task<IActionResult> Pictures(Guid id)
+    {
+      UserEntity entity = await _userService.GetUserById(id);
+      IEnumerable<PictureEntity> entities = await _pictureService.GetAllPicturesByUser(entity);
+
+      return Ok(ApiResult.Set("Pictures of {id}", Json(entities)));
+    }
+    
   }
 }

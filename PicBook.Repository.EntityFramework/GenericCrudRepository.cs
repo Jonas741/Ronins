@@ -13,7 +13,7 @@ namespace PicBook.Repository.EntityFramework
     {
         protected ApplicationDbContext Context;
 
-        public async Task<IReadOnlyCollection<TEntity>> FindAll(Expression<Func<TEntity, bool>> filterExpression)
+        public async Task<IEnumerable<TEntity>> FindAll(Expression<Func<TEntity, bool>> filterExpression)
         {
             IQueryable<TEntity> entities = Context.Set<TEntity>();
             if (filterExpression != null)
