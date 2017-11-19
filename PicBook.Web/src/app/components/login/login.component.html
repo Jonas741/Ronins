@@ -1,2 +1,4 @@
-<button (click)="login('facebook')">Facebook Login</button>
-<button (click)="login('google')">Google Login</button>
+<div [hidden]="!hidden">
+  <button (click)="login('facebook')">Facebook Login</button>
+  <button (click)="login('google')">Google Login</button>
+</div>

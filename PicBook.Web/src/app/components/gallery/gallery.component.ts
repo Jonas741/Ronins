@@ -57,7 +57,9 @@ export class GalleryComponent implements OnInit {
 
   public upload(): void {
     if (this.fileCache.length !== 0) {
-      this._dataService.uploadFiles("image/upload", this.fileCache)
+      const userId = localStorage.getItem("token");
+
+      this._dataService.uploadFiles(`image/upload/${userId}`, this.fileCache)
         .subscribe(data => {
           this._logger.debug("0x000300", "File uploaded", data);
           this._notifier.add(new Notification("success", "Upload successful"));

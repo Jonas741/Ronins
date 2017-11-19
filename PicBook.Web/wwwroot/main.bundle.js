@@ -318,7 +318,8 @@ var GalleryComponent = (function () {
     GalleryComponent.prototype.upload = function () {
         var _this = this;
         if (this.fileCache.length !== 0) {
-            this._dataService.uploadFiles("image/upload", this.fileCache)
+            var userId = localStorage.getItem("token");
+            this._dataService.uploadFiles("image/upload/" + userId, this.fileCache)
                 .subscribe(function (data) {
                 _this._logger.debug("0x000300", "File uploaded", data);
                 _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_4__models_notification__["a" /* Notification */]("success", "Upload successful"));
@@ -372,7 +373,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<button (click)=\"login('facebook')\">Facebook Login</button>\r\n<button (click)=\"login('google')\">Google Login</button>\r\n"
+module.exports = "<div [hidden]=\"!hidden\">\r\n  <button (click)=\"login('facebook')\">Facebook Login</button>\r\n  <button (click)=\"login('google')\">Google Login</button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -574,7 +575,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/picture/picture.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <img src=\"uri\" />\r\n</div>\r\n"
+module.exports = "<div>\r\n  <img [src]=\"uri\" width=\"300\" height=\"300\" />\r\n</div>\r\n"
 
 /***/ }),
 

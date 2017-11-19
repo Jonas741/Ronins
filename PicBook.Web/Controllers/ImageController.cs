@@ -47,7 +47,7 @@ namespace PicBook.Web.Controllers
             formFile.CopyTo(ms);
             uploadedImageUri = await _imageService.UploadImage(ms.ToArray());
           }
-          PictureEntity picture = new PictureEntity() { ImgPath = uploadedImageUri.ToString(), User = entity };
+          PictureEntity picture = new PictureEntity() { ImgPath = uploadedImageUri.ToString(), User = entity, UserId = entity.Id };
           await _pictureService.CreatePicture(picture);
         }
         else
@@ -97,7 +97,7 @@ namespace PicBook.Web.Controllers
     [HttpGet("publicpictures")]
     public async Task<IActionResult> PublicPictures()
     {
-      IEnumerable<PictureEntity> pictures = await  _pictureService.GetAllPublicPictures();
+      IEnumerable<PictureEntity> pictures = await _pictureService.GetAllPublicPictures();
       List<PictureDTO> picturesDTO = new List<PictureDTO>();
       foreach (PictureEntity entity in pictures)
       {
@@ -137,6 +137,6 @@ namespace PicBook.Web.Controllers
 
       return Ok(ApiResult.Set("Public pictures of {id}", Json(pictures)));
     }
-    
+
   }
 }
