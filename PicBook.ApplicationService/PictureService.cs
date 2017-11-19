@@ -41,6 +41,11 @@ namespace PicBook.ApplicationService
             await _pictureRepository.Update(entity);
         }
 
+        public async Task CreatePicture(PictureEntity entity)
+        {
+            await _pictureRepository.Create(entity);
+        }
+
         public async Task<IEnumerable<PictureEntity>> GetPublicPicturesByUser(UserEntity entity)
         {
             return await _pictureRepository.GetPublicPicturesByUser(entity);
