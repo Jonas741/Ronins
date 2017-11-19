@@ -28,13 +28,14 @@ namespace PicBook.Web.Controllers
       _userService = userService;
     }
 
-    [HttpPost("upload")]
-    public async Task<IActionResult> Upload()
+    [HttpPost("upload/{userIdentifier}")]
+    public async Task<IActionResult> Upload(string userIdentifier)
     {
       List<IFormFile> files = Request.Form.Files.ToList();
       var filePath = Path.GetTempFileName();
       Uri uploadedImageUri = null;
       long size = files.Sum(f => f.Length);
+      UserEntity entity = await _userService.GetUserdByIdentifier(userIdentifier);
 
       foreach (var formFile in files)
       {
@@ -46,12 +47,15 @@ namespace PicBook.Web.Controllers
             formFile.CopyTo(ms);
             uploadedImageUri = await _imageService.UploadImage(ms.ToArray());
           }
+          PictureEntity picture = new PictureEntity() { ImgPath = uploadedImageUri.ToString(), User = entity };
+          await _pictureService.CreatePicture(picture);
         }
         else
         {
           // nem biztos hogy a legszebb, de szerintem exceptiont dobni sem túl szép itt
           return BadRequest();
         }
+
       }
 
       return Ok(new { count = files.Count, size, uploadedImageUri });
@@ -106,7 +110,7 @@ namespace PicBook.Web.Controllers
       return Ok(ApiResult.Set("Public pictures.", Json(picturesDTO)));
     }
 
-    [HttpGet("/pictures/{userIdentifier}")]
+    [HttpGet("pictures/{userIdentifier}")]
     public async Task<IActionResult> Pictures(string userIdentifier)
     {
       UserEntity entity = await _userService.GetUserdByIdentifier(userIdentifier);
@@ -117,10 +121,10 @@ namespace PicBook.Web.Controllers
         pictures.Add(new PictureDTO { uri = new Uri(item.ImgPath) });
       }
 
-      return Ok(ApiResult.Set("Pictures of {id}", Json(pictures)));
+      return Ok(ApiResult.Set("Pictures of {id}", pictures));
     }
 
-    [HttpGet("/publicpictures/{userIdentifier}")]
+    [HttpGet("publicpictures/{userIdentifier}")]
     public async Task<IActionResult> PublicPicturesByUser(string userIdentifier)
     {
       UserEntity entity = await _userService.GetUserdByIdentifier(userIdentifier);

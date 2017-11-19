@@ -19,6 +19,8 @@ namespace PicBook.ApplicationService
 
         Task DeletePicture(PictureEntity entity);
 
+        Task CreatePicture(PictureEntity entity);
+
         Task<IEnumerable<PictureEntity>> GetPublicPicturesByUser(UserEntity entity);
     }
 }

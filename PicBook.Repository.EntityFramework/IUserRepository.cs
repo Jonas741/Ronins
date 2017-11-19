@@ -8,5 +8,7 @@ namespace PicBook.Repository.EntityFramework
     { 
         Task<UserEntity> FindByIdentifier(string userIdentifier);
         Task<UserEntity> FindById(Guid userId);
+        Task AddPicture(UserEntity user, PictureEntity picture);
+
     }
 }

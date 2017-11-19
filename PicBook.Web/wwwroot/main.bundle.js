@@ -288,8 +288,20 @@ var GalleryComponent = (function () {
         this.pictures = new Array();
     }
     GalleryComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.fileCache = [];
         this.pictures = [];
+        var userId = localStorage.getItem("token");
+        this._dataService.getAll("image/picures/" + userId)
+            .subscribe(function (data) {
+            _this._logger.debug("0x000400", "Picture metadata fetched successfully.", data);
+            _this.pictures = data;
+        }, function (error) {
+            _this._logger.error("Ex000400", "Error in fetching picture metadata.", error);
+        });
+    };
+    GalleryComponent.prototype.getPictures = function () {
+        this._dataService.getAll("");
     };
     GalleryComponent.prototype.onImgInputChange = function (event) {
         var files = event.target.files || event.srcElement.files;
@@ -311,7 +323,7 @@ var GalleryComponent = (function () {
                 _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_4__models_notification__["a" /* Notification */]("success", "Upload successful"));
             }, function (err) {
                 _this._logger.debug("Ex000300", err.message, err);
-                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_4__models_notification__["a" /* Notification */]("error", "Error in uploading", err.message));
+                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_4__models_notification__["a" /* Notification */]("error", "Error in uploading", err));
             });
             this.fileCache = [];
         }

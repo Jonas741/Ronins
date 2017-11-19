@@ -14,6 +14,5 @@ namespace PicBook.ApplicationService
         Task UpdateUser(UserEntity entity);
         Task DeleteUser(UserEntity entity);
         Task<IEnumerable<UserEntity>> GetAllUsers();
-
     }
 }
