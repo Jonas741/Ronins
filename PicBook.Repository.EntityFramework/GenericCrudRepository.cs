@@ -25,12 +25,7 @@ namespace PicBook.Repository.EntityFramework
 
         public async Task<TEntity> Find(Expression<Func<TEntity, bool>> filterExpression)
         {
-            IQueryable<TEntity> entities = Context.Set<TEntity>();
-            if (filterExpression != null)
-            {
-                entities = entities.Where(filterExpression);
-            }
-            return await entities.FirstOrDefaultAsync(filterExpression);
+            return await Context.Set<TEntity>().FirstOrDefaultAsync(filterExpression);
         }
         
         public virtual async Task Create(TEntity entity)
