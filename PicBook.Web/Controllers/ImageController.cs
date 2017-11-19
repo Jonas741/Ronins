@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using PicBook.ApplicationService;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Net.Http.Headers;
 
 namespace PicBook.Web.Controllers
 {
@@ -29,8 +31,10 @@ namespace PicBook.Web.Controllers
 
     [HttpPost]
     [Route("upload")]
-    public async Task<IActionResult> Upload(List<IFormFile> files)
+    public async Task<IActionResult> Upload(/*[FromForm] List<IFormFile> files*/)
     {
+      List<IFormFile> files = Request.Form.Files.ToList();
+
       //full path to file in temp location
       var filePath = Path.GetTempFileName();
       Uri uploadedImageUri = null;

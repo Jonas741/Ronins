@@ -10,7 +10,7 @@ import { Logger } from "../../services/logger.service";
 })
 export class GalleryComponent implements OnInit {
 
-  public fileCache: Array<File> = new Array<File>();
+  public fileCache = new Array<File>();
 
   constructor(
     private _dataService: DataService,
