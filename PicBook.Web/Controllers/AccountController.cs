@@ -30,13 +30,18 @@ namespace PicBook.Web.Controllers
 
       if (confUser == null)
       {
-        var userEntity = new UserEntity() {
-          Name = model.Name, Email = model.Email, Provider = model.Provider, UserIdentifier = model.UserIdentifier
+        var userEntity = new UserEntity()
+        {
+          Name = model.Name,
+          Email = model.Email,
+          Provider = model.Provider,
+          UserIdentifier = model.UserIdentifier
         };
+
         await _userService.AddNewUser(userEntity);
+
         return Ok(ApiResult.Set("User added to database.", Json(new { userId = userEntity.UserIdentifier })));
       }
-
       return Ok(ApiResult.Set("Existing user fetched from database.", Json(new { userId = confUser.UserIdentifier })));
     }
 

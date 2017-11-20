@@ -45,17 +45,22 @@ export class LoginComponent implements OnInit {
         user.provider = extRes.provider;
         user.userIdentifier = extRes.uid;
 
-        this._secService.login(user).subscribe(
+        this._authService.login(user).subscribe(
           res => {
-            this._logger.debug("0x000200", `External login successful via ${provider}.`, res);
             this._notifier.add(new Notification("success", "Login successful."));
-            localStorage.setItem("token", (res as any).data.value.userId);
+            this._logger.debug("0x020700", "Login successful.", res);
+
+            localStorage.setItem("uid", extRes.userId);
+            localStorage.setItem("acc_token", extRes.token);
+            localStorage.setItem("external_login_provider", extRes.provider);
+
+            this._secService.validateToken(); //debug purposes only
             this._router.navigate(["/gallery"]);
           }
         );
-      },
-      error => {
-        this._logger.error("Ex000200", "Error in external login.", error);
+      }, err => {
+        this._logger.error("Ex020700", "Error occured in external login.", err);
+        this._notifier.add(new Notification("error", "Error in login operations."));
       }
     );
   }

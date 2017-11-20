@@ -28,25 +28,23 @@ export class SecurityService {
     return this.retrieve("token");
   }
 
-  public login(user: User): Observable<any> {
-    const headers = this.setHeader();
-    return this._http.post(this._configuration.ServerWithApiUrl + "account/login", user, { headers: headers })
-      .map<Response, any>(res => res.json())
-      .catch(error => this.handleError(error));
-  }
+  public validateToken(): void {
+    const accToken = localStorage.getItem("acc_token");
+    const provider = localStorage.getItem("external_login_provider");
+    let url = "";
 
-  private setHeader(): Headers {
-    let headers = new Headers();
-    headers.append("Content-Type", "application/json");
-    headers.append("Accept", "application/json");
+    if (provider === "facebook") {
+      url = this._configuration.FacebookTokenValidationUrl + accToken;
+    } else if (provider === "google") {
+      url = this._configuration.GoogleTokenValidationUrl + accToken;
+    }
 
-    return headers;
-  }
-
-  private handleError(error: Notification) {
-    this._logger.error("Ex200000", "Error occured while processing authentication operations.", error);
-    this._notifier.add(new Notification(error.type, error.message, error.errors));
-    return Observable.throw(error.message);
+    this._http.get(url)
+      .subscribe(res => {
+        this._logger.debug("0x000209", "Token validation was successful.", res);
+      }, err => {
+        this._logger.error("Ex000209", "Error in external token validation.", err);
+      });
   }
 
   private retrieve(key: string): any {

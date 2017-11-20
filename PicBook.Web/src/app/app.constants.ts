@@ -9,4 +9,6 @@ export class Configuration {
 
   public ApiUrl: string = "api/";
   public ServerWithApiUrl = this.Server + this.ApiUrl;
+  public FacebookTokenValidationUrl = "https://graph.facebook.com/v2.4/me/?access_token="
+  public GoogleTokenValidationUrl = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=";
 }
