@@ -35,7 +35,8 @@ namespace PicBook.Web.Controllers
       var filePath = Path.GetTempFileName();
       Uri uploadedImageUri = null;
       long size = files.Sum(f => f.Length);
-      UserEntity entity = await _userService.GetUserdByIdentifier(userIdentifier);
+      UserEntity entity = null;
+      entity = await _userService.GetUserdByIdentifier(userIdentifier);
 
       foreach (var formFile in files)
       {
@@ -47,7 +48,7 @@ namespace PicBook.Web.Controllers
             formFile.CopyTo(ms);
             uploadedImageUri = await _imageService.UploadImage(ms.ToArray());
           }
-          PictureEntity picture = new PictureEntity() { ImgPath = uploadedImageUri.ToString(), User = entity, UserId = entity.Id };
+          PictureEntity picture = new PictureEntity() { ImgPath = uploadedImageUri.ToString(), User = entity, UserId = entity.Id, Name = "asd" };
           await _pictureService.CreatePicture(picture);
         }
         else
