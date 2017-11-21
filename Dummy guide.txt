@@ -18,6 +18,25 @@ Get the Angular app to work:														 									 *
 **************************************************************************************************************************
 
 
+**************************************************************************************************************************
+Bootstrap install:                                                                                                       *
+**************************************************************************************************************************
+1. npm install --save bootstrap
+2. Add a reference to the "styles" array in .angular-cli.json:
+"../node_modules/bootstrap/dist/css/bootstrap.min.css",
+3. Add a reference to the "scripts" array in .angular-cli.json:
+"../node_modules/bootstrap/dist/js/bootstrap.min.js"
+
+
+**************************************************************************************************************************
+JQuery for bootstrap:                                                                                                    *
+**************************************************************************************************************************
+1. cd PicBook.Web
+2. npm install jquery --save
+3. npm install -d @types/jquery
+4. Add a reference to the "scripts" array in .angular-cli.json BEFORE the bootstrap.min.js:
+../node_modules/jquery/dist/jquery.min.js
+
 
 **************************************************************************************************************************
 Creating your local db:																									 *

@@ -25,7 +25,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "body {\r\n  color: #5a5a5a;\r\n  background-color: #5a5a5a;\r\n}\r\n\r\ndiv {\r\n  text-align: center;\r\n  padding-top: 3px;\r\n}\r\n\r\nbutton {\r\n  display: inline-block;\r\n  width: 120px;\r\n  height: 24px;\r\n  padding: 0;\r\n  border: none;\r\n  border-radius: 4px;\r\n  margin: 0;\r\n  vertical-align: top;\r\n}\r\n", ""]);
 
 // exports
 
@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"loginHidden\">\r\n  <button (click)=\"logout()\">Logout</button>\r\n</div>\r\n<login *ngIf=\"!loginHidden\"></login>\r\n<router-outlet></router-outlet>\r\n<notifications></notifications>\r\n\r\n"
+module.exports = "<div *ngIf=\"loginHidden\">\r\n  <button (click)=\"logout()\" type=\"button\" class=\"btn btn-xs btn-warning\">Logout</button>\r\n</div>\r\n<login *ngIf=\"!loginHidden\"></login>\r\n<router-outlet></router-outlet>\r\n<notifications></notifications>\r\n"
 
 /***/ }),
 
@@ -404,7 +404,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "div {\r\n  color: blue\r\n}\r\n", ""]);
+exports.push([module.i, "body {\r\n  color: #5a5a5a;\r\n  background-color: #5a5a5a;\r\n}\r\n\r\ndiv {\r\n  text-align: center;\r\n  padding-top: 3px;\r\n}\r\n\r\nbutton {\r\n  display: inline-block;\r\n  width: 120px;\r\n  height: 24px;\r\n  padding: 0;\r\n  border: none;\r\n  border-radius: 4px;\r\n  margin: 0;\r\n  vertical-align: top;\r\n}\r\n", ""]);
 
 // exports
 
@@ -417,7 +417,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <button (click)=\"login('facebook')\">Facebook Login</button>\r\n  <button (click)=\"login('google')\">Google Login</button>\r\n</div>\r\n"
+module.exports = "<div>\r\n  <button (click)=\"login('facebook')\" type=\"button\" class=\"btn btn-xs btn-primary\">Facebook Login</button>\r\n  <button (click)=\"login('google')\" type=\"button\" class=\"btn btn-xs btn-warning\">Google Login</button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -662,7 +662,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "\r\n/* GLOBAL STYLES\n-------------------------------------------------- */\r\n/* Padding below the footer and lighter body text */\r\n\r\nbody {\r\n  padding-bottom: 40px;\r\n  padding-top: 40px;\r\n  color: #5a5a5a;\r\n  background-color: #5a5a5a;\r\n}\r\n\r\n\r\n/* CUSTOMIZE THE NAVBAR\n-------------------------------------------------- */\r\n\r\n/* Special class on .container surrounding .navbar, used for positioning it into place. */\r\n.navbar-wrapper {\r\n  position: absolute;\r\n  top: 0;\r\n  right: 0;\r\n  left: 0;\r\n  z-index: 20;\r\n}\r\n\r\n  /* Flip around the padding for proper display in narrow viewports */\r\n  .navbar-wrapper > .container {\r\n    padding-right: 0;\r\n    padding-left: 0;\r\n  }\r\n\r\n  .navbar-wrapper .navbar {\r\n    padding-right: 15px;\r\n    padding-left: 15px;\r\n  }\r\n\r\n    .navbar-wrapper .navbar .container {\r\n      width: auto;\r\n    }\r\n\r\n\r\n/* CUSTOMIZE THE CAROUSEL\n-------------------------------------------------- */\r\n\r\n/* Carousel base class */\r\n.carousel {\r\n  height: 500px;\r\n  margin-bottom: 60px;\r\n}\r\n/* Since positioning the image, we need to help out the caption */\r\n.carousel-caption {\r\n  z-index: 10;\r\n}\r\n\r\n/* Declare heights because of positioning of img element */\r\n.carousel .item {\r\n  height: 500px;\r\n  background-color: #777;\r\n}\r\n\r\n.carousel-inner > .item > img {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  min-width: 100%;\r\n  height: 500px;\r\n}\r\n\r\n\r\n/* MARKETING CONTENT\n-------------------------------------------------- */\r\n\r\n/* Center align the text within the three columns below the carousel */\r\n.marketing .col-lg-4 {\r\n  margin-bottom: 20px;\r\n  text-align: center;\r\n}\r\n\r\n.marketing h2 {\r\n  font-weight: normal;\r\n}\r\n\r\n.marketing .col-lg-4 p {\r\n  margin-right: 10px;\r\n  margin-left: 10px;\r\n}\r\n\r\n\r\n/* Featurettes\n------------------------- */\r\n\r\n.featurette-divider {\r\n  margin: 80px 0; /* Space out the Bootstrap <hr> more */\r\n}\r\n\r\n/* Thin out the marketing headings */\r\n.featurette-heading {\r\n  font-weight: 300;\r\n  line-height: 1;\r\n  letter-spacing: -1px;\r\n}\r\n\r\n\r\n/* RESPONSIVE CSS\n-------------------------------------------------- */\r\n\r\n@media (min-width: 768px) {\r\n  /* Navbar positioning foo */\r\n  .navbar-wrapper {\r\n    margin-top: 30px;\r\n  }\r\n\r\n    .navbar-wrapper .container {\r\n      padding-right: 15px;\r\n      padding-left: 15px;\r\n    }\r\n\r\n    .navbar-wrapper .navbar {\r\n      padding-right: 0;\r\n      padding-left: 0;\r\n    }\r\n\r\n    /* The navbar becomes detached from the top, so we round the corners */\r\n    .navbar-wrapper .navbar {\r\n      border-radius: 4px;\r\n    }\r\n\r\n  /* Bump up size of carousel content */\r\n  .carousel-caption p {\r\n    margin-bottom: 20px;\r\n    font-size: 21px;\r\n    line-height: 1.4;\r\n  }\r\n\r\n  .featurette-heading {\r\n    font-size: 50px;\r\n  }\r\n}\r\n\r\n@media (min-width: 992px) {\r\n  .featurette-heading {\r\n    margin-top: 120px;\r\n  }\r\n}\r\n", ""]);
 
 // exports
 
@@ -675,7 +675,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/welcome/welcome.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  Such welcome component.\r\n</div>\r\n"
+module.exports = "<!-- MENU -->\r\n<body>\r\n  <div class=\"navbar-wrapper\">\r\n    <div class=\"container\">\r\n\r\n      <nav class=\"navbar navbar-inverse navbar-static-top\">\r\n        <div class=\"container\">\r\n          <div class=\"navbar-header\">\r\n            <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\r\n              <span class=\"sr-only\">Toggle navigation</span>\r\n              <span class=\"icon-bar\"></span>\r\n              <span class=\"icon-bar\"></span>\r\n              <span class=\"icon-bar\"></span>\r\n            </button>\r\n            <a class=\"navbar-brand\" href=\"#\">Ronins Cloud Service</a>\r\n          </div>\r\n          <div id=\"navbar\" class=\"navbar-collapse collapse\">\r\n            <ul class=\"nav navbar-nav\">\r\n              <li class=\"active\"><a href=\"#\">Home</a></li>\r\n              <li><a href=\"#about\">About</a></li>\r\n              <li><a href=\"#contact\">Contact</a></li>\r\n            </ul>\r\n          </div>\r\n        </div>\r\n      </nav>\r\n\r\n    </div>\r\n  </div>\r\n  <!-- MENU END -->\r\n\r\n  <!-- CAROUSEL -->\r\n  <div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\">\r\n    <!-- Indicators -->\r\n    <ol class=\"carousel-indicators\">\r\n      <li data-target=\"#myCarousel\" data-slide-to=\"0\" class=\"active\"></li>\r\n      <li data-target=\"#myCarousel\" data-slide-to=\"1\"></li>\r\n      <li data-target=\"#myCarousel\" data-slide-to=\"2\"></li>\r\n    </ol>\r\n    <div class=\"carousel-inner\" role=\"listbox\">\r\n      <div class=\"item active\">\r\n        <img class=\"first-slide\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"First slide\">\r\n        <div class=\"container\">\r\n          <div class=\"carousel-caption\">\r\n            <h1>High Competence</h1>\r\n            <p>\r\n              Datacenter building and operating experience. Certified specialists in all the represented directions.\r\n              All the company founders and vast majority of our employees are qualified IT professionals.\r\n            </p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"item\">\r\n        <img class=\"second-slide\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"Second slide\">\r\n        <div class=\"container\">\r\n          <div class=\"carousel-caption\">\r\n            <h1>Quality, reiability and efficiency</h1>\r\n            <p>Our infrastructure is implemented on High End equipment from the best manufacturers in the industry.</p>\r\n            <p>Our equipment is hosted in the best data centers with a safety category not lower than TIER III.</p>\r\n            <p>We offer fault-torelant solutions distributed among the data centers network with the ability of hosting infrastructure in Europe.</p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"item\">\r\n        <img class=\"third-slide\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"Third slide\">\r\n        <div class=\"container\">\r\n          <div class=\"carousel-caption\">\r\n            <h1>Security</h1>\r\n            <p>Today your data is your most critical asset. </p>\r\n            <p>We are dedicated to protecting your personal data against unauthorized usage and we are fully compliant with all European data protection laws - which are amongst the strictest in the world.</p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <a class=\"left carousel-control\" href=\"#myCarousel\" role=\"button\" data-slide=\"prev\">\r\n      <span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>\r\n      <span class=\"sr-only\">Previous</span>\r\n    </a>\r\n    <a class=\"right carousel-control\" href=\"#myCarousel\" role=\"button\" data-slide=\"next\">\r\n      <span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>\r\n      <span class=\"sr-only\">Next</span>\r\n    </a>\r\n  </div>\r\n  <!-- CAROUSEL END -->\r\n</body>\r\n"
 
 /***/ }),
 

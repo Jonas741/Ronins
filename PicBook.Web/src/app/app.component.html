@@ -1,5 +1,5 @@
 <div *ngIf="loginHidden">
-  <button (click)="logout()">Logout</button>
+  <button (click)="logout()" type="button" class="btn btn-xs btn-warning">Logout</button>
 </div>
 <login *ngIf="!loginHidden"></login>
 <router-outlet></router-outlet>
