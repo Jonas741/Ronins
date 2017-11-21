@@ -21,12 +21,23 @@ namespace PicBook.Web
 {
   public class Startup
   {
-    public Startup(IConfiguration configuration)
-    {
-      Configuration = configuration;
-    }
+    public IConfigurationRoot Configuration { get; private set; }
 
-    public IConfiguration Configuration { get; }
+    public Startup(IHostingEnvironment env)
+    {
+      var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+
+      if (env.IsDevelopment())
+      {
+        builder.AddUserSecrets<Startup>();
+      }
+      builder.AddEnvironmentVariables();
+
+      Configuration = builder.Build();
+    }
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
@@ -35,29 +46,6 @@ namespace PicBook.Web
       {
         options.Filters.Add(new RequireHttpsAttribute());
       });
-
-      //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-      //    .AddCookie(o =>
-      //    {
-      //      //o.LoginPath = new PathString("/Account/Login");
-      //      o.LogoutPath = new PathString("/Home/Index");
-      //    })
-      //    .AddFacebook(o =>
-      //        {
-      //          o.AppId = Configuration["Authentication:Facebook:AppId"];
-      //          o.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-      //          o.Scope.Add("email");
-      //          o.Fields.Add("name");
-      //          o.Fields.Add("email");
-      //          o.SaveTokens = true;
-      //        })
-      //        .AddGoogle(o =>
-      //        {
-      //          o.ClientId = Configuration["Authentication:Google:ClientId"];
-      //          o.ClientSecret = Configuration["Authentication:Facebook:ClientSecret"];
-      //          o.Scope.Add("email");
-      //          o.SaveTokens = true;
-      //        });
 
       services.AddMvc();
 
