@@ -10,6 +10,7 @@ import "rxjs/add/observable/throw";
 import { Configuration } from "../app.constants";
 import { Logger } from "./logger.service";
 import { NotificationsService } from "./notifications.service";
+import { AuthenticationService } from "./authentication.service";
 import { Notification } from "../models/notification";
 
 @Injectable()
@@ -19,9 +20,11 @@ export class DataService {
     private _logger: Logger,
     private _http: Http,
     private _configuration: Configuration,
-    private _notifier: NotificationsService) { }
+    private _notifier: NotificationsService,
+    private _authService: AuthenticationService) { }
 
   public getAll<T>(action: string): Observable<Array<T>> {
+    this._authService.validateToken();
     const headers = this.setHeader();
 
     return this._http.get(this._configuration.ServerWithApiUrl + action, { headers: headers })
@@ -95,7 +98,7 @@ export class DataService {
 
   private handleError(error: Notification) {
     this._logger.error("Ex100000", "Error occured while processing data operations.", error);
-    this._notifier.add(new Notification(error.type, error.message, error.errors));
+    //this._notifier.add(new Notification("error", error.message, error.errors));
     return Observable.throw(error.message);
   }
 

@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 import { DataService } from "../../services/data.service";
 import { Logger } from "../../services/logger.service";
 import { NotificationsService } from "../../services/notifications.service";
+import { AuthenticationService } from "../../services/authentication.service";
 
 import { Picture } from "../../models/picture";
 import { User } from "../../models/user";
@@ -21,24 +23,31 @@ export class GalleryComponent implements OnInit {
   constructor(
     private _dataService: DataService,
     private _logger: Logger,
-    private _notifier: NotificationsService
+    private _notifier: NotificationsService,
+    private _authService: AuthenticationService,
+    private _router: Router
   ) { }
 
   ngOnInit() {
-    this.fileCache = [];
-    this.pictures = [];
-    this.fetchPictures();
+    if (this._authService.validateToken()) {
+      this.fileCache = [];
+      this.pictures = [];
+      this.fetchPictures();
+    } else {
+      this._notifier.add(new Notification("warning", "geci"));
+      this._router.navigate([""]);
+    }
   }
 
   private fetchPictures(): void {
-    const userId = localStorage.getItem("token");
+    const userId = localStorage.getItem("uid");
 
     this._dataService.getAll<Picture>(`image/pictures/${userId}`)
       .subscribe(res => {
         this._logger.debug("0x000400", "Picture metadata fetched successfully.", res);
         this.pictures = (res as any).data;
       }, error => {
-        this._logger.error("Ex000400", "Error in fetching picture metadata.", error);
+        this._logger.error("Ex000400", "Error occured while fetching picture metadata.", error);
       });
   }
 
@@ -57,7 +66,7 @@ export class GalleryComponent implements OnInit {
 
   public upload(): void {
     if (this.fileCache.length !== 0) {
-      const userId = localStorage.getItem("token");
+      const userId = localStorage.getItem("uid");
 
       this._dataService.uploadFiles(`image/upload/${userId}`, this.fileCache)
         .subscribe(data => {

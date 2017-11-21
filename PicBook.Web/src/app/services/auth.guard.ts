@@ -1,20 +1,26 @@
 import { Injectable } from "@angular/core";
 import { CanActivate } from "@angular/router";
 
-import { Logger } from "./logger.service"
-import { SecurityService } from "./security.service"
+import { Logger } from "./logger.service";
+import { AuthenticationService } from "./authentication.service";
+import { NotificationsService } from "./notifications.service";
+
+import { Notification } from "../models/notification";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
   constructor(
     private _logger: Logger,
-    private _secService: SecurityService) { }
+    private _authService: AuthenticationService,
+    private _notifier: NotificationsService) { }
 
-  canActivate() {
-    if (!this._secService.IsAuthenticated)
-      this._logger.warn("0x000001", "AUTH GUARD DENIED ACCESS");
+  public canActivate(): boolean {
+    if (!this._authService.IsAuthenticated) {
+      this._logger.warn("Wx000001", "AUTH GUARD DENIED ACCESS");
+      this._notifier.add(new Notification("warning", "Access Denied."));
+    }
 
-    return this._secService.IsAuthenticated;
+    return this._authService.IsAuthenticated;
   }
 }

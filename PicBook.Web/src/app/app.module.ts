@@ -12,7 +12,6 @@ import { PictureComponent } from './components/picture/picture.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 
 import { routing, appRoutingProviders } from "./app.routes";
-import { SecurityService } from './services/security.service';
 import { AuthenticationService } from "./services/authentication.service";
 import { NotificationsService } from "./services/notifications.service";
 import { Logger } from "./services/logger.service";
@@ -47,7 +46,6 @@ let providers = {
   ],
   providers: [
     Configuration,
-    SecurityService,
     NotificationsService,
     Logger,
     appRoutingProviders,

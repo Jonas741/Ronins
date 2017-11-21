@@ -7,7 +7,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 
 const appRoutes: Routes = [
   { path: "", component: WelcomeComponent },
-  { path: "gallery", component: GalleryComponent }
+  { path: "gallery", component: GalleryComponent, canActivate: [AuthGuard] }
 ];
 
 export const appRoutingProviders: any[] = [
