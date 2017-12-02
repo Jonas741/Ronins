@@ -16,44 +16,44 @@ namespace PicBook.ApplicationService
             _pictureRepository = pictureRepository;
         }
 
-        public async Task DeletePicture(PictureEntity entity)
-        {
-            await _pictureRepository.Delete(entity);
-        }
-
-        public async Task<IEnumerable<PictureEntity>> GetAllPicturesByUser(UserEntity entity)
-        {
-            return await _pictureRepository.GetAllPicturesByUser(entity);
-        }
-
-        public async Task<IEnumerable<PictureEntity>> GetAllPublicPictures()
-        {
-            return await _pictureRepository.GetAllPublicPictures();
-        }
-
-        public async Task<PictureEntity> GetPictureByUri(Uri uri)
-        {
-            return await _pictureRepository.GetPictureByUri(uri);
-        }
-
-        public async Task UpdatePicture(PictureEntity entity)
-        {
-            await _pictureRepository.Update(entity);
-        }
-
-        public async Task CreatePicture(PictureEntity entity)
+        public async Task Create(PictureEntity entity)
         {
             await _pictureRepository.Create(entity);
         }
 
-        public async Task<IEnumerable<PictureEntity>> GetPublicPicturesByUser(UserEntity entity)
+        public async Task<IEnumerable<PictureEntity>> GetAllByUser(UserEntity entity)
         {
-            return await _pictureRepository.GetPublicPicturesByUser(entity);
+            return await _pictureRepository.GetAllPicturesByUser(entity);
         }
 
-        public async Task<PictureEntity> GetPictureById(Guid id)
+        public async Task<IEnumerable<PictureEntity>> GetAllPublic()
+        {
+            return await _pictureRepository.GetAllPublicPictures();
+        }
+
+        public async Task<IEnumerable<PictureEntity>> GetAllPublicByUser(UserEntity entity)
+        {
+            return await _pictureRepository.FindAll(x => x.IsPublic && x.UserId != entity.Id);
+        }
+
+        public async Task<PictureEntity> GetById(Guid id)
         {
             return await _pictureRepository.Find(x => x.Id == id);
+        }
+
+        public async Task<PictureEntity> GetByUri(Uri uri)
+        {
+            return await _pictureRepository.GetPictureByUri(uri);
+        }
+
+        public async Task Update(PictureEntity entity)
+        {
+            await _pictureRepository.Update(entity);
+        }
+
+        public async Task Delete(PictureEntity entity)
+        {
+            await _pictureRepository.Delete(entity);
         }
     }
 }

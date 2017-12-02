@@ -39,7 +39,6 @@ namespace PicBook.Web
       Configuration = builder.Build();
     }
 
-    // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
       services.Configure<MvcOptions>(options =>
@@ -63,11 +62,9 @@ namespace PicBook.Web
       services.AddScoped<IPictureRepository, PictureRepository>();
       services.AddScoped<IPictureService, PictureService>();
 
-      // Nem tudom hogy kell-e, majd megnézem (jövőrére)
       services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
     }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     {
       app.Use(async (context, next) =>
@@ -85,17 +82,6 @@ namespace PicBook.Web
 
       var options = new RewriteOptions().AddRedirectToHttps(301, 44301);
       app.UseRewriter(options);
-      //app.UseAuthentication();
-
-      //if (env.IsDevelopment())
-      //{
-      //    app.UseDeveloperExceptionPage();
-      //}
-      //else
-      //{
-      //    app.UseExceptionHandler("/Home/Error");
-      //}
-
       app.UseMvc();
     }
   }

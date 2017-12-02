@@ -11,8 +11,8 @@ using System;
 namespace PicBook.Repository.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171119172557_RmNotNullConstraints2")]
-    partial class RmNotNullConstraints2
+    [Migration("20171124160815_NewInit")]
+    partial class NewInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,8 +28,6 @@ namespace PicBook.Repository.EntityFramework.Migrations
 
                     b.Property<DateTimeOffset>("CreatedAt");
 
-                    b.Property<Guid>("FileId");
-
                     b.Property<string>("ImgPath")
                         .IsRequired();
 
@@ -39,7 +37,8 @@ namespace PicBook.Repository.EntityFramework.Migrations
 
                     b.Property<DateTimeOffset>("UpdatedAt");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -50,7 +49,7 @@ namespace PicBook.Repository.EntityFramework.Migrations
 
             modelBuilder.Entity("PicBook.Domain.UserEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTimeOffset>("CreatedAt");
@@ -63,8 +62,6 @@ namespace PicBook.Repository.EntityFramework.Migrations
                     b.Property<string>("Provider");
 
                     b.Property<DateTimeOffset>("UpdatedAt");
-
-                    b.Property<string>("UserIdentifier");
 
                     b.HasKey("Id");
 

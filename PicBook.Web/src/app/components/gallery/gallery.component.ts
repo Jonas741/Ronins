@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
+import { List } from "linqts";
+
 import { DataService } from "../../services/data.service";
 import { Logger } from "../../services/logger.service";
 import { NotificationsService } from "../../services/notifications.service";
@@ -19,6 +21,8 @@ export class GalleryComponent implements OnInit {
 
   public fileCache = new Array<File>();
   public pictures = new Array<Picture>();
+  public publicPictures = new Array<Picture>();
+  public isPublicUpload = false;
 
   constructor(
     private _dataService: DataService,
@@ -29,25 +33,22 @@ export class GalleryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this._authService.validateToken()) {
-      this.fileCache = [];
-      this.pictures = [];
-      this.fetchPictures();
-    } else {
-      this._notifier.add(new Notification("warning", "geci"));
-      this._router.navigate([""]);
-    }
+    this.fileCache = [];
+    this.pictures = [];
+    this.publicPictures = [];
+    this.fetchPictures();
   }
 
   private fetchPictures(): void {
     const userId = localStorage.getItem("uid");
 
-    this._dataService.getAll<Picture>(`image/pictures/${userId}`)
+    this._dataService.getAll<Picture>(`images/${userId}`)
       .subscribe(res => {
         this._logger.debug("0x000400", "Picture metadata fetched successfully.", res);
-        this.pictures = (res as any).data;
-      }, error => {
-        this._logger.error("Ex000400", "Error occured while fetching picture metadata.", error);
+
+        const resultData: Array<Picture> = (res as any).data;
+        this.pictures = new List(resultData).Where(x => x.userIdentifier === userId).ToArray();
+        this.publicPictures = new List(resultData).Where(x => x.userIdentifier !== userId && x.isPublic === true).ToArray();
       });
   }
 
@@ -57,7 +58,7 @@ export class GalleryComponent implements OnInit {
     for (let i = 0; i < files.length; i++) {
       if (files[i].type !== "image/gif" && files[i].type !== "image/png" && files[i].type !== "image/jpeg" && files[i].type !== "image/bmp" && files[i].type !== "image/webp") {
         this._notifier.add(new Notification("warning", "File type mismatch."));
-        event.target.files = [];
+        this.fileCache = [];
       } else {
         this.fileCache.push(files[i]);
       }
@@ -68,7 +69,7 @@ export class GalleryComponent implements OnInit {
     if (this.fileCache.length !== 0) {
       const userId = localStorage.getItem("uid");
 
-      this._dataService.uploadFiles(`image/upload/${userId}`, this.fileCache)
+      this._dataService.uploadFiles("images/upload", this.fileCache, this.isPublicUpload, userId)
         .subscribe(data => {
           this._logger.debug("0x000300", "File uploaded", data);
           this._notifier.add(new Notification("success", "Upload successful"));

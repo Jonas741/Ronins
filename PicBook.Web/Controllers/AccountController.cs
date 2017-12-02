@@ -23,26 +23,34 @@ namespace PicBook.Web.Controllers
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] UserDTO model)
     {
-      if (!ModelState.IsValid)  
-        return BadRequest(ApiResult.Set("Validation error.", ModelState));
-
-      var confUser = await _userService.GetUserdByIdentifier(model.UserIdentifier);
-
-      if (confUser == null)
+      try
       {
-        var userEntity = new UserEntity()
+        if (!ModelState.IsValid)
+          return BadRequest(ApiResult.Set("Validation error.", ModelState));
+
+        var confUser = await _userService.GetById(model.UserIdentifier);
+
+        if (confUser == null)
         {
-          Name = model.Name,
-          Email = model.Email,
-          Provider = model.Provider,
-          UserIdentifier = model.UserIdentifier
-        };
+          var userEntity = new UserEntity()
+          {
+            Name = model.Name,
+            Email = model.Email,
+            Provider = model.Provider,
+            Id = model.UserIdentifier
+          };
 
-        await _userService.AddNewUser(userEntity);
+          await _userService.AddNew(userEntity);
 
-        return Ok(ApiResult.Set("User added to database.", Json(new { userId = userEntity.UserIdentifier })));
+          return Ok(ApiResult.Set("User added to database.", Json(new { userId = userEntity.Id })));
+        }
+
+        return Ok(ApiResult.Set("Existing user fetched from database.", Json(new { userId = confUser.Id })));
       }
-      return Ok(ApiResult.Set("Existing user fetched from database.", Json(new { userId = confUser.UserIdentifier })));
+      catch (Exception e)
+      {
+        return BadRequest(ApiResult.Set(e.Message));
+      }
     }
 
   }

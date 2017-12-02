@@ -8,19 +8,13 @@ namespace PicBook.ApplicationService
 {
     public interface IPictureService
     {
-        Task<IEnumerable<PictureEntity>> GetAllPicturesByUser(UserEntity entity);
-
-        Task<IEnumerable<PictureEntity>> GetAllPublicPictures();
-
-        Task<PictureEntity> GetPictureByUri(Uri uri);
-        Task<PictureEntity> GetPictureById(Guid id);
-
-        Task UpdatePicture(PictureEntity entity);
-
-        Task DeletePicture(PictureEntity entity);
-
-        Task CreatePicture(PictureEntity entity);
-
-        Task<IEnumerable<PictureEntity>> GetPublicPicturesByUser(UserEntity entity);
+        Task Create(PictureEntity entity);
+        Task<IEnumerable<PictureEntity>> GetAllByUser(UserEntity entity);
+        Task<IEnumerable<PictureEntity>> GetAllPublic();
+        Task<IEnumerable<PictureEntity>> GetAllPublicByUser(UserEntity entity);
+        Task<PictureEntity> GetByUri(Uri uri);
+        Task<PictureEntity> GetById(Guid id);
+        Task Update(PictureEntity entity);
+        Task Delete(PictureEntity entity);
     }
 }

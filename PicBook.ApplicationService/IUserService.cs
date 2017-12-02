@@ -8,11 +8,10 @@ namespace PicBook.ApplicationService
 {
     public interface IUserService
     {
-        Task<UserEntity> GetUserdByIdentifier(string userIdentifier);
-        Task<UserEntity> GetUserById(Guid userId);
-        Task AddNewUser(UserEntity entity);
-        Task UpdateUser(UserEntity entity);
-        Task DeleteUser(UserEntity entity);
-        Task<IEnumerable<UserEntity>> GetAllUsers();
+        Task<UserEntity> GetById(string userId);
+        Task AddNew(UserEntity entity);
+        Task Update(UserEntity entity);
+        Task Delete(UserEntity entity);
+        Task<IEnumerable<UserEntity>> GetAll();
     }
 }

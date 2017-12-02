@@ -6,6 +6,10 @@ namespace PicBook.Dto
 {
     public class PictureDTO
     {
-        public Uri uri;
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public Uri Uri { get; set; }
+        public bool IsPublic { get; set; }
+        public string UserIdentifier { get; set; }
     }
 }

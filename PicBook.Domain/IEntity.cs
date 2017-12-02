@@ -4,6 +4,7 @@ namespace PicBook.Domain
 {
     public interface IEntity
     {
-        Guid Id { get; }
+        DateTimeOffset CreatedAt { get; set; }
+        DateTimeOffset UpdatedAt { get; set; }
     }
 }

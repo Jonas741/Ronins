@@ -13,20 +13,9 @@ namespace PicBook.Repository.EntityFramework
             Context = dbContext;
         }
 
-        public async Task AddPicture(UserEntity user, PictureEntity picture)
-        {
-            user.Pictures.Add(picture);
-            await Context.SaveChangesAsync();
-        }
-
-        public async Task<UserEntity> FindById(Guid userId)
+        public async Task<UserEntity> FindById(string userId)
         {
             return await Find(x => x.Id == userId);
-        }
-
-        public async Task<UserEntity> FindByIdentifier(string userIdentifier)
-        {
-            return await Find(x => x.UserIdentifier == userIdentifier);
         }
     }
 }

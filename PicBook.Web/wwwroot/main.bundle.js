@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"loginHidden\">\r\n  <button (click)=\"logout()\">Logout</button>\r\n</div>\r\n<login *ngIf=\"!loginHidden\"></login>\r\n<router-outlet></router-outlet>\r\n<notifications></notifications>\r\n\r\n"
+module.exports = "<div *ngIf=\"loginHidden\">\r\n  <button (click)=\"logout()\">Logout</button>\r\n</div>\r\n<login *ngIf=\"!loginHidden\"></login>\r\n<router-outlet></router-outlet>\r\n<notifications></notifications>\r\n"
 
 /***/ }),
 
@@ -268,7 +268,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "div {\r\n  color:red\r\n}\r\n", ""]);
+exports.push([module.i, ".file-cache-container {\r\n  color: rebeccapurple\r\n}\r\n", ""]);
 
 // exports
 
@@ -281,7 +281,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/gallery/gallery.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngFor=\"let picture of pictures\">\r\n  <picture [uri]=\"picture.uri\"></picture>\r\n</div>\r\n<div>\r\n  <input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" multiple />\r\n  <button (click)=\"upload()\">Upload</button>\r\n</div>\r\n<div>\r\n  <div *ngFor=\"let f of fileCache\">\r\n    <span>{{f.name}} | {{f.size/1000000}} MB</span>\r\n    <button (click)=\"removeFile(f); $event.stopPropagation()\">x</button>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<span>My pictures</span>\r\n<div *ngFor=\"let picture of pictures\">\r\n  <picture [uri]=\"picture.uri\"></picture>\r\n</div>\r\n<hr />\r\n<span>Public pictures</span>\r\n<div *ngFor=\"let picture of publicPictures\">\r\n  <picture [uri]=\"picture.uri\"></picture>\r\n</div>\r\n<div>\r\n  <input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" multiple />\r\n  <button (click)=\"upload()\">Upload</button>\r\n</div>\r\n<div class=\"file-cache-container\" *ngIf=\"fileCache.length !== 0\">\r\n  <div *ngFor=\"let f of fileCache\">\r\n    <span>{{f.name}} | {{f.size/1000000}} MB</span>\r\n    <button (click)=\"removeFile(f); $event.stopPropagation()\">x</button>\r\n  </div>\r\n  <div>\r\n    <input type=\"checkbox\" [(ngModel)]=\"isPublicUpload\" />\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -292,11 +292,13 @@ module.exports = "<div *ngFor=\"let picture of pictures\">\r\n  <picture [uri]=\
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GalleryComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_data_service__ = __webpack_require__("../../../../../src/app/services/data.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_notifications_service__ = __webpack_require__("../../../../../src/app/services/notifications.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_authentication_service__ = __webpack_require__("../../../../../src/app/services/authentication.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_notification__ = __webpack_require__("../../../../../src/app/models/notification.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_linqts__ = __webpack_require__("../../../../linqts/dist/linq.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_linqts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_linqts__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_data_service__ = __webpack_require__("../../../../../src/app/services/data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_notifications_service__ = __webpack_require__("../../../../../src/app/services/notifications.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_authentication_service__ = __webpack_require__("../../../../../src/app/services/authentication.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__models_notification__ = __webpack_require__("../../../../../src/app/models/notification.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -313,6 +315,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var GalleryComponent = (function () {
     function GalleryComponent(_dataService, _logger, _notifier, _authService, _router) {
         this._dataService = _dataService;
@@ -322,35 +325,32 @@ var GalleryComponent = (function () {
         this._router = _router;
         this.fileCache = new Array();
         this.pictures = new Array();
+        this.publicPictures = new Array();
+        this.isPublicUpload = false;
     }
     GalleryComponent.prototype.ngOnInit = function () {
-        if (this._authService.validateToken()) {
-            this.fileCache = [];
-            this.pictures = [];
-            this.fetchPictures();
-        }
-        else {
-            this._notifier.add(new __WEBPACK_IMPORTED_MODULE_6__models_notification__["a" /* Notification */]("warning", "geci"));
-            this._router.navigate([""]);
-        }
+        this.fileCache = [];
+        this.pictures = [];
+        this.publicPictures = [];
+        this.fetchPictures();
     };
     GalleryComponent.prototype.fetchPictures = function () {
         var _this = this;
         var userId = localStorage.getItem("uid");
-        this._dataService.getAll("image/pictures/" + userId)
+        this._dataService.getAll("images/" + userId)
             .subscribe(function (res) {
             _this._logger.debug("0x000400", "Picture metadata fetched successfully.", res);
-            _this.pictures = res.data;
-        }, function (error) {
-            _this._logger.error("Ex000400", "Error occured while fetching picture metadata.", error);
+            var resultData = res.data;
+            _this.pictures = new __WEBPACK_IMPORTED_MODULE_2_linqts__["List"](resultData).Where(function (x) { return x.userIdentifier === userId; }).ToArray();
+            _this.publicPictures = new __WEBPACK_IMPORTED_MODULE_2_linqts__["List"](resultData).Where(function (x) { return x.userIdentifier !== userId && x.isPublic === true; }).ToArray();
         });
     };
     GalleryComponent.prototype.onImgInputChange = function (event) {
         var files = event.target.files || event.srcElement.files;
         for (var i = 0; i < files.length; i++) {
             if (files[i].type !== "image/gif" && files[i].type !== "image/png" && files[i].type !== "image/jpeg" && files[i].type !== "image/bmp" && files[i].type !== "image/webp") {
-                this._notifier.add(new __WEBPACK_IMPORTED_MODULE_6__models_notification__["a" /* Notification */]("warning", "File type mismatch."));
-                event.target.files = [];
+                this._notifier.add(new __WEBPACK_IMPORTED_MODULE_7__models_notification__["a" /* Notification */]("warning", "File type mismatch."));
+                this.fileCache = [];
             }
             else {
                 this.fileCache.push(files[i]);
@@ -361,14 +361,14 @@ var GalleryComponent = (function () {
         var _this = this;
         if (this.fileCache.length !== 0) {
             var userId = localStorage.getItem("uid");
-            this._dataService.uploadFiles("image/upload/" + userId, this.fileCache)
+            this._dataService.uploadFiles("images/upload", this.fileCache, this.isPublicUpload, userId)
                 .subscribe(function (data) {
                 _this._logger.debug("0x000300", "File uploaded", data);
-                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_6__models_notification__["a" /* Notification */]("success", "Upload successful"));
+                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_7__models_notification__["a" /* Notification */]("success", "Upload successful"));
                 _this.fetchPictures();
             }, function (err) {
                 _this._logger.debug("Ex000300", err.message, err);
-                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_6__models_notification__["a" /* Notification */]("error", "Error in uploading", err));
+                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_7__models_notification__["a" /* Notification */]("error", "Error in uploading", err));
             });
             this.fileCache = [];
         }
@@ -383,10 +383,10 @@ var GalleryComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/gallery/gallery.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/gallery/gallery.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_data_service__["a" /* DataService */],
-            __WEBPACK_IMPORTED_MODULE_3__services_logger_service__["a" /* Logger */],
-            __WEBPACK_IMPORTED_MODULE_4__services_notifications_service__["a" /* NotificationsService */],
-            __WEBPACK_IMPORTED_MODULE_5__services_authentication_service__["a" /* AuthenticationService */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_data_service__["a" /* DataService */],
+            __WEBPACK_IMPORTED_MODULE_4__services_logger_service__["a" /* Logger */],
+            __WEBPACK_IMPORTED_MODULE_5__services_notifications_service__["a" /* NotificationsService */],
+            __WEBPACK_IMPORTED_MODULE_6__services_authentication_service__["a" /* AuthenticationService */],
             __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]])
     ], GalleryComponent);
     return GalleryComponent;
@@ -824,41 +824,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 
 
 
@@ -884,69 +849,6 @@ var AuthenticationService = (function () {
         enumerable: true,
         configurable: true
     });
-    AuthenticationService.prototype.validateToken = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            var ret, accToken, provider, url;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        ret = false;
-                        accToken = localStorage.getItem("acc_token");
-                        provider = localStorage.getItem("external_login_provider");
-                        if (!accToken || !provider) {
-                            this._logger.error("Ex111100", "Access token or provider not found in local storage.");
-                            return [2 /*return*/, ret];
-                        }
-                        url = "";
-                        if (provider === "facebook") {
-                            url = this._configuration.FacebookTokenValidationUrl + accToken;
-                        }
-                        else if (provider === "google") {
-                            url = this._configuration.GoogleTokenValidationUrl + accToken;
-                        }
-                        return [4 /*yield*/, this._http.get(url)
-                                .subscribe(function (res) {
-                                _this._logger.debug("0x000209", "Token validation was successful.", res);
-                                ret = true;
-                            }, function (err) {
-                                var errJson = JSON.parse(err._body);
-                                if (provider === "facebook") {
-                                    if (errJson.error.message !== "Invalid OAuth access token.") {
-                                        _this.getExternalAccessToken(provider).subscribe(function (res) {
-                                            localStorage.setItem("acc_token", res.token);
-                                            _this._logger.debug("0x709000", "Refreshing external access token was successful.", res);
-                                            ret = true;
-                                        }, function (error) {
-                                            _this._logger.error("Ex709000", "Error in refreshing external token.", error);
-                                        });
-                                    }
-                                    else {
-                                        _this._logger.error("Ex709001", "Invalid access token.");
-                                    }
-                                }
-                                else if (provider === "google") {
-                                    if (errJson.error_description !== "Invalid Value") {
-                                        _this.getExternalAccessToken(provider).subscribe(function (res) {
-                                            localStorage.setitem("acc_token", res.token);
-                                            _this._logger.debug("0x709000", "Refreshing external access token was successful.", res);
-                                            ret = true;
-                                        }, function (error) {
-                                            _this._logger.error("Ex709000", "Error in refreshing external token.", error);
-                                        });
-                                    }
-                                    else {
-                                        _this._logger.error("Ex709001", "Invalid access token.");
-                                    }
-                                }
-                            })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/, ret];
-                }
-            });
-        });
-    };
     AuthenticationService.prototype.getExternalAccessToken = function (provider) {
         return this._externalAuth.login(provider);
     };
@@ -971,7 +873,6 @@ var AuthenticationService = (function () {
     AuthenticationService.prototype.retrieve = function (key) {
         var item = localStorage.getItem(key);
         if (item && item !== "undefined") {
-            //return localStorage.getItem(key);
             return true;
         }
         return false;
@@ -1035,7 +936,6 @@ var DataService = (function () {
     }
     DataService.prototype.getAll = function (action) {
         var _this = this;
-        this._authService.validateToken();
         var headers = this.setHeader();
         return this._http.get(this._configuration.ServerWithApiUrl + action, { headers: headers })
             .map(function (res) { return res.json(); })
@@ -1074,13 +974,18 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(function (error) { return _this.handleError(error); });
     };
-    DataService.prototype.uploadFiles = function (action, files) {
+    DataService.prototype.uploadFiles = function (action, files, isPublic, userId) {
         var self = this;
+        var token = localStorage.getItem("acc_token");
+        var provider = localStorage.getItem("external_login_provider");
         return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["a" /* Observable */].create(function (observer) {
-            var formData = new FormData(), xhr = new XMLHttpRequest();
+            var formData = new FormData();
+            var xhr = new XMLHttpRequest();
             for (var i = 0; i < files.length; i++) {
-                formData.append("upload[]", files[i], files[i].name);
+                formData.append("UploadedFiles", files[i], files[i].name);
             }
+            formData.append("IsPublic", isPublic.toString());
+            formData.append("UserId", userId);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
@@ -1093,6 +998,8 @@ var DataService = (function () {
                 }
             };
             xhr.open("POST", self._configuration.ServerWithApiUrl + action, true);
+            xhr.setRequestHeader("Token", token);
+            xhr.setRequestHeader("Token-Provider", provider);
             xhr.send(formData);
         });
     };
@@ -1103,6 +1010,12 @@ var DataService = (function () {
     };
     DataService.prototype.setHeader = function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        var provider = localStorage.getItem("external_login_provider");
+        var token = localStorage.getItem("acc_token");
+        if (provider && (provider == "google" || provider == "facebook") && token && token != "undefined") {
+            headers.append("Token", token);
+            headers.append("Token-Provider", provider);
+        }
         headers.append("Content-Type", "application/json");
         headers.append("Accept", "application/json");
         return headers;

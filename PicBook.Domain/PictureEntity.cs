@@ -5,8 +5,6 @@ namespace PicBook.Domain
 {
     public class PictureEntity : Entity
     {
-        public string Name { get; set; }
-
         [Required]
         public string ImgPath { get; set; }
 
@@ -14,10 +12,15 @@ namespace PicBook.Domain
         public UserEntity User { get; set; }
 
         [Required]
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
+        public Guid Id { get; set; }
+        public string Name { get; set; }
         public bool IsPublic { get; set; }
 
-        public Guid FileId { get; set; }
+        public PictureEntity()
+        {
+            Id = new Guid();
+        }
     }
 }

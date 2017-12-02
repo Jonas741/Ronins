@@ -12,8 +12,7 @@ using PicBook.Web.Helpers;
 
 namespace PicBook.Web.Controllers
 {
-  //[Authorize]
-  [Route("api/image")]
+  [Route("api/images")]
   public class ImageController : Controller
   {
     private IImageService _imageService;
@@ -28,19 +27,25 @@ namespace PicBook.Web.Controllers
       _userService = userService;
     }
 
-    [HttpPost("upload/{userIdentifier}")]
-    public async Task<IActionResult> Upload(string userIdentifier)
+    [HttpPost("upload")]
+    public async Task<IActionResult> Upload()
     {
-      List<IFormFile> files = Request.Form.Files.ToList();
-      var filePath = Path.GetTempFileName();
+      var token = Request.Headers["Token"].ToString();
+      var provider = Request.Headers["Token-Provider"].ToString();
+
+      if (!await ExternalTokenHandler.Validate(token, provider))
+        return BadRequest(ApiResult.Set("Token validation failed."));
+
+      var files = Request.Form.Files.ToList();
+      var userIdentifier = Request.Form["UserId"].ToString();
+      var isPublic = Convert.ToBoolean(Request.Form["IsPublic"].ToString());
+
+      var userEntity = await _userService.GetById(userIdentifier);
       Uri uploadedImageUri = null;
       long size = files.Sum(f => f.Length);
-      UserEntity entity = null;
-      entity = await _userService.GetUserdByIdentifier(userIdentifier);
 
       foreach (var formFile in files)
       {
-        var asd = formFile.ContentType;
         if (formFile.Length > 0)
         {
           using (var ms = new MemoryStream())
@@ -48,96 +53,82 @@ namespace PicBook.Web.Controllers
             formFile.CopyTo(ms);
             uploadedImageUri = await _imageService.UploadImage(ms.ToArray());
           }
-          PictureEntity picture = new PictureEntity() { ImgPath = uploadedImageUri.ToString(), User = entity, UserId = entity.Id, Name = "asd" };
-          await _pictureService.CreatePicture(picture);
-        }
-        else
-        {
-          // nem biztos hogy a legszebb, de szerintem exceptiont dobni sem túl szép itt
-          return BadRequest();
-        }
 
+          PictureEntity picture = new PictureEntity()
+          {
+            ImgPath = uploadedImageUri.ToString(),
+            User = userEntity,
+            UserId = userEntity.Id,
+            Name = formFile.Name,
+            IsPublic = isPublic
+          };
+          await _pictureService.Create(picture);
+        }
       }
 
-      return Ok(new { count = files.Count, size, uploadedImageUri });
+      return Ok(ApiResult.Set("Picture uploaded successfully.", Json(new { size = size, count = files.Count })));
     }
 
-    [HttpDelete("delete/{uri}")]
-    public async Task<IActionResult> Delete(Uri uri)
+    [HttpGet]
+    [Route("")]
+    [Route("{userIdentifier}")]
+    public async Task<IActionResult> Pictures(string userIdentifier)
     {
-      try
-      {
-        PictureEntity entity = await _pictureService.GetPictureByUri(uri);
-        await _pictureService.DeletePicture(entity);
-      }
-      catch (ArgumentNullException ane)
-      {
-        return BadRequest(ane);
-      }
+      var pictureEntities = new List<PictureEntity>();
+      var publicPictureEntities = new List<PictureEntity>();
 
-      return Ok("Picture {picture.uri} was deleted");
+      if (userIdentifier != null)
+      {
+        var token = Request.Headers["Token"].ToString();
+        var provider = Request.Headers["Token-Provider"].ToString();
+
+        if (!await ExternalTokenHandler.Validate(token, provider))
+          return BadRequest(ApiResult.Set("Token validation failed."));
+
+        var userEntity = await _userService.GetById(userIdentifier);
+        pictureEntities = (await _pictureService.GetAllByUser(userEntity)).ToList();
+        publicPictureEntities = (await _pictureService.GetAllPublicByUser(userEntity)).ToList();
+      }
+      else
+        publicPictureEntities = (await _pictureService.GetAllPublic()).ToList();
+
+      var pictures = new List<PictureDTO>();
+      pictures.AddRange(pictureEntities.Select(x => new PictureDTO() { IsPublic = x.IsPublic, Uri = new Uri(x.ImgPath), Name = x.Name, UserIdentifier = x.User.Id, Id = x.Id }));
+      pictures.AddRange(publicPictureEntities.Select(x => new PictureDTO() { IsPublic = x.IsPublic, Uri = new Uri(x.ImgPath), Name = x.Name, UserIdentifier = x.UserId, Id = x.Id }));
+
+      return Ok(ApiResult.Set("Pictures fetched successfully.", pictures));
     }
 
     [HttpPut("update/{uri}")]
     public async Task<IActionResult> Update(Uri uri)
     {
-      try
-      {
-        // ez így még nem lesz jó! -> mit akarunk updatelni?
-        PictureEntity entity = await _pictureService.GetPictureByUri(uri);
-        await _pictureService.UpdatePicture(entity);
-      }
-      catch (ArgumentNullException ane)
-      {
-        return BadRequest(ane);
-      }
+      //TODO: Write logic.
+      var token = Request.Headers["Token"].ToString();
+      var provider = Request.Headers["Token-Provider"].ToString();
 
-      return Ok("Picture {picture.uri} was updated");
+      if (!await ExternalTokenHandler.Validate(token, provider))
+        return BadRequest(ApiResult.Set("Token validation failed."));
+
+      PictureEntity entity = await _pictureService.GetByUri(uri);
+      await _pictureService.Update(entity);
+
+      return Ok("Picture was updated.");
     }
 
-    [HttpGet("publicpictures")]
-    public async Task<IActionResult> PublicPictures()
+    [HttpDelete("delete/{uri}")]
+    public async Task<IActionResult> Delete(Uri uri)
     {
-      IEnumerable<PictureEntity> pictures = await _pictureService.GetAllPublicPictures();
-      List<PictureDTO> picturesDTO = new List<PictureDTO>();
-      foreach (PictureEntity entity in pictures)
-      {
-        picturesDTO.Add(new PictureDTO
-        {
-          uri = new Uri(entity.ImgPath)
-        });
-      }
+      //TODO: Write logic.
+      var token = Request.Headers["Token"].ToString();
+      var provider = Request.Headers["Token-Provider"].ToString();
 
-      return Ok(ApiResult.Set("Public pictures.", Json(picturesDTO)));
+      if (!await ExternalTokenHandler.Validate(token, provider))
+        return BadRequest(ApiResult.Set("Token validation failed."));
+
+      PictureEntity entity = await _pictureService.GetByUri(uri);
+      await _pictureService.Delete(entity);
+
+      return Ok("Picture {picture.uri} was deleted");
     }
-
-    [HttpGet("pictures/{userIdentifier}")]
-    public async Task<IActionResult> Pictures(string userIdentifier)
-    {
-      UserEntity entity = await _userService.GetUserdByIdentifier(userIdentifier);
-      IEnumerable<PictureEntity> entities = await _pictureService.GetAllPicturesByUser(entity);
-      List<PictureDTO> pictures = new List<PictureDTO>();
-      foreach (PictureEntity item in entities)
-      {
-        pictures.Add(new PictureDTO { uri = new Uri(item.ImgPath) });
-      }
-
-      return Ok(ApiResult.Set("Pictures of {id}", pictures));
-    }
-
-    [HttpGet("publicpictures/{userIdentifier}")]
-    public async Task<IActionResult> PublicPicturesByUser(string userIdentifier)
-    {
-      UserEntity entity = await _userService.GetUserdByIdentifier(userIdentifier);
-      IEnumerable<PictureEntity> entities = await _pictureService.GetPublicPicturesByUser(entity);
-      List<PictureDTO> pictures = new List<PictureDTO>();
-      foreach (PictureEntity item in entities)
-      {
-        pictures.Add(new PictureDTO { uri = new Uri(item.ImgPath) });
-      }
-
-      return Ok(ApiResult.Set("Public pictures of {id}", Json(pictures)));
-    }
-
   }
 }

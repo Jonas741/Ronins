@@ -24,7 +24,6 @@ export class DataService {
     private _authService: AuthenticationService) { }
 
   public getAll<T>(action: string): Observable<Array<T>> {
-    this._authService.validateToken();
     const headers = this.setHeader();
 
     return this._http.get(this._configuration.ServerWithApiUrl + action, { headers: headers })
@@ -70,15 +69,21 @@ export class DataService {
       .catch(error => this.handleError(error));
   }
 
-  public uploadFiles(action: string, files: File[]): Observable<any> {
+  public uploadFiles(action: string, files: File[], isPublic?: boolean, userId?: string): Observable<any> {
     let self = this;
+    const token = localStorage.getItem("acc_token");
+    const provider = localStorage.getItem("external_login_provider");
+
     return Observable.create((observer: Observer<number>) => {
-      let formData: FormData = new FormData(),
-        xhr: XMLHttpRequest = new XMLHttpRequest();
+      let formData = new FormData();
+      let xhr = new XMLHttpRequest();
 
       for (let i = 0; i < files.length; i++) {
-        formData.append("upload[]", files[i], files[i].name);
+        formData.append("UploadedFiles", files[i], files[i].name);
       }
+
+      formData.append("IsPublic", isPublic.toString());
+      formData.append("UserId", userId);
 
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
@@ -92,6 +97,8 @@ export class DataService {
       };
 
       xhr.open("POST", self._configuration.ServerWithApiUrl + action, true);
+      xhr.setRequestHeader("Token", token);
+      xhr.setRequestHeader("Token-Provider", provider);
       xhr.send(formData);
     });
   }
@@ -104,6 +111,14 @@ export class DataService {
 
   private setHeader(): Headers {
     let headers = new Headers();
+    const provider = localStorage.getItem("external_login_provider");
+    const token = localStorage.getItem("acc_token");
+
+    if (provider && (provider == "google" || provider == "facebook") && token && token != "undefined") {
+      headers.append("Token", token);
+      headers.append("Token-Provider", provider);
+    }
+
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
 

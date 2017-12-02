@@ -28,61 +28,6 @@ export class AuthenticationService {
     return this.retrieve("acc_token");
   }
 
-  public async validateToken(): Promise<boolean> {
-    let ret = false;
-    const accToken = localStorage.getItem("acc_token");
-    const provider = localStorage.getItem("external_login_provider");
-
-    if (!accToken || !provider) {
-      this._logger.error("Ex111100", "Access token or provider not found in local storage.");
-      return ret;
-    }
-
-    let url = "";
-
-    if (provider === "facebook") {
-      url = this._configuration.FacebookTokenValidationUrl + accToken;
-    } else if (provider === "google") {
-      url = this._configuration.GoogleTokenValidationUrl + accToken;
-    }
-
-    await this._http.get(url)
-      .subscribe(res => {
-        this._logger.debug("0x000209", "Token validation was successful.", res);
-        ret = true;
-      }, err => {
-        const errJson = JSON.parse(err._body);
-
-        if (provider === "facebook") {
-          if (errJson.error.message !== "Invalid OAuth access token.") {
-            this.getExternalAccessToken(provider).subscribe(res => {
-              localStorage.setItem("acc_token", (res as any).token);
-              this._logger.debug("0x709000", "Refreshing external access token was successful.", res);
-              ret = true;
-            }, error => {
-              this._logger.error("Ex709000", "Error in refreshing external token.", error);
-            });
-          } else {
-            this._logger.error("Ex709001", "Invalid access token.");
-          }
-        } else if (provider === "google") {
-          if (errJson.error_description !== "Invalid Value") {
-            this.getExternalAccessToken(provider).subscribe(res => {
-              localStorage.setitem("acc_token", (res as any).token);
-              this._logger.debug("0x709000", "Refreshing external access token was successful.", res);
-              ret = true;
-            }, error => {
-              this._logger.error("Ex709000", "Error in refreshing external token.", error);
-            });
-          } else {
-            this._logger.error("Ex709001", "Invalid access token.");
-          }
-        }
-      });
-
-    return ret;
-  }
-
   public getExternalAccessToken(provider: string): Observable<Object> {
     return this._externalAuth.login(provider);
   }
@@ -112,10 +57,66 @@ export class AuthenticationService {
     const item = localStorage.getItem(key);
 
     if (item && item !== "undefined") {
-      //return localStorage.getItem(key);
       return true;
     }
 
     return false;
   }
+
+  //UNUSED
+
+  //public async validateToken(): Promise<boolean> {
+  //  let ret = true;
+  //  const accToken = localStorage.getItem("acc_token");
+  //  const provider = localStorage.getItem("external_login_provider");
+
+  //  if (!accToken || !provider) {
+  //    this._logger.error("Ex111100", "Access token or provider not found in local storage.");
+  //    return ret;
+  //  }
+
+  //  let url = "";
+
+  //  if (provider === "facebook") {
+  //    url = this._configuration.FacebookTokenValidationUrl + accToken;
+  //  } else if (provider === "google") {
+  //    url = this._configuration.GoogleTokenValidationUrl + accToken;
+  //  }
+
+  //  await this._http.get(url)
+  //    .subscribe(res => {
+  //      this._logger.debug("0x000209", "Token validation was successful.", res);
+  //      ret = true;
+  //    }, err => {
+  //      const errJson = JSON.parse(err._body);
+
+  //      if (provider === "facebook") {
+  //        if (errJson.error.message !== "Invalid OAuth access token.") {
+  //          this.getExternalAccessToken(provider).subscribe(res => {
+  //            localStorage.setItem("acc_token", (res as any).token);
+  //            this._logger.debug("0x709000", "Refreshing external access token was successful.", res);
+  //            ret = true;
+  //          }, error => {
+  //            this._logger.error("Ex709000", "Error in refreshing external token.", error);
+  //          });
+  //        } else {
+  //          this._logger.error("Ex709001", "Invalid access token.");
+  //        }
+  //      } else if (provider === "google") {
+  //        if (errJson.error_description !== "Invalid Value") {
+  //          this.getExternalAccessToken(provider).subscribe(res => {
+  //            localStorage.setitem("acc_token", (res as any).token);
+  //            this._logger.debug("0x709000", "Refreshing external access token was successful.", res);
+  //            ret = true;
+  //          }, error => {
+  //            this._logger.error("Ex709000", "Error in refreshing external token.", error);
+  //          });
+  //        } else {
+  //          this._logger.error("Ex709001", "Invalid access token.");
+  //        }
+  //      }
+  //    });
+
+  //  return ret;
+  //}
 }

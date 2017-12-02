@@ -6,9 +6,6 @@ namespace PicBook.Repository.EntityFramework
 {
     public interface IUserRepository : IGenericCrudRepository<UserEntity>
     { 
-        Task<UserEntity> FindByIdentifier(string userIdentifier);
-        Task<UserEntity> FindById(Guid userId);
-        Task AddPicture(UserEntity user, PictureEntity picture);
-
+        Task<UserEntity> FindById(string userIdentifier);
     }
 }
