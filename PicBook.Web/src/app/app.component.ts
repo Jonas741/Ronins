@@ -30,4 +30,8 @@ export class AppComponent {
         this._router.navigate([""]);
         this._notifier.add(new Notification("success", "Logout successful."));
     }
+
+    public gallery(): void {
+      this._router.navigate(["/gallery"]);
+    }
 }
