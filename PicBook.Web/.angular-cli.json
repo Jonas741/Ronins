@@ -20,6 +20,9 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "../node_modules/ngx-sharebuttons/styles/themes/default/default-theme.css",
+        "../node_modules/ngx-sharebuttons/styles/themes/modern/modern-dark-theme.css",
         "styles.css"
       ],
       "scripts": [

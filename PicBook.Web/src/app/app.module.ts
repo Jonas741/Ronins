@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { Angular2SocialLoginModule } from "angular2-social-login";
+import { ShareButtonModule } from 'ngx-sharebuttons';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -43,8 +45,10 @@ let providers = {
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     routing,
-    Angular2SocialLoginModule
+    Angular2SocialLoginModule,
+    ShareButtonModule.forRoot()
   ],
   providers: [
     Configuration,

@@ -25,8 +25,10 @@
     "angular2-social-login": "^3.1.1",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "linqts": "^1.10.0",
+    "ngx-sharebuttons": "^4.1.4",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
   },

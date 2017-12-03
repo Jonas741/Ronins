@@ -3,4 +3,5 @@
   <input type="checkbox" [(ngModel)]="inputPicture.isPublic" (change)="onAnyPropChange('isPublic')" />
   <button [(disabled)]="!hasChange" (click)="updatePicture()">Update picture</button>
   <button (click)="deletePicture()">Delete picture</button>
+  <share-button [theme]="'modern-dark'" [button]="socialProvider" [url]="inputPicture.uri"></share-button>
 </div>

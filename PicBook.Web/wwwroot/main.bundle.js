@@ -154,25 +154,29 @@ var Configuration = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_social_login__ = __webpack_require__("../../../../angular2-social-login/dist/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_login_login_component__ = __webpack_require__("../../../../../src/app/components/login/login.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_gallery_gallery_component__ = __webpack_require__("../../../../../src/app/components/gallery/gallery.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_notification_notification_component__ = __webpack_require__("../../../../../src/app/components/notification/notification.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_picture_picture_component__ = __webpack_require__("../../../../../src/app/components/picture/picture.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_welcome_welcome_component__ = __webpack_require__("../../../../../src/app/components/welcome/welcome.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_picture_detail_picture_detail_component__ = __webpack_require__("../../../../../src/app/components/picture.detail/picture.detail.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_routes__ = __webpack_require__("../../../../../src/app/app.routes.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__services_authentication_service__ = __webpack_require__("../../../../../src/app/services/authentication.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__services_notifications_service__ = __webpack_require__("../../../../../src/app/services/notifications.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__services_data_service__ = __webpack_require__("../../../../../src/app/services/data.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ngx_sharebuttons__ = __webpack_require__("../../../../ngx-sharebuttons/ngx-sharebuttons.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_login_login_component__ = __webpack_require__("../../../../../src/app/components/login/login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_gallery_gallery_component__ = __webpack_require__("../../../../../src/app/components/gallery/gallery.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_notification_notification_component__ = __webpack_require__("../../../../../src/app/components/notification/notification.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_picture_picture_component__ = __webpack_require__("../../../../../src/app/components/picture/picture.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_welcome_welcome_component__ = __webpack_require__("../../../../../src/app/components/welcome/welcome.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_picture_detail_picture_detail_component__ = __webpack_require__("../../../../../src/app/components/picture.detail/picture.detail.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__app_routes__ = __webpack_require__("../../../../../src/app/app.routes.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_authentication_service__ = __webpack_require__("../../../../../src/app/services/authentication.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__services_notifications_service__ = __webpack_require__("../../../../../src/app/services/notifications.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__services_logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__services_data_service__ = __webpack_require__("../../../../../src/app/services/data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -206,30 +210,32 @@ var AppModule = (function () {
     AppModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_6__components_login_login_component__["a" /* LoginComponent */],
-                __WEBPACK_IMPORTED_MODULE_7__components_gallery_gallery_component__["a" /* GalleryComponent */],
-                __WEBPACK_IMPORTED_MODULE_8__components_notification_notification_component__["a" /* NotificationComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__components_picture_picture_component__["a" /* PictureComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__components_welcome_welcome_component__["a" /* WelcomeComponent */],
-                __WEBPACK_IMPORTED_MODULE_11__components_picture_detail_picture_detail_component__["a" /* PictureDetailComponent */]
+                __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__components_login_login_component__["a" /* LoginComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__components_gallery_gallery_component__["a" /* GalleryComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__components_notification_notification_component__["a" /* NotificationComponent */],
+                __WEBPACK_IMPORTED_MODULE_11__components_picture_picture_component__["a" /* PictureComponent */],
+                __WEBPACK_IMPORTED_MODULE_12__components_welcome_welcome_component__["a" /* WelcomeComponent */],
+                __WEBPACK_IMPORTED_MODULE_13__components_picture_detail_picture_detail_component__["a" /* PictureDetailComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["c" /* HttpModule */],
-                __WEBPACK_IMPORTED_MODULE_12__app_routes__["b" /* routing */],
-                __WEBPACK_IMPORTED_MODULE_4_angular2_social_login__["a" /* Angular2SocialLoginModule */]
+                __WEBPACK_IMPORTED_MODULE_6__angular_common_http__["b" /* HttpClientModule */],
+                __WEBPACK_IMPORTED_MODULE_14__app_routes__["b" /* routing */],
+                __WEBPACK_IMPORTED_MODULE_4_angular2_social_login__["a" /* Angular2SocialLoginModule */],
+                __WEBPACK_IMPORTED_MODULE_5_ngx_sharebuttons__["a" /* ShareButtonModule */].forRoot()
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_17__app_constants__["a" /* Configuration */],
-                __WEBPACK_IMPORTED_MODULE_14__services_notifications_service__["a" /* NotificationsService */],
-                __WEBPACK_IMPORTED_MODULE_15__services_logger_service__["a" /* Logger */],
-                __WEBPACK_IMPORTED_MODULE_12__app_routes__["a" /* appRoutingProviders */],
-                __WEBPACK_IMPORTED_MODULE_13__services_authentication_service__["a" /* AuthenticationService */],
-                __WEBPACK_IMPORTED_MODULE_16__services_data_service__["a" /* DataService */]
+                __WEBPACK_IMPORTED_MODULE_19__app_constants__["a" /* Configuration */],
+                __WEBPACK_IMPORTED_MODULE_16__services_notifications_service__["a" /* NotificationsService */],
+                __WEBPACK_IMPORTED_MODULE_17__services_logger_service__["a" /* Logger */],
+                __WEBPACK_IMPORTED_MODULE_14__app_routes__["a" /* appRoutingProviders */],
+                __WEBPACK_IMPORTED_MODULE_15__services_authentication_service__["a" /* AuthenticationService */],
+                __WEBPACK_IMPORTED_MODULE_18__services_data_service__["a" /* DataService */]
             ],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]]
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
     return AppModule;
@@ -624,7 +630,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/picture.detail/picture.detail.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <span>Public: </span>\r\n  <input type=\"checkbox\" [(ngModel)]=\"inputPicture.isPublic\" (change)=\"onAnyPropChange('isPublic')\" />\r\n  <button [(disabled)]=\"!hasChange\" (click)=\"updatePicture()\">Update picture</button>\r\n  <button (click)=\"deletePicture()\">Delete picture</button>\r\n</div>\r\n"
+module.exports = "<div>\r\n  <span>Public: </span>\r\n  <input type=\"checkbox\" [(ngModel)]=\"inputPicture.isPublic\" (change)=\"onAnyPropChange('isPublic')\" />\r\n  <button [(disabled)]=\"!hasChange\" (click)=\"updatePicture()\">Update picture</button>\r\n  <button (click)=\"deletePicture()\">Delete picture</button>\r\n  <share-button [theme]=\"'modern-dark'\" [button]=\"socialProvider\" [url]=\"inputPicture.uri\"></share-button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -666,6 +672,7 @@ var PictureDetailComponent = (function () {
         this.done = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
     }
     PictureDetailComponent.prototype.ngOnInit = function () {
+        this.socialProvider = localStorage.getItem("external_login_provider");
         this.hasChange = false;
         this.updateProps = new Array();
         this.addUpdateProps();
@@ -1331,7 +1338,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* enableProdMode */])();
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* enableProdMode */])();
 }
 Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_app_module__["a" /* AppModule */])
     .catch(function (err) { return console.log(err); });

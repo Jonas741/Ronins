@@ -22,6 +22,7 @@ export class PictureDetailComponent implements OnInit {
   public originalPicture: Picture;
   public updateProps: Array<string>;
   public hasChange: boolean;
+  public socialProvider: string;
 
   constructor(
     private _dataService: DataService,
@@ -31,6 +32,7 @@ export class PictureDetailComponent implements OnInit {
   { }
 
   ngOnInit() {
+    this.socialProvider = localStorage.getItem("external_login_provider");
     this.hasChange = false;
     this.updateProps = new Array<string>();
     this.addUpdateProps();
