@@ -61,6 +61,9 @@ export class GalleryComponent implements OnInit {
       if (files[i].type !== "image/gif" && files[i].type !== "image/png" && files[i].type !== "image/jpeg" && files[i].type !== "image/bmp" && files[i].type !== "image/webp") {
         this._notifier.add(new Notification("warning", "File type mismatch."));
         this.fileCache = [];
+      } else if (files[i].size > 4000000) {
+        this._notifier.add(new Notification("warning", "File is too large. The maximal allowed size is 4MBs."));
+        this.fileCache = [];
       } else {
         this.fileCache.push(files[i]);
       }

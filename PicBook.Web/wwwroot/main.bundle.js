@@ -365,6 +365,10 @@ var GalleryComponent = (function () {
                 this._notifier.add(new __WEBPACK_IMPORTED_MODULE_7__models_notification__["a" /* Notification */]("warning", "File type mismatch."));
                 this.fileCache = [];
             }
+            else if (files[i].size > 4000000) {
+                this._notifier.add(new __WEBPACK_IMPORTED_MODULE_7__models_notification__["a" /* Notification */]("warning", "File is too large. The maximal allowed size is 4MBs."));
+                this.fileCache = [];
+            }
             else {
                 this.fileCache.push(files[i]);
             }

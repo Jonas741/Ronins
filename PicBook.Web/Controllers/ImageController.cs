@@ -52,6 +52,7 @@ namespace PicBook.Web.Controllers
           {
             formFile.CopyTo(ms);
             uploadedImageUri = await _imageService.UploadImage(ms.ToArray());
+            //var xd = await ImageTaggingHandler.MakeTaggingRequest(ms.ToArray());
           }
 
           PictureEntity picture = new PictureEntity()
