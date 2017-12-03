@@ -271,7 +271,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".aligncenter{\r\n  text-align: center;\r\n  min-width: 50%;\r\n  padding-top: 10px;\r\n}\r\n.fileContainer {\r\n  overflow: hidden;\r\n  position: relative;\r\n}\r\n/*label {\r\n  display: block;\r\n  max-width: 100%;\r\n  margin-bottom: 5px;\r\n  font-weight: bold;\r\n}*/\r\n  .fileContainer [type=file] {\r\n    cursor: inherit;\r\n    display: block;\r\n    font-size: 999px;\r\n    filter: alpha(opacity=0);\r\n    min-height: 100%;\r\n    min-width: 100%;\r\n    opacity: 0;\r\n    position: absolute;\r\n    right: 0;\r\n    text-align: right;\r\n    top: 0;\r\n  }\r\n\r\n.body {\r\n  background-image: linear-gradient(to top, #ecedee 0%, #eceeef 75%, #e7e8e9 100%);\r\n  min-height: 100vh;\r\n  color: #323231;\r\n  font: normal 16px sans-serif;\r\n  padding: 1px 1px;\r\n}\r\n\r\n.header {\r\n  /*border: 1px solid black;*/\r\n  padding-left: 90px;\r\n}\n\n.container.gallery-container {\n  /*background-color: #F3EEE1;*/\n  background-image: linear-gradient(to top, #ecedee 0%, #eceeef 50%, #e7e8e9 65%, #EAE3D1 100%);\n  color: #35373a;\n  min-height: 100vh;\n  border-radius: 5px;\n  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);\n}\n\n.gallery-container h1 {\n  text-align: center;\n  /*margin-top: 30px;*/\n  font-family: 'Droid Sans', sans-serif;\n  font-weight: bold;\n}\n\n.gallery-container p.page-description {\n  text-align: center;\n  max-width: 800px;\n  margin: 25px auto;\n  color: #888;\n  font-size: 18px;\n}\n\n.tz-gallery {\n  padding: 40px;\n}\n\n  .tz-gallery .lightbox img {\n    width: 100%;\n    margin-bottom: 30px;\n    transition: 0.2s ease-in-out;\n    box-shadow: 0 2px 3px rgba(0,0,0,0.2);\n  }\n\n\n    .tz-gallery .lightbox img:hover {\n      -webkit-transform: scale(1.05);\n              transform: scale(1.05);\n      box-shadow: 0 8px 15px rgba(0,0,0,0.3);\n    }\n\n  .tz-gallery img {\n    border-radius: 4px;\n  }\n", ""]);
+exports.push([module.i, ".aligncenter{\r\n  text-align: center;\r\n  min-width: 50%;\r\n  padding-top: 10px;\r\n}\r\n.fileContainer {\r\n  overflow: hidden;\r\n  position: relative;\r\n}\r\n/*label {\r\n  display: block;\r\n  max-width: 100%;\r\n  margin-bottom: 5px;\r\n  font-weight: bold;\r\n}*/\r\n  .fileContainer [type=file] {\r\n    cursor: inherit;\r\n    display: block;\r\n    font-size: 999px;\r\n    filter: alpha(opacity=0);\r\n    min-height: 100%;\r\n    min-width: 100%;\r\n    opacity: 0;\r\n    position: absolute;\r\n    right: 0;\r\n    text-align: right;\r\n    top: 0;\r\n  }\r\n\r\n.body {\r\n  background-image: linear-gradient(to top, #ecedee 0%, #eceeef 75%, #e7e8e9 100%);\r\n  min-height: 100vh;\r\n  color: #323231;\r\n  font: normal 16px sans-serif;\r\n  padding: 1px 1px;\r\n}\r\n\r\n.header {\r\n  /*border: 1px solid black;*/\r\n  padding-left: 90px;\r\n}\n\n.container.gallery-container {\n  /*background-color: #F3EEE1;*/\n  background-image: linear-gradient(to top, #ecedee 0%, #eceeef 50%, #e7e8e9 65%, #EAE3D1 100%);\n  color: #35373a;\n  min-height: 100vh;\n  border-radius: 5px;\n  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);\n}\n\n.gallery-container h1 {\n  text-align: center;\n  /*margin-top: 30px;*/\n  font-family: 'Droid Sans', sans-serif;\n  font-weight: bold;\n}\n\n.gallery-container p.page-description {\n  text-align: center;\n  max-width: 800px;\n  margin: 25px auto;\n  color: #888;\n  font-size: 18px;\n}\n\n.tz-gallery {\n  padding: 40px;\n}\n", ""]);
 
 // exports
 
@@ -284,7 +284,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/gallery/gallery.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"body\">\r\n  <div class=\"header\">\r\n    <h1>My Gallery</h1>\r\n  </div>\r\n  <div class=\"container gallery-container\">\r\n    <div class=\"aligncenter\">\r\n      <label class=\"fileContainer\">\r\n        Click here to select files to upload!\r\n        <input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" class=\"input\" multiple />\r\n      </label>\r\n      <br />\r\n      <button (click)=\"upload()\" class=\"btn btn-default\">Upload</button>\r\n    </div>\r\n    <!--<h1>My Gallery</h1>-->\r\n    <!--<p class=\"page-description text-center\">Private</p>-->\r\n\r\n    <div class=\"tz-gallery\">\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let picture of pictures\">\r\n          <a class=\"lightbox\" [href]=\"picture.uri\">\r\n            <img [src]=\"picture.uri\">\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
+module.exports = "<!--<div *ngFor=\"let picture of pictures\">\r\n  <picture [uri]=\"picture.uri\"></picture>\r\n</div>-->\r\n<div class=\"body\">\r\n  <div class=\"header\">\r\n    <h1>My Gallery</h1>\r\n  </div>\r\n  <div class=\"container gallery-container\">\r\n    <div class=\"aligncenter\">\r\n      <label class=\"fileContainer\">\r\n        Click here to select files to upload!\r\n        <input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" class=\"input\" multiple />\r\n      </label>\r\n      <br />\r\n      <button (click)=\"upload()\" class=\"btn btn-default\">Upload</button>\r\n    </div>\r\n    <!--<h1>My Gallery</h1>-->\r\n    <!--<p class=\"page-description text-center\">Private</p>-->\r\n\r\n    <div class=\"tz-gallery\">\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let picture of pictures\">\r\n          <!--<a class=\"lightbox\" [href]=\"picture.uri\">-->\r\n            <!--<img [src]=\"picture.uri\">-->\r\n            <picture [uri] =\"picture.uri\"></picture>\r\n          <!--</a>-->\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -600,7 +600,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".lightbox img {\r\n  width: 100%;\r\n  margin-bottom: 30px;\r\n  transition: 0.2s ease-in-out;\r\n  box-shadow: 0 2px 3px rgba(0,0,0,0.2);\r\n  border-radius: 4px;\r\n}\r\n\r\n\r\n.lightbox img:hover {\r\n      -webkit-transform: scale(1.05);\r\n              transform: scale(1.05);\r\n      box-shadow: 0 8px 15px rgba(0,0,0,0.3);\r\n    }\r\n", ""]);
 
 // exports
 
@@ -613,7 +613,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/picture/picture.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <a [href]=\"uri\">\r\n    <img [src]=\"uri\" width=\"300\" height=\"300\" />\r\n  </a>\r\n</div>\r\n"
+module.exports = "\r\n  <!--<a [href]=\"uri\">\r\n    <img [src]=\"uri\" width=\"300\" height=\"300\" />\r\n  </a>-->\r\n\r\n<a class=\"lightbox\" [href]=\"uri\">\r\n  <!--<img [src]=\"picture.uri\">-->\r\n  <img [src]=\"uri\">\r\n</a>\r\n"
 
 /***/ }),
 
