@@ -21,7 +21,7 @@
         </div>
       </div>
       <div *ngIf="currentPicture">
-        <picture-detail [inputPicture]="currentPicture"></picture-detail>
+        <picture-detail [inputPicture]="currentPicture" (done)="closeDetail($event)"></picture-detail>
       </div>
     </div>
     <div class="tz-gallery">

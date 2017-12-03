@@ -94,4 +94,9 @@ export class GalleryComponent implements OnInit {
   public setCurrentPicture(pic: Picture) {
     this.currentPicture = pic;
   }
+
+  public closeDetail(event): void {
+    this.currentPicture = null;
+    this.fetchPictures();
+  }
 }

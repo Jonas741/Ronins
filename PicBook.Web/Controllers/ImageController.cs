@@ -99,36 +99,51 @@ namespace PicBook.Web.Controllers
       return Ok(ApiResult.Set("Pictures fetched successfully.", pictures));
     }
 
-    [HttpPut("update/{uri}")]
-    public async Task<IActionResult> Update(Uri uri)
+    [HttpPut("update")]
+    public async Task<IActionResult> Update([FromBody]PictureDTO model)
     {
-      //TODO: Write logic.
       var token = Request.Headers["Token"].ToString();
       var provider = Request.Headers["Token-Provider"].ToString();
+      var userId = Request.Headers["Token-Bearer"].ToString();
 
       if (!await ExternalTokenHandler.Validate(token, provider))
         return BadRequest(ApiResult.Set("Token validation failed."));
 
-      PictureEntity entity = await _pictureService.GetByUri(uri);
-      await _pictureService.Update(entity);
+      PictureEntity pictureEntity = await _pictureService.GetById(model.Id);
 
-      return Ok("Picture was updated.");
+      if (pictureEntity == null)
+        return NotFound(ApiResult.Set("Picture not found."));
+
+      if (pictureEntity.UserId != userId)
+        return BadRequest(ApiResult.Set("The selected item does not belong to the initiating user."));
+
+      pictureEntity.IsPublic = model.IsPublic;
+      await _pictureService.Update(pictureEntity);
+
+      return Ok(ApiResult.Set("Picture was updated successfully."));
     }
 
-    [HttpDelete("delete/{uri}")]
-    public async Task<IActionResult> Delete(Uri uri)
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> Delete(string id)
     {
-      //TODO: Write logic.
+      if (!Guid.TryParse(id, out Guid pictureId))
+        return BadRequest(ApiResult.Set("Picture id was not in a correct format."));
+
       var token = Request.Headers["Token"].ToString();
       var provider = Request.Headers["Token-Provider"].ToString();
+      var userId = Request.Headers["Token-Bearer"].ToString();
 
       if (!await ExternalTokenHandler.Validate(token, provider))
         return BadRequest(ApiResult.Set("Token validation failed."));
 
-      PictureEntity entity = await _pictureService.GetByUri(uri);
-      await _pictureService.Delete(entity);
+      PictureEntity pictureEntity = await _pictureService.GetById(pictureId);
 
-      return Ok("Picture {picture.uri} was deleted");
+      if (pictureEntity.UserId != userId)
+        return BadRequest(ApiResult.Set("The selected item does not belong to the initiating user."));
+
+      await _pictureService.Delete(pictureEntity);
+
+      return Ok(ApiResult.Set("Picture was deleted successfully."));
     }
   }
 }

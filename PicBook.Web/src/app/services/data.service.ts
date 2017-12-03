@@ -113,10 +113,12 @@ export class DataService {
     let headers = new Headers();
     const provider = localStorage.getItem("external_login_provider");
     const token = localStorage.getItem("acc_token");
+    const bearer = localStorage.getItem("uid");
 
     if (provider && (provider == "google" || provider == "facebook") && token && token != "undefined") {
       headers.append("Token", token);
       headers.append("Token-Provider", provider);
+      headers.append("Token-Bearer", bearer);
     }
 
     headers.append("Content-Type", "application/json");

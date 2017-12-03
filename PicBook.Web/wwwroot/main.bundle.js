@@ -160,18 +160,20 @@ var Configuration = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_notification_notification_component__ = __webpack_require__("../../../../../src/app/components/notification/notification.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_picture_picture_component__ = __webpack_require__("../../../../../src/app/components/picture/picture.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_welcome_welcome_component__ = __webpack_require__("../../../../../src/app/components/welcome/welcome.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__app_routes__ = __webpack_require__("../../../../../src/app/app.routes.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__services_authentication_service__ = __webpack_require__("../../../../../src/app/services/authentication.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__services_notifications_service__ = __webpack_require__("../../../../../src/app/services/notifications.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__services_logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_data_service__ = __webpack_require__("../../../../../src/app/services/data.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_picture_detail_picture_detail_component__ = __webpack_require__("../../../../../src/app/components/picture.detail/picture.detail.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_routes__ = __webpack_require__("../../../../../src/app/app.routes.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__services_authentication_service__ = __webpack_require__("../../../../../src/app/services/authentication.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__services_notifications_service__ = __webpack_require__("../../../../../src/app/services/notifications.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__services_data_service__ = __webpack_require__("../../../../../src/app/services/data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -209,22 +211,23 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_7__components_gallery_gallery_component__["a" /* GalleryComponent */],
                 __WEBPACK_IMPORTED_MODULE_8__components_notification_notification_component__["a" /* NotificationComponent */],
                 __WEBPACK_IMPORTED_MODULE_9__components_picture_picture_component__["a" /* PictureComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__components_welcome_welcome_component__["a" /* WelcomeComponent */]
+                __WEBPACK_IMPORTED_MODULE_10__components_welcome_welcome_component__["a" /* WelcomeComponent */],
+                __WEBPACK_IMPORTED_MODULE_11__components_picture_detail_picture_detail_component__["a" /* PictureDetailComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["c" /* HttpModule */],
-                __WEBPACK_IMPORTED_MODULE_11__app_routes__["b" /* routing */],
+                __WEBPACK_IMPORTED_MODULE_12__app_routes__["b" /* routing */],
                 __WEBPACK_IMPORTED_MODULE_4_angular2_social_login__["a" /* Angular2SocialLoginModule */]
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_16__app_constants__["a" /* Configuration */],
-                __WEBPACK_IMPORTED_MODULE_13__services_notifications_service__["a" /* NotificationsService */],
-                __WEBPACK_IMPORTED_MODULE_14__services_logger_service__["a" /* Logger */],
-                __WEBPACK_IMPORTED_MODULE_11__app_routes__["a" /* appRoutingProviders */],
-                __WEBPACK_IMPORTED_MODULE_12__services_authentication_service__["a" /* AuthenticationService */],
-                __WEBPACK_IMPORTED_MODULE_15__services_data_service__["a" /* DataService */]
+                __WEBPACK_IMPORTED_MODULE_17__app_constants__["a" /* Configuration */],
+                __WEBPACK_IMPORTED_MODULE_14__services_notifications_service__["a" /* NotificationsService */],
+                __WEBPACK_IMPORTED_MODULE_15__services_logger_service__["a" /* Logger */],
+                __WEBPACK_IMPORTED_MODULE_12__app_routes__["a" /* appRoutingProviders */],
+                __WEBPACK_IMPORTED_MODULE_13__services_authentication_service__["a" /* AuthenticationService */],
+                __WEBPACK_IMPORTED_MODULE_16__services_data_service__["a" /* DataService */]
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]]
         })
@@ -271,7 +274,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "@media (min-width: 1px) {\n  .col-sm-6, .col-md-4 {\n    float: left;\n    width:auto;\n  }\n}\n  .aligncenter {\n    text-align: center;\n    min-width: 50%;\n    padding-top: 10px;\n  }\n\n  .fileContainer {\n    overflow: hidden;\n    position: relative;\n  }\n\n    .fileContainer [type=file] {\n      cursor: inherit;\n      display: block;\n      font-size: 999px;\n      filter: alpha(opacity=0);\n      min-height: 100%;\n      min-width: 100%;\n      opacity: 0;\n      position: absolute;\n      right: 0;\n      text-align: right;\n      top: 0;\n    }\n\n  .body {\n    background-image: linear-gradient(to top, #ecedee 0%, #eceeef 75%, #e7e8e9 100%);\n    min-height: 100vh;\n    color: #323231;\n    font: normal 16px sans-serif;\n    padding: 1px 1px;\n  }\n\n  .header {\n    /*border: 1px solid black;*/\n    padding-left: 90px;\n  }\n\n  .container.gallery-container {\n    /*background-color: #F3EEE1;*/\n    background-image: linear-gradient(to top, #ecedee 0%, #eceeef 50%, #e7e8e9 65%, #EAE3D1 100%);\n    color: #35373a;\n    min-height: 100vh;\n    border-radius: 5px;\n    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);\n  }\n\n  .gallery-container h1 {\n    text-align: center;\n    /*margin-top: 30px;*/\n    font-family: 'Droid Sans', sans-serif;\n    font-weight: bold;\n  }\n\n  .gallery-container p.page-description {\n    text-align: center;\n    max-width: 800px;\n    margin: 25px auto;\n    color: #888;\n    font-size: 18px;\n  }\n\n  .tz-gallery {\n    padding: 40px;\n  }\n", ""]);
+exports.push([module.i, "@media (min-width: 1px) {\r\n  .col-sm-6, .col-md-4 {\r\n    float: left;\r\n    width:auto;\r\n  }\r\n}\r\n  .aligncenter {\r\n    text-align: center;\r\n    min-width: 50%;\r\n    padding-top: 10px;\r\n  }\r\n\r\n  .fileContainer {\r\n    overflow: hidden;\r\n    position: relative;\r\n  }\r\n\r\n    .fileContainer [type=file] {\r\n      cursor: inherit;\r\n      display: block;\r\n      font-size: 999px;\r\n      filter: alpha(opacity=0);\r\n      min-height: 100%;\r\n      min-width: 100%;\r\n      opacity: 0;\r\n      position: absolute;\r\n      right: 0;\r\n      text-align: right;\r\n      top: 0;\r\n    }\r\n\r\n  .body {\r\n    background-image: linear-gradient(to top, #ecedee 0%, #eceeef 75%, #e7e8e9 100%);\r\n    min-height: 100vh;\r\n    color: #323231;\r\n    font: normal 16px sans-serif;\r\n    padding: 1px 1px;\r\n  }\r\n\r\n  .header {\r\n    /*border: 1px solid black;*/\r\n    padding-left: 90px;\r\n  }\r\n\r\n  .container.gallery-container {\r\n    /*background-color: #F3EEE1;*/\r\n    background-image: linear-gradient(to top, #ecedee 0%, #eceeef 50%, #e7e8e9 65%, #EAE3D1 100%);\r\n    color: #35373a;\r\n    min-height: 100vh;\r\n    border-radius: 5px;\r\n    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);\r\n  }\r\n\r\n  .gallery-container h1 {\r\n    text-align: center;\r\n    /*margin-top: 30px;*/\r\n    font-family: 'Droid Sans', sans-serif;\r\n    font-weight: bold;\r\n  }\r\n\r\n  .gallery-container p.page-description {\r\n    text-align: center;\r\n    max-width: 800px;\r\n    margin: 25px auto;\r\n    color: #888;\r\n    font-size: 18px;\r\n  }\r\n\r\n  .tz-gallery {\r\n    padding: 40px;\r\n  }\r\n", ""]);
 
 // exports
 
@@ -284,7 +287,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/gallery/gallery.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"body\">\r\n  <div class=\"header\">\r\n    <h1>My Gallery</h1>\r\n  </div>\r\n  <div class=\"container gallery-container\">\r\n    <div class=\"aligncenter\">\r\n      <label class=\"fileContainer\">\r\n        Click here to select files to upload!\r\n        <input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" class=\"input\" multiple />\r\n      </label>\r\n      <br />\r\n      <button (click)=\"upload()\" class=\"btn btn-default\">Upload</button>\r\n      <div class=\"file-cache-container\" *ngIf=\"fileCache.length !== 0\">\r\n        <div *ngFor=\"let f of fileCache\">\r\n          <span>{{f.name}} | {{f.size/1000000}} MB</span>\r\n          <button (click)=\"removeFile(f); $event.stopPropagation()\">x</button>\r\n        </div>\r\n        <div>\r\n          <input type=\"checkbox\" [(ngModel)]=\"isPublicUpload\" />\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"tz-gallery\">\r\n      <span>My pictures</span>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let picture of pictures\">\r\n          <picture [uri]=\"picture.uri\"></picture>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"tz-gallery\">\r\n      <span>Public pictures</span>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let picture of publicPictures\">\r\n          <picture [uri]=\"picture.uri\"></picture>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
+module.exports = "<div class=\"body\">\r\n  <div class=\"header\">\r\n    <h1>Gallery</h1>\r\n  </div>\r\n  <div class=\"container gallery-container\">\r\n    <div class=\"aligncenter\">\r\n      <label class=\"fileContainer\">\r\n        Click here to select files to upload!\r\n        <input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" class=\"input\" multiple />\r\n      </label>\r\n      <br />\r\n      <button (click)=\"upload()\" class=\"btn btn-default\">Upload</button>\r\n      <div class=\"file-cache-container\" *ngIf=\"fileCache.length !== 0\">\r\n        <div *ngFor=\"let f of fileCache\">\r\n          <span>{{f.name}} | {{f.size/1000000}} MB</span>\r\n          <button (click)=\"removeFile(f); $event.stopPropagation()\">x</button>\r\n        </div>\r\n        <div>\r\n          <span>Public upload: </span>\r\n          <input type=\"checkbox\" [(ngModel)]=\"isPublicUpload\" />\r\n        </div>\r\n      </div>\r\n      <div *ngIf=\"currentPicture\">\r\n        <picture-detail [inputPicture]=\"currentPicture\" (done)=\"closeDetail($event)\"></picture-detail>\r\n      </div>\r\n    </div>\r\n    <div class=\"tz-gallery\">\r\n      <span>My pictures</span>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let pic of pictures\">\r\n          <picture [inputPicture]=\"pic\" (click)=\"setCurrentPicture(pic)\"></picture>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"tz-gallery\">\r\n      <span>Public pictures</span>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let pic of publicPictures\">\r\n          <picture [inputPicture]=\"pic\"></picture>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -335,6 +338,7 @@ var GalleryComponent = (function () {
         this.fileCache = [];
         this.pictures = [];
         this.publicPictures = [];
+        this.currentPicture = null;
         this.fetchPictures();
     };
     GalleryComponent.prototype.fetchPictures = function () {
@@ -379,6 +383,13 @@ var GalleryComponent = (function () {
     };
     GalleryComponent.prototype.removeFile = function (f) {
         this.fileCache = this.fileCache.filter(function (file) { return file !== f; });
+    };
+    GalleryComponent.prototype.setCurrentPicture = function (pic) {
+        this.currentPicture = pic;
+    };
+    GalleryComponent.prototype.closeDetail = function (event) {
+        this.currentPicture = null;
+        this.fetchPictures();
     };
     GalleryComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -592,6 +603,132 @@ var NotificationComponent = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/picture.detail/picture.detail.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/picture.detail/picture.detail.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div>\r\n  <span>Public: </span>\r\n  <input type=\"checkbox\" [(ngModel)]=\"inputPicture.isPublic\" (change)=\"onAnyPropChange('isPublic')\" />\r\n  <button [(disabled)]=\"!hasChange\" (click)=\"updatePicture()\">Update picture</button>\r\n  <button (click)=\"deletePicture()\">Delete picture</button>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/picture.detail/picture.detail.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PictureDetailComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_linqts__ = __webpack_require__("../../../../linqts/dist/linq.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_linqts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_linqts__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_data_service__ = __webpack_require__("../../../../../src/app/services/data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_notifications_service__ = __webpack_require__("../../../../../src/app/services/notifications.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_picture__ = __webpack_require__("../../../../../src/app/models/picture.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var PictureDetailComponent = (function () {
+    function PictureDetailComponent(_dataService, _configuration, _notifier, _logger) {
+        this._dataService = _dataService;
+        this._configuration = _configuration;
+        this._notifier = _notifier;
+        this._logger = _logger;
+        this.done = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
+    }
+    PictureDetailComponent.prototype.ngOnInit = function () {
+        this.hasChange = false;
+        this.updateProps = new Array();
+        this.addUpdateProps();
+        this.originalPicture = new __WEBPACK_IMPORTED_MODULE_6__models_picture__["a" /* Picture */]();
+        this.originalPicture.isPublic = this.inputPicture.isPublic;
+    };
+    PictureDetailComponent.prototype.deletePicture = function () {
+        var _this = this;
+        this._dataService.delete("images/delete", this.inputPicture.id)
+            .subscribe(function (res) {
+            _this._logger.debug("0x000770", "Image deletion was successful.", res);
+            _this.emitComplete();
+        });
+    };
+    PictureDetailComponent.prototype.updatePicture = function () {
+        var _this = this;
+        this._dataService.update("images/update", this.inputPicture)
+            .subscribe(function (res) {
+            _this._logger.debug("0x000870", "Image update was successful.", res);
+            _this.emitComplete();
+        });
+    };
+    PictureDetailComponent.prototype.onAnyPropChange = function (prop) {
+        var _this = this;
+        if (this.originalPicture[prop] != this.inputPicture[prop]) {
+            this.hasChange = true;
+        }
+        else if (!new __WEBPACK_IMPORTED_MODULE_1_linqts__["List"](this.updateProps).Any(function (x) { return _this.originalPicture[x] != _this.inputPicture[x]; })) {
+            this.hasChange = false;
+        }
+    };
+    PictureDetailComponent.prototype.emitComplete = function () {
+        this.done.emit('complete');
+    };
+    PictureDetailComponent.prototype.addUpdateProps = function () {
+        this.updateProps.push("isPublic");
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_6__models_picture__["a" /* Picture */])
+    ], PictureDetailComponent.prototype, "inputPicture", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* Output */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */])
+    ], PictureDetailComponent.prototype, "done", void 0);
+    PictureDetailComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: "picture-detail",
+            template: __webpack_require__("../../../../../src/app/components/picture.detail/picture.detail.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/picture.detail/picture.detail.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_data_service__["a" /* DataService */],
+            __WEBPACK_IMPORTED_MODULE_4__app_constants__["a" /* Configuration */],
+            __WEBPACK_IMPORTED_MODULE_3__services_notifications_service__["a" /* NotificationsService */],
+            __WEBPACK_IMPORTED_MODULE_5__services_logger_service__["a" /* Logger */]])
+    ], PictureDetailComponent);
+    return PictureDetailComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/picture/picture.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -613,7 +750,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/picture/picture.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<a class=\"lightbox\" [href]=\"uri\">\r\n  <img [src]=\"uri\">\r\n</a>\r\n"
+module.exports = "<div class=\"lightbox\">\r\n  <img [src]=\"inputPicture.uri\">\r\n</div>\r\n"
 
 /***/ }),
 
@@ -623,6 +760,7 @@ module.exports = "<a class=\"lightbox\" [href]=\"uri\">\r\n  <img [src]=\"uri\">
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PictureComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_picture__ = __webpack_require__("../../../../../src/app/models/picture.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -633,6 +771,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var PictureComponent = (function () {
     function PictureComponent() {
     }
@@ -640,8 +779,8 @@ var PictureComponent = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
-        __metadata("design:type", String)
-    ], PictureComponent.prototype, "uri", void 0);
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__models_picture__["a" /* Picture */])
+    ], PictureComponent.prototype, "inputPicture", void 0);
     PictureComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: "picture",
@@ -732,6 +871,21 @@ var Notification = (function () {
         this.errors = errors;
     }
     return Notification;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/models/picture.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Picture; });
+var Picture = (function () {
+    function Picture() {
+    }
+    return Picture;
 }());
 
 
@@ -1015,9 +1169,11 @@ var DataService = (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         var provider = localStorage.getItem("external_login_provider");
         var token = localStorage.getItem("acc_token");
+        var bearer = localStorage.getItem("uid");
         if (provider && (provider == "google" || provider == "facebook") && token && token != "undefined") {
             headers.append("Token", token);
             headers.append("Token-Provider", provider);
+            headers.append("Token-Bearer", bearer);
         }
         headers.append("Content-Type", "application/json");
         headers.append("Accept", "application/json");

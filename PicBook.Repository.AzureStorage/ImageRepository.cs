@@ -17,7 +17,6 @@ namespace PicBook.Repository.AzureStorage
 
         public async Task<ImageUploadResult> UploadImage(byte[] imageBytes)
         {
-            //TODO: error handling
             var blobClient = storageAccount.CreateCloudBlobClient();
             var container = blobClient.GetContainerReference("image");
 
@@ -47,7 +46,6 @@ namespace PicBook.Repository.AzureStorage
 
         public async Task EnqueueWorkItem(Guid imageId)
         {
-            //TODO: error handling +retry policy
             var queueClient = storageAccount.CreateCloudQueueClient();
             var queue = queueClient.GetQueueReference("imageprocess");
 
@@ -57,6 +55,5 @@ namespace PicBook.Repository.AzureStorage
 
             await queue.AddMessageAsync(message);
         }
-
     }
 }

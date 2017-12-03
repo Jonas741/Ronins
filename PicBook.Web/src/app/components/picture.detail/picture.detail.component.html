@@ -1,0 +1,6 @@
+<div>
+  <span>Public: </span>
+  <input type="checkbox" [(ngModel)]="inputPicture.isPublic" (change)="onAnyPropChange('isPublic')" />
+  <button [(disabled)]="!hasChange" (click)="updatePicture()">Update picture</button>
+  <button (click)="deletePicture()">Delete picture</button>
+</div>
