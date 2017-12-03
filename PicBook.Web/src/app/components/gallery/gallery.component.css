@@ -1,18 +1,14 @@
-.aligncenter{
+.aligncenter {
   text-align: center;
   min-width: 50%;
   padding-top: 10px;
 }
+
 .fileContainer {
   overflow: hidden;
   position: relative;
 }
-/*label {
-  display: block;
-  max-width: 100%;
-  margin-bottom: 5px;
-  font-weight: bold;
-}*/
+
   .fileContainer [type=file] {
     cursor: inherit;
     display: block;

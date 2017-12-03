@@ -1,6 +1,3 @@
-<!--<div *ngFor="let picture of pictures">
-  <picture [uri]="picture.uri"></picture>
-</div>-->
 <div class="body">
   <div class="header">
     <h1>My Gallery</h1>
@@ -20,10 +17,7 @@
     <div class="tz-gallery">
       <div class="row">
         <div class="col-sm-6 col-md-4" *ngFor="let picture of pictures">
-          <!--<a class="lightbox" [href]="picture.uri">-->
-            <!--<img [src]="picture.uri">-->
             <picture [uri] ="picture.uri"></picture>
-          <!--</a>-->
         </div>
       </div>
     </div>
