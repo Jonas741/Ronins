@@ -25,7 +25,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "body {\r\n  color: #5a5a5a;\r\n  background-color: #5a5a5a;\r\n}\r\n\r\ndiv {\r\n  text-align: center;\r\n  padding-top: 3px;\r\n}\r\n\r\nbutton {\r\n  display: inline-block;\r\n  width: 120px;\r\n  height: 24px;\r\n  padding: 0;\r\n  border: none;\r\n  border-radius: 4px;\r\n  margin: 0;\r\n  vertical-align: top;\r\n}\r\n", ""]);
 
 // exports
 
@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"loginHidden\">\r\n  <button (click)=\"logout()\">Logout</button>\r\n</div>\r\n<login *ngIf=\"!loginHidden\"></login>\r\n<router-outlet></router-outlet>\r\n<notifications></notifications>\r\n"
+module.exports = "<div>\r\n  <button (click)=\"gallery()\" type=\"button\" class=\"btn btn-xs btn-default\">Gallery</button>\r\n  <button *ngIf=\"loginHidden\" (click)=\"logout()\" type=\"button\" class=\"btn btn-xs btn-default\">Logout</button>\r\n  <login *ngIf=\"!loginHidden\"></login>\r\n</div>\r\n<notifications></notifications>\r\n<router-outlet></router-outlet>\r\n"
 
 /***/ }),
 
@@ -85,6 +85,9 @@ var AppComponent = (function () {
         localStorage.removeItem("external_login_provider");
         this._router.navigate([""]);
         this._notifier.add(new __WEBPACK_IMPORTED_MODULE_4__models_notification__["a" /* Notification */]("success", "Logout successful."));
+    };
+    AppComponent.prototype.gallery = function () {
+        this._router.navigate(["/gallery"]);
     };
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -268,7 +271,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".file-cache-container {\r\n  color: rebeccapurple\r\n}\r\n", ""]);
+exports.push([module.i, ".aligncenter {\r\n  text-align: center;\r\n  min-width: 50%;\r\n  padding-top: 10px;\r\n}\r\n\r\n.fileContainer {\r\n  overflow: hidden;\r\n  position: relative;\r\n}\r\n\r\n  .fileContainer [type=file] {\r\n    cursor: inherit;\r\n    display: block;\r\n    font-size: 999px;\r\n    filter: alpha(opacity=0);\r\n    min-height: 100%;\r\n    min-width: 100%;\r\n    opacity: 0;\r\n    position: absolute;\r\n    right: 0;\r\n    text-align: right;\r\n    top: 0;\r\n  }\r\n\r\n.body {\r\n  background-image: linear-gradient(to top, #ecedee 0%, #eceeef 75%, #e7e8e9 100%);\r\n  min-height: 100vh;\r\n  color: #323231;\r\n  font: normal 16px sans-serif;\r\n  padding: 1px 1px;\r\n}\r\n\r\n.header {\r\n  /*border: 1px solid black;*/\r\n  padding-left: 90px;\r\n}\r\n\r\n.container.gallery-container {\r\n  /*background-color: #F3EEE1;*/\r\n  background-image: linear-gradient(to top, #ecedee 0%, #eceeef 50%, #e7e8e9 65%, #EAE3D1 100%);\r\n  color: #35373a;\r\n  min-height: 100vh;\r\n  border-radius: 5px;\r\n  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);\r\n}\r\n\r\n.gallery-container h1 {\r\n  text-align: center;\r\n  /*margin-top: 30px;*/\r\n  font-family: 'Droid Sans', sans-serif;\r\n  font-weight: bold;\r\n}\r\n\r\n.gallery-container p.page-description {\r\n  text-align: center;\r\n  max-width: 800px;\r\n  margin: 25px auto;\r\n  color: #888;\r\n  font-size: 18px;\r\n}\r\n\r\n.tz-gallery {\r\n  padding: 40px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -281,7 +284,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/gallery/gallery.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<span>My pictures</span>\r\n<div *ngFor=\"let picture of pictures\">\r\n  <picture [uri]=\"picture.uri\"></picture>\r\n</div>\r\n<hr />\r\n<span>Public pictures</span>\r\n<div *ngFor=\"let picture of publicPictures\">\r\n  <picture [uri]=\"picture.uri\"></picture>\r\n</div>\r\n<div>\r\n  <input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" multiple />\r\n  <button (click)=\"upload()\">Upload</button>\r\n</div>\r\n<div class=\"file-cache-container\" *ngIf=\"fileCache.length !== 0\">\r\n  <div *ngFor=\"let f of fileCache\">\r\n    <span>{{f.name}} | {{f.size/1000000}} MB</span>\r\n    <button (click)=\"removeFile(f); $event.stopPropagation()\">x</button>\r\n  </div>\r\n  <div>\r\n    <input type=\"checkbox\" [(ngModel)]=\"isPublicUpload\" />\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"body\">\r\n  <div class=\"header\">\r\n    <h1>My Gallery</h1>\r\n  </div>\r\n  <div class=\"container gallery-container\">\r\n    <div class=\"aligncenter\">\r\n      <label class=\"fileContainer\">\r\n        Click here to select files to upload!\r\n        <input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" class=\"input\" multiple />\r\n      </label>\r\n      <br />\r\n      <button (click)=\"upload()\" class=\"btn btn-default\">Upload</button>\r\n      <div class=\"file-cache-container\" *ngIf=\"fileCache.length !== 0\">\r\n        <div *ngFor=\"let f of fileCache\">\r\n          <span>{{f.name}} | {{f.size/1000000}} MB</span>\r\n          <button (click)=\"removeFile(f); $event.stopPropagation()\">x</button>\r\n        </div>\r\n        <div>\r\n          <input type=\"checkbox\" [(ngModel)]=\"isPublicUpload\" />\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"tz-gallery\">\r\n      <span>My pictures</span>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let picture of pictures\">\r\n          <picture [uri]=\"picture.uri\"></picture>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"tz-gallery\">\r\n      <span>Public pictures</span>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let picture of publicPictures\">\r\n          <picture [uri]=\"picture.uri\"></picture>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -404,7 +407,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "div {\r\n  color: blue\r\n}\r\n", ""]);
+exports.push([module.i, "body {\r\n  color: #5a5a5a;\r\n  background-color: #5a5a5a;\r\n}\r\n\r\ndiv {\r\n  text-align: center;\r\n  padding-top: 3px;\r\n}\r\n\r\nbutton {\r\n  display: inline-block;\r\n  width: 120px;\r\n  height: 24px;\r\n  padding: 0;\r\n  border: none;\r\n  border-radius: 4px;\r\n  margin: 0;\r\n  vertical-align: top;\r\n}\r\n", ""]);
 
 // exports
 
@@ -417,7 +420,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <button (click)=\"login('facebook')\">Facebook Login</button>\r\n  <button (click)=\"login('google')\">Google Login</button>\r\n</div>\r\n"
+module.exports = "  <button (click)=\"login('facebook')\" type=\"button\" class=\"btn btn-xs btn-default\">Facebook Login</button>\r\n  <button (click)=\"login('google')\" type=\"button\" class=\"btn btn-xs btn-default\">Google Login</button>\r\n"
 
 /***/ }),
 
@@ -597,7 +600,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".lightbox img {\r\n  width: 100%;\r\n  margin-bottom: 30px;\r\n  transition: 0.2s ease-in-out;\r\n  box-shadow: 0 2px 3px rgba(0,0,0,0.2);\r\n  border-radius: 4px;\r\n}\r\n\r\n\r\n.lightbox img:hover {\r\n      -webkit-transform: scale(1.05);\r\n              transform: scale(1.05);\r\n      box-shadow: 0 8px 15px rgba(0,0,0,0.3);\r\n    }\r\n", ""]);
 
 // exports
 
@@ -610,7 +613,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/picture/picture.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <a [href]=\"uri\">\r\n    <img [src]=\"uri\" width=\"300\" height=\"300\" />\r\n  </a>\r\n</div>\r\n"
+module.exports = "<a class=\"lightbox\" [href]=\"uri\">\r\n  <img [src]=\"uri\">\r\n</a>\r\n"
 
 /***/ }),
 
@@ -662,7 +665,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "body {\r\n  min-height: 2000px;\r\n}\r\n\r\n.navbar-static-top {\r\n  margin-bottom: 19px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -675,7 +678,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/welcome/welcome.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  Such welcome component.\r\n</div>\r\n"
+module.exports = "<div class=\"container\">\r\n  <div class=\"jumbotron\">\r\n    <h1>Ronins Cloud</h1>\r\n    <h2>High Competence</h2>\r\n    <p>\r\n      Datacenter building and operating experience. Certified specialists in all the represented directions.\r\n      All the company founders and vast majority of our employees are qualified IT professionals.\r\n    </p>\r\n    <hr />\r\n    <h2>Quality, reiability and efficiency</h2>\r\n    <p>Our infrastructure is implemented on High End equipment from the best manufacturers in the industry.</p>\r\n    <p>Our equipment is hosted in the best data centers with a safety category not lower than TIER III.</p>\r\n    <p>We offer fault-torelant solutions distributed among the data centers network with the ability of hosting infrastructure in Europe.</p>\r\n    <hr />\r\n    <h2>Security</h2>\r\n    <p>Today your data is your most critical asset. </p>\r\n    <p>We are dedicated to protecting your personal data against unauthorized usage and we are fully compliant with all European data protection laws - which are amongst the strictest in the world.</p>\r\n    <hr />\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 

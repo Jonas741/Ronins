@@ -10,37 +10,32 @@
       </label>
       <br />
       <button (click)="upload()" class="btn btn-default">Upload</button>
-    </div>
-    <!--<h1>My Gallery</h1>-->
-    <!--<p class="page-description text-center">Private</p>-->
-
-    <div class="tz-gallery">
-      <div class="row">
-        <div class="col-sm-6 col-md-4" *ngFor="let picture of pictures">
-            <picture [uri] ="picture.uri"></picture>
+      <div class="file-cache-container" *ngIf="fileCache.length !== 0">
+        <div *ngFor="let f of fileCache">
+          <span>{{f.name}} | {{f.size/1000000}} MB</span>
+          <button (click)="removeFile(f); $event.stopPropagation()">x</button>
+        </div>
+        <div>
+          <input type="checkbox" [(ngModel)]="isPublicUpload" />
         </div>
       </div>
     </div>
-<span>My pictures</span>
-<div *ngFor="let picture of pictures">
-  <picture [uri]="picture.uri"></picture>
-</div>
-<hr />
-<span>Public pictures</span>
-<div *ngFor="let picture of publicPictures">
-  <picture [uri]="picture.uri"></picture>
-</div>
-<div>
-  <input type="file" id="imgInput" (change)="onImgInputChange($event)" multiple />
-  <button (click)="upload()">Upload</button>
-</div>
-<div class="file-cache-container" *ngIf="fileCache.length !== 0">
-  <div *ngFor="let f of fileCache">
-    <span>{{f.name}} | {{f.size/1000000}} MB</span>
-    <button (click)="removeFile(f); $event.stopPropagation()">x</button>
-  </div>
-  <div>
-    <input type="checkbox" [(ngModel)]="isPublicUpload" />
+    <div class="tz-gallery">
+      <span>My pictures</span>
+      <div class="row">
+        <div class="col-sm-6 col-md-4" *ngFor="let picture of pictures">
+          <picture [uri]="picture.uri"></picture>
+        </div>
+      </div>
+    </div>
+    <div class="tz-gallery">
+      <span>Public pictures</span>
+      <div class="row">
+        <div class="col-sm-6 col-md-4" *ngFor="let picture of publicPictures">
+          <picture [uri]="picture.uri"></picture>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
