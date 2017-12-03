@@ -24,6 +24,7 @@ export class GalleryComponent implements OnInit {
   public publicPictures = new Array<Picture>();
   public isPublicUpload = false;
   public currentPicture: Picture;
+  public anonymus: boolean;
 
   constructor(
     private _dataService: DataService,
@@ -34,17 +35,21 @@ export class GalleryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const token = localStorage.getItem("acc_token");
+
     this.fileCache = [];
     this.pictures = [];
     this.publicPictures = [];
     this.currentPicture = null;
+    this.anonymus = token == null;
     this.fetchPictures();
   }
 
   private fetchPictures(): void {
     const userId = localStorage.getItem("uid");
+    const url = userId == null ? "images" : `images/${userId}`;
 
-    this._dataService.getAll<Picture>(`images/${userId}`)
+    this._dataService.getAll<Picture>(url)
       .subscribe(res => {
         this._logger.debug("0x000400", "Picture metadata fetched successfully.", res);
 

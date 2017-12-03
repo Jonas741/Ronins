@@ -262,7 +262,7 @@ __WEBPACK_IMPORTED_MODULE_4_angular2_social_login__["a" /* Angular2SocialLoginMo
 
 var appRoutes = [
     { path: "", component: __WEBPACK_IMPORTED_MODULE_3__components_welcome_welcome_component__["a" /* WelcomeComponent */] },
-    { path: "gallery", component: __WEBPACK_IMPORTED_MODULE_2__components_gallery_gallery_component__["a" /* GalleryComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_1__services_auth_guard__["a" /* AuthGuard */]] }
+    { path: "gallery", component: __WEBPACK_IMPORTED_MODULE_2__components_gallery_gallery_component__["a" /* GalleryComponent */] }
 ];
 var appRoutingProviders = [
     __WEBPACK_IMPORTED_MODULE_1__services_auth_guard__["a" /* AuthGuard */]
@@ -293,7 +293,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/gallery/gallery.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"body\">\r\n  <div class=\"header\">\r\n    <h1>Gallery</h1>\r\n  </div>\r\n  <div class=\"container gallery-container\">\r\n    <div class=\"aligncenter\">\r\n      <label class=\"fileContainer\">\r\n        Click here to select files to upload!\r\n        <input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" class=\"input\" multiple />\r\n      </label>\r\n      <br />\r\n      <button (click)=\"upload()\" class=\"btn btn-default\">Upload</button>\r\n      <div class=\"file-cache-container\" *ngIf=\"fileCache.length !== 0\">\r\n        <div *ngFor=\"let f of fileCache\">\r\n          <span>{{f.name}} | {{f.size/1000000}} MB</span>\r\n          <button (click)=\"removeFile(f); $event.stopPropagation()\">x</button>\r\n        </div>\r\n        <div>\r\n          <span>Public upload: </span>\r\n          <input type=\"checkbox\" [(ngModel)]=\"isPublicUpload\" />\r\n        </div>\r\n      </div>\r\n      <div *ngIf=\"currentPicture\">\r\n        <picture-detail [inputPicture]=\"currentPicture\" (done)=\"closeDetail($event)\"></picture-detail>\r\n      </div>\r\n    </div>\r\n    <div class=\"tz-gallery\">\r\n      <span>My pictures</span>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let pic of pictures\">\r\n          <picture [inputPicture]=\"pic\" (click)=\"setCurrentPicture(pic)\"></picture>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"tz-gallery\">\r\n      <span>Public pictures</span>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let pic of publicPictures\">\r\n          <picture [inputPicture]=\"pic\"></picture>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
+module.exports = "<div class=\"body\">\r\n  <div class=\"header\">\r\n    <h1>Gallery</h1>\r\n  </div>\r\n  <div class=\"container gallery-container\">\r\n    <div class=\"aligncenter\" *ngIf=\"!anonymus\">\r\n      <label class=\"fileContainer\">\r\n        Click here to select files to upload!\r\n        <input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" class=\"input\" multiple />\r\n      </label>\r\n      <br />\r\n      <button (click)=\"upload()\" class=\"btn btn-default\">Upload</button>\r\n      <div class=\"file-cache-container\" *ngIf=\"fileCache.length !== 0\">\r\n        <div *ngFor=\"let f of fileCache\">\r\n          <span>{{f.name}} | {{f.size/1000000}} MB</span>\r\n          <button (click)=\"removeFile(f); $event.stopPropagation()\">x</button>\r\n        </div>\r\n        <div>\r\n          <span>Public upload: </span>\r\n          <input type=\"checkbox\" [(ngModel)]=\"isPublicUpload\" />\r\n        </div>\r\n      </div>\r\n      <div *ngIf=\"currentPicture\">\r\n        <picture-detail [inputPicture]=\"currentPicture\" (done)=\"closeDetail($event)\"></picture-detail>\r\n      </div>\r\n    </div>\r\n    <div class=\"tz-gallery\" *ngIf=\"pictures.length > 0\">\r\n      <span>My pictures</span>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let pic of pictures\">\r\n          <picture [inputPicture]=\"pic\" (click)=\"setCurrentPicture(pic)\"></picture>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"tz-gallery\">\r\n      <span>Public pictures</span>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let pic of publicPictures\">\r\n          <picture [inputPicture]=\"pic\"></picture>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -341,16 +341,19 @@ var GalleryComponent = (function () {
         this.isPublicUpload = false;
     }
     GalleryComponent.prototype.ngOnInit = function () {
+        var token = localStorage.getItem("acc_token");
         this.fileCache = [];
         this.pictures = [];
         this.publicPictures = [];
         this.currentPicture = null;
+        this.anonymus = token == null;
         this.fetchPictures();
     };
     GalleryComponent.prototype.fetchPictures = function () {
         var _this = this;
         var userId = localStorage.getItem("uid");
-        this._dataService.getAll("images/" + userId)
+        var url = userId == null ? "images" : "images/" + userId;
+        this._dataService.getAll(url)
             .subscribe(function (res) {
             _this._logger.debug("0x000400", "Picture metadata fetched successfully.", res);
             var resultData = res.data;
@@ -497,7 +500,7 @@ var LoginComponent = (function () {
                 localStorage.setItem("uid", extRes.uid);
                 localStorage.setItem("acc_token", extRes.token);
                 localStorage.setItem("external_login_provider", extRes.provider);
-                _this._router.navigate(["/gallery"]);
+                _this._router.navigate([""]);
             });
         }, function (err) {
             _this._logger.error("Ex020700", "Error occured in external login.", err);

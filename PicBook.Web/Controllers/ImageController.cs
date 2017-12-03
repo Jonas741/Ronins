@@ -76,7 +76,7 @@ namespace PicBook.Web.Controllers
     [HttpGet]
     [Route("")]
     [Route("{userIdentifier}")]
-    public async Task<IActionResult> Pictures(string userIdentifier)
+    public async Task<IActionResult> Pictures(string userIdentifier = null)
     {
       var pictureEntities = new List<PictureEntity>();
       var publicPictureEntities = new List<PictureEntity>();

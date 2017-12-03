@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("acc_token", extRes.token);
             localStorage.setItem("external_login_provider", extRes.provider);
 
-            this._router.navigate(["/gallery"]);
+            this._router.navigate([""]);
           }
         );
       }, err => {

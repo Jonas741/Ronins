@@ -32,6 +32,9 @@ namespace PicBook.Web.Helpers
         var parsedResponse = JObject.Parse(responseString);
         var returnedTags = JArray.Parse(parsedResponse["tags"].ToString());
 
+        if (returnedTags.Count == 0)
+          return tagsString;
+
         foreach (JObject tag in returnedTags)
         {
             var name = (String)tag["name"];

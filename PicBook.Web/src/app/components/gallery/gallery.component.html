@@ -3,7 +3,7 @@
     <h1>Gallery</h1>
   </div>
   <div class="container gallery-container">
-    <div class="aligncenter">
+    <div class="aligncenter" *ngIf="!anonymus">
       <label class="fileContainer">
         Click here to select files to upload!
         <input type="file" id="imgInput" (change)="onImgInputChange($event)" class="input" multiple />
@@ -24,7 +24,7 @@
         <picture-detail [inputPicture]="currentPicture" (done)="closeDetail($event)"></picture-detail>
       </div>
     </div>
-    <div class="tz-gallery">
+    <div class="tz-gallery" *ngIf="pictures.length > 0">
       <span>My pictures</span>
       <div class="row">
         <div class="col-sm-6 col-md-4" *ngFor="let pic of pictures">
