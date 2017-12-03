@@ -1,6 +1,6 @@
 <div class="body">
   <div class="header">
-    <h1>My Gallery</h1>
+    <h1>Gallery</h1>
   </div>
   <div class="container gallery-container">
     <div class="aligncenter">
@@ -16,23 +16,27 @@
           <button (click)="removeFile(f); $event.stopPropagation()">x</button>
         </div>
         <div>
+          <span>Public upload: </span>
           <input type="checkbox" [(ngModel)]="isPublicUpload" />
         </div>
+      </div>
+      <div *ngIf="currentPicture">
+        <picture-detail [inputPicture]="currentPicture"></picture-detail>
       </div>
     </div>
     <div class="tz-gallery">
       <span>My pictures</span>
       <div class="row">
-        <div class="col-sm-6 col-md-4" *ngFor="let picture of pictures">
-          <picture [uri]="picture.uri"></picture>
+        <div class="col-sm-6 col-md-4" *ngFor="let pic of pictures">
+          <picture [inputPicture]="pic" (click)="setCurrentPicture(pic)"></picture>
         </div>
       </div>
     </div>
     <div class="tz-gallery">
       <span>Public pictures</span>
       <div class="row">
-        <div class="col-sm-6 col-md-4" *ngFor="let picture of publicPictures">
-          <picture [uri]="picture.uri"></picture>
+        <div class="col-sm-6 col-md-4" *ngFor="let pic of publicPictures">
+          <picture [inputPicture]="pic"></picture>
         </div>
       </div>
     </div>

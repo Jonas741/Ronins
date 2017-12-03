@@ -15,6 +15,7 @@
     <None Remove="src\app\components\gallery.component.ts" />
     <None Remove="src\app\components\login\login.component.ts" />
     <None Remove="src\app\components\notification\notification.component.ts" />
+    <None Remove="src\app\components\picture.detail\picture.detail.component.ts" />
     <None Remove="src\app\components\welcome\welcome.component.ts" />
     <None Remove="src\app\models\notification.ts" />
     <None Remove="src\app\models\picture.ts" />
@@ -45,6 +46,7 @@
     <TypeScriptCompile Include="src\app\app.constants.ts" />
     <TypeScriptCompile Include="src\app\app.routes.ts" />
     <TypeScriptCompile Include="src\app\components\gallery\gallery.component.ts" />
+    <TypeScriptCompile Include="src\app\components\picture.detail\picture.detail.component.ts" />
     <TypeScriptCompile Include="src\app\components\picture\picture.component.ts" />
     <TypeScriptCompile Include="src\app\components\login\login.component.ts" />
     <TypeScriptCompile Include="src\app\components\notification\notification.component.ts" />

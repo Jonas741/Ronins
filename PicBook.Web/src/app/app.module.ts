@@ -10,6 +10,7 @@ import { GalleryComponent } from './components/gallery/gallery.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { PictureComponent } from './components/picture/picture.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { PictureDetailComponent } from './components/picture.detail/picture.detail.component';
 
 import { routing, appRoutingProviders } from "./app.routes";
 import { AuthenticationService } from "./services/authentication.service";
@@ -35,7 +36,8 @@ let providers = {
     GalleryComponent,
     NotificationComponent,
     PictureComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    PictureDetailComponent
   ],
   imports: [
     BrowserModule,

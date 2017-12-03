@@ -23,6 +23,7 @@ export class GalleryComponent implements OnInit {
   public pictures = new Array<Picture>();
   public publicPictures = new Array<Picture>();
   public isPublicUpload = false;
+  public currentPicture: Picture;
 
   constructor(
     private _dataService: DataService,
@@ -36,6 +37,7 @@ export class GalleryComponent implements OnInit {
     this.fileCache = [];
     this.pictures = [];
     this.publicPictures = [];
+    this.currentPicture = null;
     this.fetchPictures();
   }
 
@@ -87,5 +89,9 @@ export class GalleryComponent implements OnInit {
 
   public removeFile(f: File): void {
     this.fileCache = this.fileCache.filter(file => file !== f);
+  }
+
+  public setCurrentPicture(pic: Picture) {
+    this.currentPicture = pic;
   }
 }

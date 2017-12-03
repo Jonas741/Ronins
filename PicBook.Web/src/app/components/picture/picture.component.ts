@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 
+import { Picture } from "../../models/picture";
+
 @Component({
   selector: "picture",
   templateUrl: "./picture.component.html",
@@ -7,7 +9,7 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class PictureComponent implements OnInit {
 
-  @Input() uri: string;
+  @Input() inputPicture: Picture;
 
   constructor() {
 
