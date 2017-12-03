@@ -634,7 +634,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/picture.detail/picture.detail.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <span>Public: </span>\r\n  <input type=\"checkbox\" [(ngModel)]=\"inputPicture.isPublic\" (change)=\"onAnyPropChange('isPublic')\" />\r\n  <button [(disabled)]=\"!hasChange\" (click)=\"updatePicture()\">Update picture</button>\r\n  <button (click)=\"deletePicture()\">Delete picture</button>\r\n  <share-button [theme]=\"'modern-dark'\" [button]=\"socialProvider\" [url]=\"inputPicture.uri\"></share-button>\r\n</div>\r\n"
+module.exports = "<div>\r\n  <span>Public: </span>\r\n  <input type=\"checkbox\" [(ngModel)]=\"inputPicture.isPublic\" (change)=\"onAnyPropChange('isPublic')\" />\r\n  <button [(disabled)]=\"!hasChange\" (click)=\"updatePicture()\">Update picture</button>\r\n  <button (click)=\"deletePicture()\">Delete picture</button>\r\n  <share-button [theme]=\"'modern-dark'\" [button]=\"socialProvider\" [url]=\"inputPicture.uri\"></share-button>\r\n  <ul>\r\n    <li *ngFor=\"let tag of inputPicture.tags\">{{tag}}</li>\r\n  </ul>\r\n</div>\r\n"
 
 /***/ }),
 

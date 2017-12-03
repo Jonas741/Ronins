@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace PicBook.Domain
 {
@@ -17,10 +19,13 @@ namespace PicBook.Domain
         public Guid Id { get; set; }
         public string Name { get; set; }
         public bool IsPublic { get; set; }
+        public string Tags { get; set; }
 
         public PictureEntity()
         {
             Id = new Guid();
         }
+
+        public List<string> TagList { get => Tags.Split('|').ToList(); }
     }
 }

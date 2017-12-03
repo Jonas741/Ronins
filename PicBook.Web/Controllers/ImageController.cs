@@ -48,11 +48,13 @@ namespace PicBook.Web.Controllers
       {
         if (formFile.Length > 0)
         {
+          string tags = "";
+
           using (var ms = new MemoryStream())
           {
             formFile.CopyTo(ms);
             uploadedImageUri = await _imageService.UploadImage(ms.ToArray());
-            //var xd = await ImageTaggingHandler.MakeTaggingRequest(ms.ToArray());
+            tags = await ImageTaggingHandler.MakeTaggingRequest(ms.ToArray());
           }
 
           PictureEntity picture = new PictureEntity()
@@ -61,7 +63,8 @@ namespace PicBook.Web.Controllers
             User = userEntity,
             UserId = userEntity.Id,
             Name = formFile.Name,
-            IsPublic = isPublic
+            IsPublic = isPublic,
+            Tags = tags
           };
           await _pictureService.Create(picture);
         }
@@ -94,8 +97,8 @@ namespace PicBook.Web.Controllers
         publicPictureEntities = (await _pictureService.GetAllPublic()).ToList();
 
       var pictures = new List<PictureDTO>();
-      pictures.AddRange(pictureEntities.Select(x => new PictureDTO() { IsPublic = x.IsPublic, Uri = new Uri(x.ImgPath), Name = x.Name, UserIdentifier = x.User.Id, Id = x.Id }));
-      pictures.AddRange(publicPictureEntities.Select(x => new PictureDTO() { IsPublic = x.IsPublic, Uri = new Uri(x.ImgPath), Name = x.Name, UserIdentifier = x.UserId, Id = x.Id }));
+      pictures.AddRange(pictureEntities.Select(x => new PictureDTO() { IsPublic = x.IsPublic, Uri = new Uri(x.ImgPath), Name = x.Name, UserIdentifier = x.User.Id, Id = x.Id, Tags = x.TagList }));
+      pictures.AddRange(publicPictureEntities.Select(x => new PictureDTO() { IsPublic = x.IsPublic, Uri = new Uri(x.ImgPath), Name = x.Name, UserIdentifier = x.UserId, Id = x.Id, Tags = x.TagList }));
 
       return Ok(ApiResult.Set("Pictures fetched successfully.", pictures));
     }

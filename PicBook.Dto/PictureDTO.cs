@@ -11,5 +11,6 @@ namespace PicBook.Dto
         public Uri Uri { get; set; }
         public bool IsPublic { get; set; }
         public string UserIdentifier { get; set; }
+        public List<string> Tags { get; set; }
     }
 }

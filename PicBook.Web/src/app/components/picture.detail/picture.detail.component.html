@@ -4,4 +4,7 @@
   <button [(disabled)]="!hasChange" (click)="updatePicture()">Update picture</button>
   <button (click)="deletePicture()">Delete picture</button>
   <share-button [theme]="'modern-dark'" [button]="socialProvider" [url]="inputPicture.uri"></share-button>
+  <ul>
+    <li *ngFor="let tag of inputPicture.tags">{{tag}}</li>
+  </ul>
 </div>
