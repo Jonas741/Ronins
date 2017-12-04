@@ -1,10 +1,23 @@
 <div>
-  <span>Public: </span>
-  <input type="checkbox" [(ngModel)]="inputPicture.isPublic" (change)="onAnyPropChange('isPublic')" />
-  <button [(disabled)]="!hasChange" (click)="updatePicture()">Update picture</button>
-  <button (click)="deletePicture()">Delete picture</button>
-  <share-button [theme]="'modern-dark'" [button]="socialProvider" [url]="inputPicture.uri"></share-button>
-  <ul>
-    <li *ngFor="let tag of inputPicture.tags">{{tag}}</li>
+  <div class="share">
+    <span>Share: </span>
+    <share-button [theme]='modern-dark' [button]="socialProvider" [url]="inputPicture.uri"></share-button>
+  </div>
+  <div class="public">
+    <span>Public: </span>
+    <input type="checkbox" [(ngModel)]="inputPicture.isPublic" (change)="onAnyPropChange('isPublic')" />
+  </div>
+
+  <div class="update">
+    <button class="btn btn-primary" [(disabled)]="!hasChange" (click)="updatePicture()">Update picture</button>
+  </div>
+  <div>
+    <button class="btn btn-danger" (click)="deletePicture()">Delete picture</button>
+  </div>
+</div>
+<div class="tag">
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-warning" *ngFor="let tag of inputPicture.tags">{{tag}}</li>
   </ul>
 </div>
+

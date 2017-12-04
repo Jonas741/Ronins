@@ -1,3 +1,11 @@
+.div-container {
+  width: 200px;
+  margin: 0 auto;
+  border-width: 2px;
+  border-style: double;
+  text-align: center;
+}
+
 @media (min-width: 1px) {
   .col-sm-6, .col-md-4 {
     float: left;

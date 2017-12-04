@@ -1,0 +1,21 @@
+
+.share{
+  padding-top: 10px;
+}
+.public{
+  padding-top: 15px;
+  padding-bottom: 5px;
+}
+.update{
+  padding-bottom: 5px;
+}
+
+.boder{
+  border-width: 1px;
+  border-color:black;
+  border-style:dotted;
+}
+
+.tag {
+  padding-top: 10px;
+}
