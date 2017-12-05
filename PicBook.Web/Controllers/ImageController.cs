@@ -9,6 +9,7 @@ using PicBook.ApplicationService;
 using PicBook.Dto;
 using PicBook.Domain;
 using PicBook.Web.Helpers;
+using Microsoft.Extensions.Options;
 
 namespace PicBook.Web.Controllers
 {
@@ -18,13 +19,17 @@ namespace PicBook.Web.Controllers
     private IImageService _imageService;
     private IPictureService _pictureService;
     private IUserService _userService;
+    private ExternalTokenHandler tokenHandler;
+    private ImageTaggingHandler taggingHandler;
 
-    public ImageController(IImageService imageService, IPictureService pictureService,
-      IUserService userService)
+    public ImageController(IImageService imageService, IPictureService pictureService, IUserService userService,
+      IOptions<ImageTaggingConfigurations> imageTaggingConfig, IOptions<TokenValidationConfigurations> tokenValidationConfig)
     {
       _imageService = imageService;
       _pictureService = pictureService;
       _userService = userService;
+      tokenHandler = new ExternalTokenHandler(tokenValidationConfig);
+      taggingHandler = new ImageTaggingHandler(imageTaggingConfig);
     }
 
     [HttpPost("upload")]
@@ -33,7 +38,7 @@ namespace PicBook.Web.Controllers
       var token = Request.Headers["Token"].ToString();
       var provider = Request.Headers["Token-Provider"].ToString();
 
-      if (!await ExternalTokenHandler.Validate(token, provider))
+      if (!await tokenHandler.Validate(token, provider))
         return BadRequest(ApiResult.Set("Token validation failed."));
 
       var files = Request.Form.Files.ToList();
@@ -54,7 +59,7 @@ namespace PicBook.Web.Controllers
           {
             formFile.CopyTo(ms);
             uploadedImageUri = await _imageService.UploadImage(ms.ToArray());
-            tags = await ImageTaggingHandler.MakeTaggingRequest(ms.ToArray());
+            tags = await taggingHandler.MakeTaggingRequest(ms.ToArray());
           }
 
           PictureEntity picture = new PictureEntity()
@@ -86,7 +91,7 @@ namespace PicBook.Web.Controllers
         var token = Request.Headers["Token"].ToString();
         var provider = Request.Headers["Token-Provider"].ToString();
 
-        if (!await ExternalTokenHandler.Validate(token, provider))
+        if (!await tokenHandler.Validate(token, provider))
           return BadRequest(ApiResult.Set("Token validation failed."));
 
         var userEntity = await _userService.GetById(userIdentifier);
@@ -110,7 +115,7 @@ namespace PicBook.Web.Controllers
       var provider = Request.Headers["Token-Provider"].ToString();
       var userId = Request.Headers["Token-Bearer"].ToString();
 
-      if (!await ExternalTokenHandler.Validate(token, provider))
+      if (!await tokenHandler.Validate(token, provider))
         return BadRequest(ApiResult.Set("Token validation failed."));
 
       PictureEntity pictureEntity = await _pictureService.GetById(model.Id);
@@ -137,7 +142,7 @@ namespace PicBook.Web.Controllers
       var provider = Request.Headers["Token-Provider"].ToString();
       var userId = Request.Headers["Token-Bearer"].ToString();
 
-      if (!await ExternalTokenHandler.Validate(token, provider))
+      if (!await tokenHandler.Validate(token, provider))
         return BadRequest(ApiResult.Set("Token validation failed."));
 
       PictureEntity pictureEntity = await _pictureService.GetById(pictureId);

@@ -103,7 +103,10 @@ Manage user secrets:																 									 *
 2. Save the connection string of the azure storage emulator																 *
 	2.1 dotnet user-secrets set AzureStorage:ConnectionString "UseDevelopmentStorage=true;"								 *
 **************************************************************************************************************************
-
+TokenValidationUrls:Google "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token="
+TokenValidationUrls:Facebook "https://graph.facebook.com/v2.4/me/?access_token="
+ImageTagging:ApiKey "a8d4d76007f0479aa4eb531f7a161a37"
+ImageTagging:ApiUrl "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze"
 
 
 Facebook appid: 1932254340430320

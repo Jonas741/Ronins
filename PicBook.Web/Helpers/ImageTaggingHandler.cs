@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -11,17 +12,21 @@ namespace PicBook.Web.Helpers
   public class ImageTaggingHandler
   {
     private static readonly HttpClient client = new HttpClient();
-    private static readonly string API_URL = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze";
-    private static readonly string API_KEY = "a8d4d76007f0479aa4eb531f7a161a37";
+    private ImageTaggingConfigurations configuration;
 
-    public static async Task<string> MakeTaggingRequest(byte[] byteData)
+    public ImageTaggingHandler(IOptions<ImageTaggingConfigurations> config)
+    {
+      configuration = config.Value;
+    }
+
+    public async Task<string> MakeTaggingRequest(byte[] byteData)
     {
       var tags = new List<string>();
       var tagsString = "";
 
-      client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", API_KEY);
+      client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", configuration.ApiKey);
       var requestParameters = "visualFeatures=Tags&language=en";
-      var url = API_URL + "?" + requestParameters;
+      var url = configuration.ApiUrl + "?" + requestParameters;
 
       using (ByteArrayContent content = new ByteArrayContent(byteData))
       {

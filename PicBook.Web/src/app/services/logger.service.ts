@@ -1,17 +1,23 @@
 import { Injectable } from "@angular/core";
 
+import { Configuration } from "../app.constants";
+
 @Injectable()
 export class Logger {
 
-  constructor() { }
+  constructor(
+    private _configuration: Configuration
+  ) { }
 
   public debug(code: string, message: string, obj?: any): void {
-    let format = this.getLocalDateTime() + ": [" + code + "] - " + message;
+    if (this._configuration.IsDevEnvironment) {
+      let format = this.getLocalDateTime() + ": [" + code + "] - " + message;
 
-    if (obj) {
-      console.log(format, obj);
-    } else {
-      console.log(format);
+      if (obj) {
+        console.log(format, obj);
+      } else {
+        console.log(format);
+      }
     }
   }
 

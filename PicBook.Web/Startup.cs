@@ -16,6 +16,7 @@ using PicBook.Repository.AzureStorage;
 using PicBook.Repository.EntityFramework;
 using System.IO;
 using PicBook.Domain;
+using PicBook.Web.Helpers;
 
 namespace PicBook.Web
 {
@@ -27,8 +28,7 @@ namespace PicBook.Web
     {
       var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
       if (env.IsDevelopment())
       {
@@ -46,12 +46,13 @@ namespace PicBook.Web
         options.Filters.Add(new RequireHttpsAttribute());
       });
 
+      services.Configure<TokenValidationConfigurations>(Configuration.GetSection("TokenValidationUrls"));
+      services.Configure<ImageTaggingConfigurations>(Configuration.GetSection("ImageTagging"));
+
       services.AddMvc();
 
       services.AddDbContext<ApplicationDbContext>(options =>
-          options.UseSqlServer(Configuration["Connections:DefaultConnection"]));
-
-      //services.AddScoped<IGenericCrudRepository<Entity>, GenericCrudRepository<Entity>>();
+          options.UseSqlServer(Configuration["Connections:DefaultConnection"], b => b.MigrationsAssembly("PicBook.Repository.EntityFramework")));
 
       services.AddScoped<IImageService, ImageService>();
       services.AddScoped<IImageRepository>(r => new ImageRepository(Configuration["AzureStorage:ConnectionString"]));
@@ -67,6 +68,11 @@ namespace PicBook.Web
 
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     {
+      using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+      {
+        serviceScope.ServiceProvider.GetService<ApplicationDbContext>().Database.Migrate();
+      }
+
       app.Use(async (context, next) =>
       {
         await next();

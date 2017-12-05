@@ -123,13 +123,20 @@ var Configuration = (function () {
     function Configuration() {
         this.ApiUrl = "api/";
         this.ServerWithApiUrl = this.Server + this.ApiUrl;
-        this.FacebookTokenValidationUrl = "https://graph.facebook.com/v2.4/me/?access_token=";
-        this.GoogleTokenValidationUrl = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=";
     }
     Object.defineProperty(Configuration.prototype, "Server", {
         get: function () {
-            return 'https://localhost:44301/';
-            //return window.location.protocol + "//" + window.location.host + "/";
+            if (window.location.host === "localhost:44301") {
+                return 'https://localhost:44301/';
+            }
+            return window.location.protocol + "//" + window.location.host + "/";
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Configuration.prototype, "IsDevEnvironment", {
+        get: function () {
+            return window.location.host === "localhost:44301";
         },
         enumerable: true,
         configurable: true
@@ -1214,6 +1221,7 @@ var DataService = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Logger; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1224,16 +1232,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var Logger = (function () {
-    function Logger() {
+    function Logger(_configuration) {
+        this._configuration = _configuration;
     }
     Logger.prototype.debug = function (code, message, obj) {
-        var format = this.getLocalDateTime() + ": [" + code + "] - " + message;
-        if (obj) {
-            console.log(format, obj);
-        }
-        else {
-            console.log(format);
+        if (this._configuration.IsDevEnvironment) {
+            var format = this.getLocalDateTime() + ": [" + code + "] - " + message;
+            if (obj) {
+                console.log(format, obj);
+            }
+            else {
+                console.log(format);
+            }
         }
     };
     Logger.prototype.info = function (code, message, obj) {
@@ -1269,7 +1281,7 @@ var Logger = (function () {
     };
     Logger = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__app_constants__["a" /* Configuration */]])
     ], Logger);
     return Logger;
 }());
