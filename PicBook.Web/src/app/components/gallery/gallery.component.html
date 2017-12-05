@@ -20,7 +20,7 @@
           <input type="checkbox" [(ngModel)]="isPublicUpload" />
         </div>
       </div>
-      <div *ngIf="currentPicture">
+      <div *ngIf="currentPicture" class="div-container">
         <picture-detail [inputPicture]="currentPicture" (done)="closeDetail($event)"></picture-detail>
       </div>
     </div>
