@@ -3,6 +3,11 @@
     <h1>Gallery</h1>
   </div>
   <div class="container gallery-container">
+    <div id="search-container">
+      <h4>Search</h4>
+      <input #searchBox id="search-box" />
+      <button (click)="search(searchBox.value)">Go!</button>
+    </div>
     <div class="aligncenter" *ngIf="!anonymus">
       <label class="fileContainer">
         Click here to select files to upload!
@@ -33,7 +38,7 @@
       </div>
     </div>
     <div class="tz-gallery">
-      <span>Public pictures</span>
+      <span>Search results</span>
       <div class="row">
         <div class="col-sm-6 col-md-4" *ngFor="let pic of publicPictures">
           <picture [inputPicture]="pic"></picture>

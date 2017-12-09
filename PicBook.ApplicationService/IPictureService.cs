@@ -12,6 +12,7 @@ namespace PicBook.ApplicationService
         Task<IEnumerable<PictureEntity>> GetAllByUser(UserEntity entity);
         Task<IEnumerable<PictureEntity>> GetAllPublic();
         Task<IEnumerable<PictureEntity>> GetAllPublicByUser(UserEntity entity);
+        Task<IEnumerable<PictureEntity>> GetPublicPicturesByTag(string tag);
         Task<PictureEntity> GetByUri(Uri uri);
         Task<PictureEntity> GetById(Guid id);
         Task Update(PictureEntity entity);

@@ -32,5 +32,10 @@ namespace PicBook.Repository.EntityFramework
         {
             return await Find(x => x.ImgPath == uri.ToString());
         }
+
+        public async Task<IEnumerable<PictureEntity>> GetPublicPicturesByTag(string tag)
+        {
+            return await FindAll(x => x.Tags.Contains(tag) && x.IsPublic);
+        }
     }
 }

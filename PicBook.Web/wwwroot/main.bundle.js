@@ -287,7 +287,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "@media (min-width: 1px) {\r\n  .col-sm-6, .col-md-4 {\r\n    float: left;\r\n    width:auto;\r\n  }\r\n}\r\n  .aligncenter {\r\n    text-align: center;\r\n    min-width: 50%;\r\n    padding-top: 10px;\r\n  }\r\n\r\n  .fileContainer {\r\n    overflow: hidden;\r\n    position: relative;\r\n  }\r\n\r\n    .fileContainer [type=file] {\r\n      cursor: inherit;\r\n      display: block;\r\n      font-size: 999px;\r\n      filter: alpha(opacity=0);\r\n      min-height: 100%;\r\n      min-width: 100%;\r\n      opacity: 0;\r\n      position: absolute;\r\n      right: 0;\r\n      text-align: right;\r\n      top: 0;\r\n    }\r\n\r\n  .body {\r\n    background-image: linear-gradient(to top, #ecedee 0%, #eceeef 75%, #e7e8e9 100%);\r\n    min-height: 100vh;\r\n    color: #323231;\r\n    font: normal 16px sans-serif;\r\n    padding: 1px 1px;\r\n  }\r\n\r\n  .header {\r\n    /*border: 1px solid black;*/\r\n    padding-left: 90px;\r\n  }\r\n\r\n  .container.gallery-container {\r\n    /*background-color: #F3EEE1;*/\r\n    background-image: linear-gradient(to top, #ecedee 0%, #eceeef 50%, #e7e8e9 65%, #EAE3D1 100%);\r\n    color: #35373a;\r\n    min-height: 100vh;\r\n    border-radius: 5px;\r\n    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);\r\n  }\r\n\r\n  .gallery-container h1 {\r\n    text-align: center;\r\n    /*margin-top: 30px;*/\r\n    font-family: 'Droid Sans', sans-serif;\r\n    font-weight: bold;\r\n  }\r\n\r\n  .gallery-container p.page-description {\r\n    text-align: center;\r\n    max-width: 800px;\r\n    margin: 25px auto;\r\n    color: #888;\r\n    font-size: 18px;\r\n  }\r\n\r\n  .tz-gallery {\r\n    padding: 40px;\r\n  }\r\n", ""]);
+exports.push([module.i, ".div-container {\r\n  width: 200px;\r\n  margin: 0 auto;\r\n  border-width: 2px;\r\n  border-style: double;\r\n  text-align: center;\r\n}\r\n\r\n@media (min-width: 1px) {\r\n  .col-sm-6, .col-md-4 {\r\n    float: left;\r\n    width: auto;\r\n  }\r\n}\r\n\r\n.aligncenter {\r\n  text-align: center;\r\n  min-width: 50%;\r\n  padding-top: 10px;\r\n}\r\n\r\n.fileContainer {\r\n  overflow: hidden;\r\n  position: relative;\r\n}\r\n\r\n  .fileContainer [type=file] {\r\n    cursor: inherit;\r\n    display: block;\r\n    font-size: 999px;\r\n    filter: alpha(opacity=0);\r\n    min-height: 100%;\r\n    min-width: 100%;\r\n    opacity: 0;\r\n    position: absolute;\r\n    right: 0;\r\n    text-align: right;\r\n    top: 0;\r\n  }\r\n\r\n.body {\r\n  background-image: linear-gradient(to top, #ecedee 0%, #eceeef 75%, #e7e8e9 100%);\r\n  min-height: 100vh;\r\n  color: #323231;\r\n  font: normal 16px sans-serif;\r\n  padding: 1px 1px;\r\n}\r\n\r\n.header {\r\n  /*border: 1px solid black;*/\r\n  padding-left: 90px;\r\n}\r\n\r\n.container.gallery-container {\r\n  /*background-color: #F3EEE1;*/\r\n  background-image: linear-gradient(to top, #ecedee 0%, #eceeef 50%, #e7e8e9 65%, #EAE3D1 100%);\r\n  color: #35373a;\r\n  min-height: 100vh;\r\n  border-radius: 5px;\r\n  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);\r\n}\r\n\r\n.gallery-container h1 {\r\n  text-align: center;\r\n  /*margin-top: 30px;*/\r\n  font-family: 'Droid Sans', sans-serif;\r\n  font-weight: bold;\r\n}\r\n\r\n.gallery-container p.page-description {\r\n  text-align: center;\r\n  max-width: 800px;\r\n  margin: 25px auto;\r\n  color: #888;\r\n  font-size: 18px;\r\n}\r\n\r\n.tz-gallery {\r\n  padding: 40px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -300,7 +300,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/gallery/gallery.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"body\">\r\n  <div class=\"header\">\r\n    <h1>Gallery</h1>\r\n  </div>\r\n  <div class=\"container gallery-container\">\r\n    <div class=\"aligncenter\" *ngIf=\"!anonymus\">\r\n      <label class=\"fileContainer\">\r\n        Click here to select files to upload!\r\n        <input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" class=\"input\" multiple />\r\n      </label>\r\n      <br />\r\n      <button (click)=\"upload()\" class=\"btn btn-default\">Upload</button>\r\n      <div class=\"file-cache-container\" *ngIf=\"fileCache.length !== 0\">\r\n        <div *ngFor=\"let f of fileCache\">\r\n          <span>{{f.name}} | {{f.size/1000000}} MB</span>\r\n          <button (click)=\"removeFile(f); $event.stopPropagation()\">x</button>\r\n        </div>\r\n        <div>\r\n          <span>Public upload: </span>\r\n          <input type=\"checkbox\" [(ngModel)]=\"isPublicUpload\" />\r\n        </div>\r\n      </div>\r\n      <div *ngIf=\"currentPicture\">\r\n        <picture-detail [inputPicture]=\"currentPicture\" (done)=\"closeDetail($event)\"></picture-detail>\r\n      </div>\r\n    </div>\r\n    <div class=\"tz-gallery\" *ngIf=\"pictures.length > 0\">\r\n      <span>My pictures</span>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let pic of pictures\">\r\n          <picture [inputPicture]=\"pic\" (click)=\"setCurrentPicture(pic)\"></picture>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"tz-gallery\">\r\n      <span>Public pictures</span>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let pic of publicPictures\">\r\n          <picture [inputPicture]=\"pic\"></picture>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
+module.exports = "<div class=\"body\">\r\n  <div class=\"header\">\r\n    <h1>Gallery</h1>\r\n  </div>\r\n  <div class=\"container gallery-container\">\r\n    <div id=\"search-container\">\r\n      <h4>Search</h4>\r\n      <input #searchBox id=\"search-box\" />\r\n      <button (click)=\"search(searchBox.value)\">Go!</button>\r\n    </div>\r\n    <div class=\"aligncenter\" *ngIf=\"!anonymus\">\r\n      <label class=\"fileContainer\">\r\n        Click here to select files to upload!\r\n        <input type=\"file\" id=\"imgInput\" (change)=\"onImgInputChange($event)\" class=\"input\" multiple />\r\n      </label>\r\n      <br />\r\n      <button (click)=\"upload()\" class=\"btn btn-default\">Upload</button>\r\n      <div class=\"file-cache-container\" *ngIf=\"fileCache.length !== 0\">\r\n        <div *ngFor=\"let f of fileCache\">\r\n          <span>{{f.name}} | {{f.size/1000000}} MB</span>\r\n          <button (click)=\"removeFile(f); $event.stopPropagation()\">x</button>\r\n        </div>\r\n        <div>\r\n          <span>Public upload: </span>\r\n          <input type=\"checkbox\" [(ngModel)]=\"isPublicUpload\" />\r\n        </div>\r\n      </div>\r\n      <div *ngIf=\"currentPicture\" class=\"div-container\">\r\n        <picture-detail [inputPicture]=\"currentPicture\" (done)=\"closeDetail($event)\"></picture-detail>\r\n      </div>\r\n    </div>\r\n    <div class=\"tz-gallery\" *ngIf=\"pictures.length > 0\">\r\n      <span>My pictures</span>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let pic of pictures\">\r\n          <picture [inputPicture]=\"pic\" (click)=\"setCurrentPicture(pic)\"></picture>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"tz-gallery\">\r\n      <span>Search results</span>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-6 col-md-4\" *ngFor=\"let pic of publicPictures\">\r\n          <picture [inputPicture]=\"pic\"></picture>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -313,11 +313,14 @@ module.exports = "<div class=\"body\">\r\n  <div class=\"header\">\r\n    <h1>Ga
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_linqts__ = __webpack_require__("../../../../linqts/dist/linq.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_linqts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_linqts__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_data_service__ = __webpack_require__("../../../../../src/app/services/data.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_notifications_service__ = __webpack_require__("../../../../../src/app/services/notifications.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_authentication_service__ = __webpack_require__("../../../../../src/app/services/authentication.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__models_notification__ = __webpack_require__("../../../../../src/app/models/notification.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_debounceTime__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/debounceTime.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_distinctUntilChanged__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/distinctUntilChanged.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_switchMap__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/switchMap.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_data_service__ = __webpack_require__("../../../../../src/app/services/data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_logger_service__ = __webpack_require__("../../../../../src/app/services/logger.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_notifications_service__ = __webpack_require__("../../../../../src/app/services/notifications.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_authentication_service__ = __webpack_require__("../../../../../src/app/services/authentication.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__models_notification__ = __webpack_require__("../../../../../src/app/models/notification.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -327,6 +330,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
+
+
 
 
 
@@ -359,28 +365,43 @@ var GalleryComponent = (function () {
     GalleryComponent.prototype.fetchPictures = function () {
         var _this = this;
         var userId = localStorage.getItem("uid");
-        var url = userId == null ? "images" : "images/" + userId;
+        var url = "";
+        if (userId == null) {
+            return;
+        }
+        else {
+            url = "images/" + userId;
+        }
         this._dataService.getAll(url)
             .subscribe(function (res) {
             _this._logger.debug("0x000400", "Picture metadata fetched successfully.", res);
             var resultData = res.data;
             _this.pictures = new __WEBPACK_IMPORTED_MODULE_2_linqts__["List"](resultData).Where(function (x) { return x.userIdentifier === userId; }).ToArray();
-            _this.publicPictures = new __WEBPACK_IMPORTED_MODULE_2_linqts__["List"](resultData).Where(function (x) { return x.userIdentifier !== userId && x.isPublic === true; }).ToArray();
+        });
+    };
+    GalleryComponent.prototype.search = function (term) {
+        var _this = this;
+        this._dataService.getAll("images/search/" + term)
+            .subscribe(function (res) {
+            _this._logger.debug("0x007600", "Picture metadata fetched successfully.", res);
+            var resultData = res.data;
+            _this.publicPictures = resultData;
         });
     };
     GalleryComponent.prototype.onImgInputChange = function (event) {
         var files = event.target.files || event.srcElement.files;
         for (var i = 0; i < files.length; i++) {
             if (files[i].type !== "image/gif" && files[i].type !== "image/png" && files[i].type !== "image/jpeg" && files[i].type !== "image/bmp" && files[i].type !== "image/webp") {
-                this._notifier.add(new __WEBPACK_IMPORTED_MODULE_7__models_notification__["a" /* Notification */]("warning", "File type mismatch."));
+                this._notifier.add(new __WEBPACK_IMPORTED_MODULE_10__models_notification__["a" /* Notification */]("warning", "File type mismatch."));
                 this.fileCache = [];
             }
             else if (files[i].size > 4000000) {
-                this._notifier.add(new __WEBPACK_IMPORTED_MODULE_7__models_notification__["a" /* Notification */]("warning", "File is too large. The maximal allowed size is 4MBs."));
+                this._notifier.add(new __WEBPACK_IMPORTED_MODULE_10__models_notification__["a" /* Notification */]("warning", "File is too large. The maximal allowed size is 4MBs."));
                 this.fileCache = [];
             }
             else {
                 this.fileCache.push(files[i]);
+                this.currentPicture = null;
             }
         }
     };
@@ -391,11 +412,12 @@ var GalleryComponent = (function () {
             this._dataService.uploadFiles("images/upload", this.fileCache, this.isPublicUpload, userId)
                 .subscribe(function (data) {
                 _this._logger.debug("0x000300", "File uploaded", data);
-                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_7__models_notification__["a" /* Notification */]("success", "Upload successful"));
+                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_10__models_notification__["a" /* Notification */]("success", "Upload successful"));
                 _this.fetchPictures();
+                _this.currentPicture = null;
             }, function (err) {
                 _this._logger.debug("Ex000300", err.message, err);
-                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_7__models_notification__["a" /* Notification */]("error", "Error in uploading", err));
+                _this._notifier.add(new __WEBPACK_IMPORTED_MODULE_10__models_notification__["a" /* Notification */]("error", "Error in uploading"));
             });
             this.fileCache = [];
         }
@@ -417,10 +439,10 @@ var GalleryComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/gallery/gallery.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/gallery/gallery.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_data_service__["a" /* DataService */],
-            __WEBPACK_IMPORTED_MODULE_4__services_logger_service__["a" /* Logger */],
-            __WEBPACK_IMPORTED_MODULE_5__services_notifications_service__["a" /* NotificationsService */],
-            __WEBPACK_IMPORTED_MODULE_6__services_authentication_service__["a" /* AuthenticationService */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_6__services_data_service__["a" /* DataService */],
+            __WEBPACK_IMPORTED_MODULE_7__services_logger_service__["a" /* Logger */],
+            __WEBPACK_IMPORTED_MODULE_8__services_notifications_service__["a" /* NotificationsService */],
+            __WEBPACK_IMPORTED_MODULE_9__services_authentication_service__["a" /* AuthenticationService */],
             __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]])
     ], GalleryComponent);
     return GalleryComponent;
@@ -553,7 +575,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/notification/notification.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"notification\" *ngFor=\"let note of notes\" [ngClass]=\"note.type\">\r\n  <a (click)=\"hide(note)\">\r\n    {{ note.message }}\r\n    <div *ngIf=\"note.errors\">\r\n      <ul *ngFor=\"let error of note.errors\">\r\n        <li>\r\n          {{error}}\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </a>\r\n</div>\r\n"
+module.exports = "<div class=\"notification\" *ngFor=\"let note of notes\" [ngClass]=\"note.type\">\r\n  <a (click)=\"hide(note)\">\r\n    {{ note.message }}\r\n  </a>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -631,7 +653,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "\r\n.share{\r\n  padding-top: 10px;\r\n}\r\n.public{\r\n  padding-top: 15px;\r\n  padding-bottom: 5px;\r\n}\r\n.update{\r\n  padding-bottom: 5px;\r\n}\r\n\r\n.boder{\r\n  border-width: 1px;\r\n  border-color:black;\r\n  border-style:dotted;\r\n}\r\n\r\n.tag {\r\n  padding-top: 10px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -644,7 +666,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/picture.detail/picture.detail.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <span>Public: </span>\r\n  <input type=\"checkbox\" [(ngModel)]=\"inputPicture.isPublic\" (change)=\"onAnyPropChange('isPublic')\" />\r\n  <button [(disabled)]=\"!hasChange\" (click)=\"updatePicture()\">Update picture</button>\r\n  <button (click)=\"deletePicture()\">Delete picture</button>\r\n  <share-button [theme]=\"'modern-dark'\" [button]=\"socialProvider\" [url]=\"inputPicture.uri\"></share-button>\r\n  <ul>\r\n    <li *ngFor=\"let tag of inputPicture.tags\">{{tag}}</li>\r\n  </ul>\r\n</div>\r\n"
+module.exports = "<div>\r\n  <div class=\"share\">\r\n    <span>Share: </span>\r\n    <share-button [theme]='modern-dark' [button]=\"socialProvider\" [url]=\"inputPicture.uri\"></share-button>\r\n  </div>\r\n  <div class=\"public\">\r\n    <span>Public: </span>\r\n    <input type=\"checkbox\" [(ngModel)]=\"inputPicture.isPublic\" (change)=\"onAnyPropChange('isPublic')\" />\r\n  </div>\r\n  <div class=\"tag\">\r\n    <ul class=\"list-group\">\r\n      <li class=\"list-group-item list-group-item-warning\" *ngFor=\"let tag of inputPicture.tags\">{{tag}}</li>\r\n    </ul>\r\n  </div>\r\n  <button class=\"btn btn-primary\" [(disabled)]=\"!hasChange\" (click)=\"updatePicture()\">Update picture</button>\r\n  <button class=\"btn btn-danger\" (click)=\"deletePicture()\">Delete picture</button>\r\n  <button class=\"btn btn-primary\" (click)=\"emitComplete()\">OK</button>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -884,12 +906,11 @@ var WelcomeComponent = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Notification; });
 var Notification = (function () {
-    function Notification(type, message, errors) {
+    function Notification(type, message) {
         if (type === void 0) { type = ""; }
         if (message === void 0) { message = ""; }
         this.type = type;
         this.message = message;
-        this.errors = errors;
     }
     return Notification;
 }());

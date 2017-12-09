@@ -78,34 +78,32 @@ namespace PicBook.Web.Controllers
       return Ok(ApiResult.Set("Picture uploaded successfully.", Json(new { size = size, count = files.Count })));
     }
 
-    [HttpGet]
-    [Route("")]
-    [Route("{userIdentifier}")]
-    public async Task<IActionResult> Pictures(string userIdentifier = null)
+    [HttpGet("{userIdentifier}")]
+    public async Task<IActionResult> Pictures(string userIdentifier)
     {
-      var pictureEntities = new List<PictureEntity>();
-      var publicPictureEntities = new List<PictureEntity>();
+      var token = Request.Headers["Token"].ToString();
+      var provider = Request.Headers["Token-Provider"].ToString();
 
-      if (userIdentifier != null)
-      {
-        var token = Request.Headers["Token"].ToString();
-        var provider = Request.Headers["Token-Provider"].ToString();
+      if (!await tokenHandler.Validate(token, provider))
+        return BadRequest(ApiResult.Set("Token validation failed."));
 
-        if (!await tokenHandler.Validate(token, provider))
-          return BadRequest(ApiResult.Set("Token validation failed."));
-
-        var userEntity = await _userService.GetById(userIdentifier);
-        pictureEntities = (await _pictureService.GetAllByUser(userEntity)).ToList();
-        publicPictureEntities = (await _pictureService.GetAllPublicByUser(userEntity)).ToList();
-      }
-      else
-        publicPictureEntities = (await _pictureService.GetAllPublic()).ToList();
-
-      var pictures = new List<PictureDTO>();
-      pictures.AddRange(pictureEntities.Select(x => new PictureDTO() { IsPublic = x.IsPublic, Uri = new Uri(x.ImgPath), Name = x.Name, UserIdentifier = x.User.Id, Id = x.Id, Tags = x.TagList }));
-      pictures.AddRange(publicPictureEntities.Select(x => new PictureDTO() { IsPublic = x.IsPublic, Uri = new Uri(x.ImgPath), Name = x.Name, UserIdentifier = x.UserId, Id = x.Id, Tags = x.TagList }));
+      var userEntity = await _userService.GetById(userIdentifier);
+      var pictureEntities = (await _pictureService.GetAllByUser(userEntity)).ToList();
+      var pictures = pictureEntities.Select(x => new PictureDTO() { IsPublic = x.IsPublic, Uri = new Uri(x.ImgPath), Name = x.Name, UserIdentifier = x.UserId, Id = x.Id, Tags = x.TagList });
 
       return Ok(ApiResult.Set("Pictures fetched successfully.", pictures));
+    }
+
+    [HttpGet("search/{keyword}")]
+    public async Task<IActionResult> SearchPictures(string keyword)
+    {
+      if (keyword == null)
+        return BadRequest(ApiResult.Set("Invalid search parameters."));
+
+      var pictureEntities = await _pictureService.GetPublicPicturesByTag(keyword);
+      var pictures = pictureEntities.Select(x => new PictureDTO() { IsPublic = x.IsPublic, Uri = new Uri(x.ImgPath), Name = x.Name, UserIdentifier = x.UserId, Id = x.Id, Tags = x.TagList });
+
+      return Ok(ApiResult.Set("Image search was successful.", pictures));
     }
 
     [HttpPut("update")]

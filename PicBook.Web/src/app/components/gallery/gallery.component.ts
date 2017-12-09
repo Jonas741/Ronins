@@ -2,6 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { List } from "linqts";
+import { Subject } from 'rxjs/Subject';
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
 
 import { DataService } from "../../services/data.service";
 import { Logger } from "../../services/logger.service";
@@ -47,7 +52,13 @@ export class GalleryComponent implements OnInit {
 
   private fetchPictures(): void {
     const userId = localStorage.getItem("uid");
-    const url = userId == null ? "images" : `images/${userId}`;
+    let url = "";
+
+    if (userId == null) {
+      return;
+    } else {
+      url = `images/${userId}`;
+    }
 
     this._dataService.getAll<Picture>(url)
       .subscribe(res => {
@@ -55,7 +66,16 @@ export class GalleryComponent implements OnInit {
 
         const resultData: Array<Picture> = (res as any).data;
         this.pictures = new List(resultData).Where(x => x.userIdentifier === userId).ToArray();
-        this.publicPictures = new List(resultData).Where(x => x.userIdentifier !== userId && x.isPublic === true).ToArray();
+      });
+  }
+
+  public search(term: string): void {
+    this._dataService.getAll<Picture>(`images/search/${term}`)
+      .subscribe(res => {
+        this._logger.debug("0x007600", "Picture metadata fetched successfully.", res);
+
+        const resultData: Array<Picture> = (res as any).data;
+        this.publicPictures = resultData;
       });
   }
 
@@ -71,6 +91,7 @@ export class GalleryComponent implements OnInit {
         this.fileCache = [];
       } else {
         this.fileCache.push(files[i]);
+        this.currentPicture = null;
       }
     }
   }
@@ -84,9 +105,10 @@ export class GalleryComponent implements OnInit {
           this._logger.debug("0x000300", "File uploaded", data);
           this._notifier.add(new Notification("success", "Upload successful"));
           this.fetchPictures();
+          this.currentPicture = null;
         }, err => {
           this._logger.debug("Ex000300", err.message, err);
-          this._notifier.add(new Notification("error", "Error in uploading", err));
+          this._notifier.add(new Notification("error", "Error in uploading"));
         });
 
       this.fileCache = [];

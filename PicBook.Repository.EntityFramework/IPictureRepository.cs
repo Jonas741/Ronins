@@ -12,5 +12,6 @@ namespace PicBook.Repository.EntityFramework
         Task<IEnumerable<PictureEntity>> GetAllPicturesByUser(UserEntity entity);
         Task<PictureEntity> GetPictureById(Guid id);
         Task<PictureEntity> GetPictureByUri(Uri uri);
+        Task<IEnumerable<PictureEntity>> GetPublicPicturesByTag(string tag);
     }
 }

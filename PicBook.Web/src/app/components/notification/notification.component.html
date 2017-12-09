@@ -1,12 +1,5 @@
 <div class="notification" *ngFor="let note of notes" [ngClass]="note.type">
   <a (click)="hide(note)">
     {{ note.message }}
-    <div *ngIf="note.errors">
-      <ul *ngFor="let error of note.errors">
-        <li>
-          {{error}}
-        </li>
-      </ul>
-    </div>
   </a>
 </div>

@@ -36,6 +36,11 @@ namespace PicBook.ApplicationService
             return await _pictureRepository.FindAll(x => x.IsPublic && x.UserId != entity.Id);
         }
 
+        public async Task<IEnumerable<PictureEntity>> GetPublicPicturesByTag(string tag)
+        {
+            return await _pictureRepository.GetPublicPicturesByTag(tag);
+        }
+
         public async Task<PictureEntity> GetById(Guid id)
         {
             return await _pictureRepository.Find(x => x.Id == id);
